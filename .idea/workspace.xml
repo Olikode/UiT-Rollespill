@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="46fef798-2bf9-465b-8cdc-9ca5ab13e5b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/Menu.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/Menu.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/Torch.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/Torch.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/Weapon.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/Weapon.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/menu_hidden.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/menu_hidden.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/menu_showing.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/menu_showing.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/torch_1.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/torch_1.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/weapon_idle.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/weapon_idle.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/weapon_swing.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/weapon_swing.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/wooden_sword.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Animations/wooden_sword.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Atlas.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Atlas.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Dungeon.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Dungeon.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_4.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/box_4.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_10.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_10.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_11.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_11.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_12.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_12.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_13.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_13.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_14.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_14.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_15.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_15.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_16.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_16.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_20.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_20.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_4.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_4.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_5.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_5.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_6.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_6.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_7.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_7.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_8.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_8.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_9.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/floor_9.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/healing_fountain_1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/healing_fountain_1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/healing_fountain_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/healing_fountain_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/healing_fountain_3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/healing_fountain_3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/pillar_1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/pillar_1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/pillar_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/pillar_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/pillar_3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/pillar_3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_4.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/stairs_4.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/top_stairs_1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/top_stairs_1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/top_stairs_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/top_stairs_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_4.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_4.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_5.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_5.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_6.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_6.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_7.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/Levels/Tiles/wall_7.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/orange juice 2.0.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Artwork/orange juice 2.0.ttf.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Chest.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Chest.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/FloatingText.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/FloatingText.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Portal.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Portal.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/SingleCrate.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/SingleCrate.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Torch.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Torch.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/smallEnemy.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/smallEnemy.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Dungeon.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Dungeon.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Boss.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Boss.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CameraMotor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CameraMotor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterMenu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterMenu.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Chest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Chest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Collectable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Collectable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Collidable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Collidable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Crate.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Crate.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Damage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Damage.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DontDestroy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DontDestroy.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyHitbox.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyHitbox.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/FloatingText.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/FloatingText.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/FloatingTextManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/FloatingTextManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/HealingFountain.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/HealingFountain.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Mover.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Mover.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/NPCText.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/NPCText.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Portal.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Portal.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapon.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapon.cs.meta" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="25fRB8P16Cf8J2s2xpenSUQvSbg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="46fef798-2bf9-465b-8cdc-9ca5ab13e5b8" name="Changes" comment="" />
+      <created>1645916019392</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1645916019392</updated>
+      <workItem from="1645916021427" duration="3000" />
+    </task>
+    <servers />
+  </component>
+</project>
