@@ -53,10 +53,66 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
+    IEnumerator PlayerAttack(){
+
+        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+
+        enemyHUD.EnemySetHP(enemyUnit.currentHP);
+        dialogText.text = "Du traff " + enemyUnit.unitName;
+
+        yield return new WaitForSeconds(3f);
+
+        if(isDead){
+            state = BattleState.WON;
+            EndBattle();
+        } 
+        else {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    IEnumerator EnemyTurn(){
+        dialogText.text = enemyUnit.unitName + " angriper!";
+
+        yield return new WaitForSeconds(2f);
+
+        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+
+        playerHUD.PlayerSetHP(playerUnit.currentHP);
+
+        yield return new WaitForSeconds(2f);
+
+        if(isDead){
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else{
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+    }
+
+    void EndBattle() {
+        if(state == BattleState.WON){
+            dialogText.text = "Du vant!";
+        }
+        else if(state == BattleState.LOST){
+            dialogText.text = "Du tapte!";
+        }
+    }
+
     void PlayerTurn(){
         dialogText.text = "Velg hva du vil gjøre:";
 
         attackButton.SetActive(true);
         inventoryButton.SetActive(true);
+    }
+
+    public void onAttackButton(){
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerAttack());
     }
 }

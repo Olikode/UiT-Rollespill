@@ -22,9 +22,9 @@ public class UpdateBattleHUD : MonoBehaviour
         enemyHealthBar.SetHealth(unit.currentHP);
     }
 
-    /*public void EnemySetHP(int hp){
-        enemyHealthBar.value = hp;
-    }*/
+    public void EnemySetHP(int hp){
+        enemyHealthBar.SetHealth(hp);
+    }
 
      public void PlayerSetHUD(Unit unit){
         playerName.text = unit.unitName;
@@ -33,7 +33,7 @@ public class UpdateBattleHUD : MonoBehaviour
         playerHealthBar.SetHealth(unit.currentHP);
     }
 
-   /* public void PlayerSetHP(int hp){
-        playerHealthBar.value = hp;
-    }*/
+    public void PlayerSetHP(int hp){
+        playerHealthBar.SetHealth(hp);
+    }
 }
