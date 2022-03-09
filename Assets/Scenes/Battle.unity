@@ -973,7 +973,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Jonas
+  m_Text: Navn
 --- !u!222 &385560775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4119,8 +4119,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 636766088036077671, guid: ddd26e113ceec77438cc1d40c26e0ec2, type: 3}
   enemyPrefab: {fileID: 4167546107350381484, guid: 62038d096b0bc45439e3b0824d944af8, type: 3}
-  attackButton: {fileID: 164771264}
-  inventoryButton: {fileID: 1760831675}
+  attackMenuButton: {fileID: 164771264}
+  inventoryMenuButton: {fileID: 1760831675}
+  attackButton1: {fileID: 1201345785}
+  attackButton2: {fileID: 1888441721}
+  attackButton3: {fileID: 1558882696}
+  attackButton4: {fileID: 1956309406}
   dialogText: {fileID: 1270841157}
   playerHUD: {fileID: 348599447}
   enemyHUD: {fileID: 348599447}

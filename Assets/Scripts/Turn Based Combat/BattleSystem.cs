@@ -11,8 +11,12 @@ public class BattleSystem : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
-    public GameObject attackButton;
-    public GameObject inventoryButton;
+    public GameObject attackMenuButton;
+    public GameObject inventoryMenuButton;
+    public GameObject attackButton1;
+    public GameObject attackButton2;
+    public GameObject attackButton3;
+    public GameObject attackButton4;
 
     Unit playerUnit;
     Unit enemyUnit;
@@ -54,6 +58,14 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator PlayerAttack(){
+        attackButton1.GetComponent<Button>().interactable = false;
+        attackButton2.GetComponent<Button>().interactable = false;
+        attackButton3.GetComponent<Button>().interactable = false;
+        attackButton4.GetComponent<Button>().interactable = false;
+
+        dialogText.text = "Du angriper " + enemyUnit.unitName + " med angrep 1";
+
+        yield return new WaitForSeconds(3f);
 
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
@@ -105,8 +117,13 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn(){
         dialogText.text = "Velg hva du vil gjøre:";
 
-        attackButton.SetActive(true);
-        inventoryButton.SetActive(true);
+        attackMenuButton.SetActive(true);
+        inventoryMenuButton.SetActive(true);
+
+        attackButton1.GetComponent<Button>().interactable = true;
+        attackButton2.GetComponent<Button>().interactable = true;
+        attackButton3.GetComponent<Button>().interactable = true;
+        attackButton4.GetComponent<Button>().interactable = true;
     }
 
     public void onAttackButton(){
