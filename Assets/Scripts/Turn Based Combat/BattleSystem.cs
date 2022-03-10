@@ -39,6 +39,9 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator SetupBattle(){
+
+        //check what class player is, create object based on class (sykepleier, datatek., bygg...)
+
         GameObject playerGO = Instantiate(playerPrefab);
         playerUnit = playerGO.GetComponent<Unit>();
 

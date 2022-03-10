@@ -7,7 +7,7 @@ using Random=System.Random;
 public class TestClass : TestUnit
 {
 
-    private string attackName1 = "Hack Attack";
+ /*   private string attackName1 = "Hack Attack";
     private string attackName2 = "Nerd Rage";
 
     // Calculate attack power of ability attack
@@ -26,6 +26,6 @@ public class TestClass : TestUnit
         Random rnd = new Random();
         int baseDmg = rnd.Next(2,7);
 
-        return baseDmg*this.CalculateDmgNodifier();
-    }
+        return baseDmg * this.CalculateDmgNodifier();
+    }*/
 }

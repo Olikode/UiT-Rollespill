@@ -6,7 +6,7 @@ using Random=System.Random;
 public class TestEnemyClass : TestUnit
 {
 
-    private string attackName1 = "Lurespørsmål";
+   /* private string attackName1 = "Lurespørsmål";
     private string attackName2 = "Bonus-oppgave";
 
 
@@ -24,5 +24,5 @@ public class TestEnemyClass : TestUnit
         int baseDmg = rnd.Next(6);
 
         return baseDmg*this.CalculateDmgNodifier();
-    }
+    }*/
 }
