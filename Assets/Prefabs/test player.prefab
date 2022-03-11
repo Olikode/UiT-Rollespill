@@ -95,9 +95,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0177d834b75ba449c37aee81dd8caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  classID: 0
   name: Frank
   level: 3
-  maxHP: 15
-  currentHP: 15
+  maxHP: 150
+  currentHP: 150
   isStuned: 0
   isAsleep: 0
+  initiative: 0
+  critChance: 0
+  dodgeScore: 10
+  hitScore: 0

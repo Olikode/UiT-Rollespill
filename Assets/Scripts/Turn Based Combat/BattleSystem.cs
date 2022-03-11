@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random=System.Random;
+using System;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -30,6 +32,8 @@ public class BattleSystem : MonoBehaviour
 
 
     public BattleState state;
+    Random rnd = new Random();
+    private bool successiveDodge;
 
     // Start is called before the first frame update
     void Start()
@@ -92,10 +96,23 @@ public class BattleSystem : MonoBehaviour
         attackInfo = playerUnit.UseAbilityAttack2();
         }
 
-        bool isDead = enemyUnit.TakeDamage(attackInfo.dmg);
+        /*successiveDodge = Dodge(playerUnit, enemyUnit);
+        if(successiveDodge){
+            Debug.Log("Dodged");
+        }
+        if(!successiveDodge){
+            Debug.Log("not dodge");
+        }*/
+
+        Debug.Log("Dodge: " + Dodge(playerUnit, enemyUnit));
+
+        var attackRoll = AttackRoll();
+        float totalDamage = (float)Math.Round(attackInfo.dmg*attackRoll.modifier, 2);
+
+        bool isDead = enemyUnit.TakeDamage(totalDamage);
 
         enemyHUD.EnemySetHP(enemyUnit.currentHP);
-        dialogText.text = "Du traff " + enemyUnit.name + ".\nSkade: " + attackInfo.dmg;
+        dialogText.text = "Du traff " + enemyUnit.name + ".\nSkade: " + totalDamage;
 
         yield return new WaitForSeconds(3f);
 
@@ -172,5 +189,41 @@ public class BattleSystem : MonoBehaviour
         int attackNr = 2;
 
         StartCoroutine(PlayerAttack(attackNr));
+    }
+
+    private (float modifier, bool isCritical) AttackRoll(){
+        
+        float modifier = 1.0f;
+        bool isCritical = false;
+
+        // 1:16 chance at critical damage (50% more damage)
+        // if not critical modifier is from 0.85 to 1.00
+        int roll = rnd.Next(17);
+        if(roll != 16){
+            float rollDecimal = roll / 100.0f;
+
+            modifier -= rollDecimal;
+        }
+        else{
+            Debug.Log("critical");
+            modifier = 1.5f;
+            isCritical = true;
+        }
+        return (modifier, isCritical);
+    }
+
+    private bool Dodge(TestUnit attacker, TestUnit defender){
+
+        bool hits;
+        attacker.CalculateHitScore();
+        //defender.CalculateDodgeScore();
+
+        if(attacker.hitScore < defender.dodgeScore){
+            hits = true;
+        }
+        else{
+            hits = false;
+        }
+        return hits;
     }
 }

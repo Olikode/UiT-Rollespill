@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Random=System.Random;
 
 public class TestUnit : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class TestUnit : MonoBehaviour
     // public float dodge;
     public bool isStuned = false;
     public bool isAsleep = false;
+
+    public int initiative;
+    public int critChance;
+    public int dodgeScore = 10;
+    public int hitScore = 0;
+
 
     
 
@@ -66,6 +73,30 @@ public class TestUnit : MonoBehaviour
         Debug.Log("dmg: " + dmg);
 
         return (dmg, attackInfo.isStuned, attackInfo.isAsleep);
+    }
+
+    public void SetInitiative(){
+        Random rnd = new Random();
+        int roll = rnd.Next(21); // random number 0 - 20
+
+        initiative = roll;
+    }
+
+    /*public void CalculateDodgeScore(){
+        Random rnd = new Random();
+        int roll = rnd.Next(11); // random number 0 - 25
+
+        // if has item with doge bonus, + itemBonus
+        this.dodgeScore = roll;
+        Debug.Log("DODGE: " + roll);
+    }*/
+    public void CalculateHitScore(){
+        Random rnd = new Random();
+        int roll = rnd.Next(21); // random number 0 - 100
+
+        // if has item with hit bonus, + itemBonus
+        this.hitScore = roll;
+        Debug.Log("HIT: " + roll);
     }
 
     public (string attackName1, string attackName2) FindAttackName(int classID){

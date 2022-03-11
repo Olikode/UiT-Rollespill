@@ -97,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   classID: 1
   name: Frank Helge
-  level: 10
-  maxHP: 20
-  currentHP: 20
+  level: 3
+  maxHP: 200
+  currentHP: 200
   isStuned: 0
   isAsleep: 0
