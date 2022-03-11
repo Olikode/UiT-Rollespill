@@ -2257,7 +2257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1825559216}
         m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
-        m_MethodName: onAttackButton
+        m_MethodName: onAttackButton1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4117,8 +4117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fef76dcfeb94a84db4c8ef0c6bae20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 636766088036077671, guid: ddd26e113ceec77438cc1d40c26e0ec2, type: 3}
-  enemyPrefab: {fileID: 4167546107350381484, guid: 62038d096b0bc45439e3b0824d944af8, type: 3}
+  playerPrefab: {fileID: 2004367134215574926, guid: eb51f211e543a004b83d1f1d7ac9dcd2, type: 3}
+  enemyPrefab: {fileID: 5407576137476817769, guid: 0cbbb41832970a44aa11c2cf5ce67066, type: 3}
   attackMenuButton: {fileID: 164771264}
   inventoryMenuButton: {fileID: 1760831675}
   attackButton1: {fileID: 1201345785}
@@ -4383,7 +4383,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1888441724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1825559216}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: onAttackButton2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1888441724
 MonoBehaviour:
   m_ObjectHideFlags: 0

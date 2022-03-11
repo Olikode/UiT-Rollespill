@@ -15,25 +15,25 @@ public class UpdateBattleHUD : MonoBehaviour
     public HealthBar enemyHealthBar;
     public HealthBar playerHealthBar;
 
-    public void EnemySetHUD(Unit unit){
-        enemyName.text = unit.unitName;
-        enemyLevel.text = "Lvl " + unit.unitLevel;
+    public void EnemySetHUD(TestUnit unit){
+        enemyName.text = unit.name;
+        enemyLevel.text = "Lvl " + unit.level;
         enemyHealthBar.SetMaxHealth(unit.maxHP);
         enemyHealthBar.SetHealth(unit.currentHP);
     }
 
-    public void EnemySetHP(int hp){
+    public void EnemySetHP(float hp){
         enemyHealthBar.SetHealth(hp);
     }
 
-     public void PlayerSetHUD(Unit unit){
-        playerName.text = unit.unitName;
-        playerLevel.text = "Lvl " + unit.unitLevel;
+     public void PlayerSetHUD(TestUnit unit){
+        playerName.text = unit.name;
+        playerLevel.text = "Lvl " + unit.level;
         playerHealthBar.SetMaxHealth(unit.maxHP);
         playerHealthBar.SetHealth(unit.currentHP);
     }
 
-    public void PlayerSetHP(int hp){
+    public void PlayerSetHP(float hp){
         playerHealthBar.SetHealth(hp);
     }
 }

@@ -14,6 +14,8 @@ public class TestUnit : MonoBehaviour
     public bool isStuned = false;
     public bool isAsleep = false;
 
+    
+
 
     //deal damage to unit and return true if unit dies
     public bool TakeDamage(float dmg){
@@ -46,20 +48,47 @@ public class TestUnit : MonoBehaviour
 
         // calculates damage
         float dmgModifier = 1.0f + 0.05f * level;
-        float dmg = (attackInfo.baseDmg * dmgModifier);
+        float dmg = ((float)attackInfo.baseDmg * dmgModifier);
 
+        Debug.Log("dmg: " + dmg);
         // returns damage and effects
         return (dmg, attackInfo.isStuned, attackInfo.isAsleep);
     }
 
-        /*public (float dmg, bool isStuned, bool isAsleep) UseAbilityAttack2(){
+        public (float dmg, bool isStuned, bool isAsleep) UseAbilityAttack2(){
 
         AbilityAttack abilityAttack = new AbilityAttack();
         var attackInfo = abilityAttack.FindAbilityAttack2(classID);
 
         float dmgModifier = 1.0f + 0.05f * level;
-        float dmg = (attackInfo.baseDmg * dmgModifier);
+        float dmg = ((float)attackInfo.baseDmg * dmgModifier);
+
+        Debug.Log("dmg: " + dmg);
+
         return (dmg, attackInfo.isStuned, attackInfo.isAsleep);
-    }*/
+    }
+
+    public (string attackName1, string attackName2) FindAttackName(int classID){
+
+        string attackName1 = "";
+        string attackName2 = "";
+
+        switch(classID){
+
+            // test datateknikk
+            case 1:
+            attackName1 = "Hack Attack";
+            attackName2 = "Nerd Power";
+            break;
+
+
+            case 2:
+            attackName1 = "Slem slag";
+            attackName2 = "Frekkis";
+            break;
+        }
+
+        return (attackName1, attackName2);
+    }
         
 }

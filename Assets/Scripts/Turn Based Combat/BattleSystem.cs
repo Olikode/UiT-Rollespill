@@ -18,8 +18,10 @@ public class BattleSystem : MonoBehaviour
     public GameObject attackButton3;
     public GameObject attackButton4;
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    TestUnit playerUnit;
+    TestUnit enemyUnit;
+    string attack1 = "";
+    string attack2 = "";    
 
     public Text dialogText;
 
@@ -39,20 +41,26 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator SetupBattle(){
-
         //check what class player is, create object based on class (sykepleier, datatek., bygg...)
 
         GameObject playerGO = Instantiate(playerPrefab);
-        playerUnit = playerGO.GetComponent<Unit>();
+        playerUnit = playerGO.GetComponent<TestUnit>();
 
         GameObject enemyGO = Instantiate(enemyPrefab);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        enemyUnit = enemyGO.GetComponent<TestUnit>();
 
 
-        dialogText.text = "En vill " + enemyUnit.unitName + " dukket opp";
+        dialogText.text = "En vill " + enemyUnit.name + " dukket opp";
 
         playerHUD.PlayerSetHUD(playerUnit);
         enemyHUD.EnemySetHUD(enemyUnit);
+
+        var attackNames = playerUnit.FindAttackName(playerUnit.classID);
+        attack1 = attackNames.attackName1;
+        attack2 = attackNames.attackName2;
+
+        attackButton1.GetComponentInChildren<Text>().text = attack1;
+        attackButton2.GetComponentInChildren<Text>().text = attack2;
 
         yield return new WaitForSeconds(3f);
 
@@ -60,20 +68,34 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
-    IEnumerator PlayerAttack(){
+    IEnumerator PlayerAttack(int attackNr){
         attackButton1.GetComponent<Button>().interactable = false;
         attackButton2.GetComponent<Button>().interactable = false;
         attackButton3.GetComponent<Button>().interactable = false;
         attackButton4.GetComponent<Button>().interactable = false;
 
-        dialogText.text = "Du angriper " + enemyUnit.unitName + " med angrep 1";
+        if(attackNr == 1){
+        dialogText.text = "Du angriper " + enemyUnit.name + " med " + attack1;
+        }
+        if(attackNr == 2){
+        dialogText.text = "Du angriper " + enemyUnit.name + " med " + attack2;
+        }
 
         yield return new WaitForSeconds(3f);
 
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        var attackInfo = playerUnit.UseAbilityAttack1();
+
+        if(attackNr == 1){
+        attackInfo = playerUnit.UseAbilityAttack1();
+        }
+        if(attackNr == 2){
+        attackInfo = playerUnit.UseAbilityAttack2();
+        }
+
+        bool isDead = enemyUnit.TakeDamage(attackInfo.dmg);
 
         enemyHUD.EnemySetHP(enemyUnit.currentHP);
-        dialogText.text = "Du traff " + enemyUnit.unitName;
+        dialogText.text = "Du traff " + enemyUnit.name + ".\nSkade: " + attackInfo.dmg;
 
         yield return new WaitForSeconds(3f);
 
@@ -88,15 +110,20 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator EnemyTurn(){
-        dialogText.text = enemyUnit.unitName + " angriper!";
+        dialogText.text = enemyUnit.name + " angriper!";
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+        var attackInfo = enemyUnit.UseAbilityAttack1();
+
+
+        bool isDead = playerUnit.TakeDamage(attackInfo.dmg);
 
         playerHUD.PlayerSetHP(playerUnit.currentHP);
 
-        yield return new WaitForSeconds(2f);
+        dialogText.text = enemyUnit.name+ " traff deg." + ".\nSkade: " + attackInfo.dmg;
+
+        yield return new WaitForSeconds(3f);
 
         if(isDead){
             state = BattleState.LOST;
@@ -129,10 +156,21 @@ public class BattleSystem : MonoBehaviour
         attackButton4.GetComponent<Button>().interactable = true;
     }
 
-    public void onAttackButton(){
+    public void onAttackButton1(){
         if (state != BattleState.PLAYERTURN)
             return;
+        
+        int attackNr = 1;
 
-        StartCoroutine(PlayerAttack());
+        StartCoroutine(PlayerAttack(attackNr));
+    }
+
+        public void onAttackButton2(){
+        if (state != BattleState.PLAYERTURN)
+            return;
+        
+        int attackNr = 2;
+
+        StartCoroutine(PlayerAttack(attackNr));
     }
 }
