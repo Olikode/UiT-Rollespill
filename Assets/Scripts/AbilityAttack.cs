@@ -9,10 +9,11 @@ public class AbilityAttack : MonoBehaviour
     Random rnd = new Random();
 
     // ability attack 1
-    public (int baseDmg, bool isStuned, bool isAsleep) FindAbilityAttack1(int classID){
+    public (int baseDmg, int hitModifier, bool isStuned, bool isAsleep) FindAbilityAttack1(int classID){
 
         // attack damage and effects
         int baseDmg = 0;
+        int hitModifier = 0;
         bool stun = false;
         bool sleep = false;
 
@@ -22,8 +23,7 @@ public class AbilityAttack : MonoBehaviour
             // test datateknikk
             case 1:
             baseDmg = rnd.Next(3); // base dmg 0-2
-            Debug.Log("in case 1 dmg: " + baseDmg);
-            stun = false;
+            hitModifier = 3;
             int stunChance = rnd.Next(3); // 0-2
             if(stunChance >= 1){
                 stun = true;
@@ -41,14 +41,15 @@ public class AbilityAttack : MonoBehaviour
         }
 
         Debug.Log("baseDmg: " + baseDmg);
-        return (baseDmg, stun, sleep);
+        return (baseDmg, hitModifier, stun, sleep);
     }
 
     // ability attack 2
-     public (int baseDmg, bool isStuned, bool isAsleep) FindAbilityAttack2(int classID){
+     public (int baseDmg, int hitModifier, bool isStuned, bool isAsleep) FindAbilityAttack2(int classID){
 
         // attack damage and effects
         int baseDmg = 0;
+        int hitModifier = 0;
         bool stun = false;
         bool sleep = false;
 
@@ -58,7 +59,7 @@ public class AbilityAttack : MonoBehaviour
             // test datateknikk
             case 1:
             baseDmg = rnd.Next(4, 8); // base dmg 4-7
-
+            hitModifier = 5;
             break;
 
 
@@ -70,6 +71,6 @@ public class AbilityAttack : MonoBehaviour
             default:
             break;
         }
-        return (baseDmg, stun, sleep);
+        return (baseDmg, hitModifier, stun, sleep);
     }
 }

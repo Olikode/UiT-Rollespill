@@ -98,16 +98,20 @@ public class BattleSystem : MonoBehaviour
 
         /*successiveDodge = Dodge(playerUnit, enemyUnit);
         if(successiveDodge){
-            Debug.Log("Dodged");
+            Debug.Log("dodgeAttack");
         }
         if(!successiveDodge){
             Debug.Log("not dodge");
         }*/
 
-        Debug.Log("Dodge: " + Dodge(playerUnit, enemyUnit));
+        if(Dodge(playerUnit, enemyUnit, attackInfo.hitModifier)){
+            dialogText.text =enemyUnit.name + " dukket unna angrepet";
+            yield return new WaitForSeconds(3f);
+        }
+        else{
 
-        var attackRoll = AttackRoll();
-        float totalDamage = (float)Math.Round(attackInfo.dmg*attackRoll.modifier, 2);
+        var diceRoll = DiceRoll();
+        float totalDamage = (float)Math.Round(attackInfo.dmg*diceRoll.modifier, 2);
 
         bool isDead = enemyUnit.TakeDamage(totalDamage);
 
@@ -116,7 +120,9 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        if(isDead){
+        }
+
+        if(enemyUnit.currentHP <= 0){
             state = BattleState.WON;
             EndBattle();
         } 
@@ -191,7 +197,7 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerAttack(attackNr));
     }
 
-    private (float modifier, bool isCritical) AttackRoll(){
+    private (float modifier, bool isCritical) DiceRoll(){
         
         float modifier = 1.0f;
         bool isCritical = false;
@@ -212,18 +218,19 @@ public class BattleSystem : MonoBehaviour
         return (modifier, isCritical);
     }
 
-    private bool Dodge(TestUnit attacker, TestUnit defender){
+    private bool Dodge(TestUnit attacker, TestUnit defender, int hitModifier){
 
-        bool hits;
+        bool dodgeAttack;
         attacker.CalculateHitScore();
         //defender.CalculateDodgeScore();
 
-        if(attacker.hitScore < defender.dodgeScore){
-            hits = true;
+        if(attacker.hitScore + hitModifier < defender.dodgeScore){
+            dodgeAttack = true;
         }
         else{
-            hits = false;
+            dodgeAttack = false;
         }
-        return hits;
+        Debug.Log("Dodge: " + (attacker.hitScore+hitModifier) + " " + defender.dodgeScore );
+        return dodgeAttack;
     }
 }

@@ -11,7 +11,6 @@ public class TestUnit : MonoBehaviour
     public int level;
     public float maxHP;
     public float currentHP;
-    // public float dodge;
     public bool isStuned = false;
     public bool isAsleep = false;
 
@@ -47,7 +46,7 @@ public class TestUnit : MonoBehaviour
         return dmgModifier;
     }*/
 
-    public (float dmg, bool isStuned, bool isAsleep) UseAbilityAttack1(){
+    public (float dmg, int hitModifier, bool isStuned, bool isAsleep) UseAbilityAttack1(){
 
         // finds attack1 from the unit's class
         AbilityAttack abilityAttack = new AbilityAttack();
@@ -59,10 +58,10 @@ public class TestUnit : MonoBehaviour
 
         Debug.Log("dmg: " + dmg);
         // returns damage and effects
-        return (dmg, attackInfo.isStuned, attackInfo.isAsleep);
+        return (dmg, attackInfo.hitModifier, attackInfo.isStuned, attackInfo.isAsleep);
     }
 
-        public (float dmg, bool isStuned, bool isAsleep) UseAbilityAttack2(){
+        public (float dmg, int hitModifier, bool isStuned, bool isAsleep) UseAbilityAttack2(){
 
         AbilityAttack abilityAttack = new AbilityAttack();
         var attackInfo = abilityAttack.FindAbilityAttack2(classID);
@@ -72,7 +71,7 @@ public class TestUnit : MonoBehaviour
 
         Debug.Log("dmg: " + dmg);
 
-        return (dmg, attackInfo.isStuned, attackInfo.isAsleep);
+        return (dmg, attackInfo.hitModifier, attackInfo.isStuned, attackInfo.isAsleep);
     }
 
     public void SetInitiative(){
@@ -92,11 +91,10 @@ public class TestUnit : MonoBehaviour
     }*/
     public void CalculateHitScore(){
         Random rnd = new Random();
-        int roll = rnd.Next(21); // random number 0 - 100
+        int roll = rnd.Next(21); // random number 0 - 20
 
         // if has item with hit bonus, + itemBonus
         this.hitScore = roll;
-        Debug.Log("HIT: " + roll);
     }
 
     public (string attackName1, string attackName2) FindAttackName(int classID){
