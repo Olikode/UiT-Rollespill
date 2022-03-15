@@ -26,7 +26,8 @@ public class BattleSystem : MonoBehaviour
     string attack2 = "";    
 
     public Text dialogText;
-
+    public Text playerHealth;
+    public Text enemyHealth;
     public UpdateBattleHUD playerHUD;
     public UpdateBattleHUD enemyHUD;
 
@@ -120,24 +121,46 @@ public class BattleSystem : MonoBehaviour
         }
         else{
 
-        float totalDamage = (float)Math.Round(attackInfo.dmg*diceRoll.modifier, 2);
+            float totalDamage = (float)Math.Round(attackInfo.dmg*diceRoll.modifier, 2);
 
-        bool isDead = enemyUnit.TakeDamage(totalDamage);
+            bool isDead = enemyUnit.TakeDamage(totalDamage);
 
-        enemyHUD.EnemySetHP(enemyUnit.currentHP);
+            enemyHUD.EnemySetHP(enemyUnit.currentHP);
+
         if(diceRoll.isCritical){
-            dialogText.text = "Kritisk-treff på " + enemyUnit.name + ".\nSkade: " + totalDamage;
+            dialogText.text = "Kritisk-treff på " + enemyUnit.name;
         }
+
         else{
-            dialogText.text = "Du traff " + enemyUnit.name + ".\nSkade: " + totalDamage;
+            dialogText.text = "Du traff " + enemyUnit.name;
+        }
+
+        int healthPercentage = (int)((enemyUnit.currentHP / enemyUnit.maxHP)*100);
+        if(healthPercentage < 0){
+            healthPercentage = 0;
+        }
+        enemyHealth.text = healthPercentage + "%";
+
+        if(enemyUnit.sleep > 0 && enemyUnit.sleep < 2){
+            int wakeUpChance = rnd.Next(2); //0-1
+            if(wakeUpChance > 0){
+                yield return new WaitForSeconds(3f);
+                dialogText.text = enemyUnit.name + "";
+            }
         }
 
         yield return new WaitForSeconds(3f);
 
         if(attackInfo.stun > enemyUnit.stun){
-            enemyUnit.stun = attackInfo.stun;
-            dialogText.text = enemyUnit.name + " ble paralysert og kan ikke bevege seg";
-            yield return new WaitForSeconds(3f);
+            if(enemyUnit.stun > 0){
+                dialogText.text = enemyUnit.name + " er allerede paralysert";
+                yield return new WaitForSeconds(3f);
+            }
+            else{
+                enemyUnit.stun = attackInfo.stun;
+                dialogText.text = enemyUnit.name + " ble paralysert og kan ikke bevege seg";
+                yield return new WaitForSeconds(3f);
+            }
         }
         if(attackInfo.sleep > enemyUnit.sleep){
             enemyUnit.sleep = attackInfo.sleep;
@@ -168,23 +191,58 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator EnemyTurn(){
-        dialogText.text = enemyUnit.name + " angriper!";
+        if(enemyUnit.stun == 0 && enemyUnit.sleep == 0 && enemyUnit.poison == 0){
 
-        yield return new WaitForSeconds(3f);
+            dialogText.text = enemyUnit.name + " angriper!";
 
-        var diceRoll = DiceRoll();
-        var attackInfo = enemyUnit.UseAbilityAttack1(diceRoll.isCritical);
+            yield return new WaitForSeconds(3f);
 
-        bool isDead = playerUnit.TakeDamage(attackInfo.dmg);
+            var diceRoll = DiceRoll();
+            var attackInfo = enemyUnit.UseAbilityAttack1(diceRoll.isCritical);
 
-        playerHUD.PlayerSetHP(playerUnit.currentHP);
+            bool isDead = playerUnit.TakeDamage(attackInfo.dmg);
 
-        dialogText.text = enemyUnit.name+ " traff deg." + ".\nSkade: " + attackInfo.dmg;
+            playerHUD.PlayerSetHP(playerUnit.currentHP);
 
-        yield return new WaitForSeconds(3f);
+            dialogText.text = enemyUnit.name+ " traff deg.";
 
-        if(isDead){
+            int healthPercentage = (int)((playerUnit.currentHP / playerUnit.maxHP)*100);
+            if(healthPercentage < 0){
+                healthPercentage = 0;
+            }
+            playerHealth.text = healthPercentage + "%";
+
+            yield return new WaitForSeconds(3f);
+        }
+
+        if(enemyUnit.stun > 0){
+            dialogText.text = enemyUnit.name + " er paralysert";
+            enemyUnit.stun -= 1;
+            yield return new WaitForSeconds(3f);
+        }
+        if(enemyUnit.sleep > 0){
+            dialogText.text = enemyUnit.name + " sover";
+            enemyUnit.sleep -= 1;
+            yield return new WaitForSeconds(3f);
+        }
+        if(enemyUnit.poison > 0){
+            dialogText.text = enemyUnit.name + " er forgiftet";
+            enemyUnit.TakeDamage(enemyUnit.maxHP/16);
+            yield return new WaitForSeconds(3f);
+            
+            playerHUD.EnemySetHP(enemyUnit.currentHP);
+            dialogText.text = enemyUnit.name + " ble skadet av giften";
+            yield return new WaitForSeconds(3f);
+        }
+
+        
+
+        if(playerUnit.currentHP == 0){
             state = BattleState.LOST;
+            EndBattle();
+        }
+        if(enemyUnit.currentHP == 0){
+            state = BattleState.WON;
             EndBattle();
         }
         else{
@@ -239,9 +297,8 @@ public class BattleSystem : MonoBehaviour
 
         // 1:16 chance at critical damage (50% more damage)
         // if not critical modifier is from 0.85 to 1.00
-        int roll = rnd.Next(100);
-        Debug.Log(roll);
-        if(roll < 0){
+        int roll = rnd.Next(17);
+        if(roll < 16){
             float rollDecimal = roll / 100.0f;
 
             modifier -= rollDecimal;

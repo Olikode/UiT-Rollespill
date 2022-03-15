@@ -12,6 +12,9 @@ public class UpdateBattleHUD : MonoBehaviour
     public Text enemyLevel;
     public Text playerLevel;
 
+    public Text enemyHealth;
+    public Text playerHealth;
+
     public HealthBar enemyHealthBar;
     public HealthBar playerHealthBar;
 

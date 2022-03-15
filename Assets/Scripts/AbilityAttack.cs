@@ -25,19 +25,19 @@ public class AbilityAttack : MonoBehaviour
             // test datateknikk
             case 1:
 
-            // set values to max
-            baseDmg = 2;
-            hitModifier = 50;
-            stun = 2;
+            if(isCritical){
+                baseDmg = 2;
+                hitModifier = 50;
+                stun = 3;
 
-            // if not critical, randomize values
-            if(!isCritical){
-                baseDmg = rnd.Next(3); // base dmg 0-2
-                int stunChance = rnd.Next(3); // 0-2
-                hitModifier = 5;
-                if(stunChance >= 1){
-                    stun = rnd.Next(1,3); // stuned 1-2 rounds
-                }
+                break;
+            }
+            
+            baseDmg = rnd.Next(3); // base dmg 0-2
+            int stunChance = rnd.Next(3); // 0-1
+            hitModifier = 2;
+            if(stunChance > 0){
+                stun = rnd.Next(1,3); // stuned 1-2 rounds
             }
             break;
 
@@ -71,15 +71,16 @@ public class AbilityAttack : MonoBehaviour
 
             // test datateknikk
             case 1:
-            baseDmg = 7;
-            hitModifier = 50;
-
-            if(!isCritical){
-                baseDmg = rnd.Next(4, 8); // base dmg 4-7
-                hitModifier = 5;
+            if(isCritical){
+                baseDmg = 7;
+                hitModifier = 50;
+                break;
             }
-            break;
 
+            baseDmg = rnd.Next(4, 8); // base dmg 4-7
+            hitModifier = 5;
+            
+            break;
 
             case 2:
             //other class attack

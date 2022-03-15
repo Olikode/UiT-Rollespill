@@ -98,11 +98,15 @@ MonoBehaviour:
   classID: 2
   name: Slemming
   level: 2
-  maxHP: 150
-  currentHP: 150
+  maxHP: 12
+  currentHP: 12
   isStuned: 0
   isAsleep: 0
   initiative: 0
   critChance: 0
   dodgeScore: 10
   hitScore: 0
+  stun: 0
+  sleep: 0
+  poison: 0
+  protection: 0

@@ -92,10 +92,10 @@ public class TestUnit : MonoBehaviour
     }*/
     public void CalculateHitScore(){
         Random rnd = new Random();
-        int roll = rnd.Next(21); // random number 0 - 20
+        int roll = rnd.Next(1, 21); // random number 1 - 20
 
         // if has item with hit bonus, + itemBonus
-        this.hitScore = roll;
+        this.hitScore = roll + level/2;
     }
 
     public (string attackName1, string attackName2) FindAttackName(int classID){
