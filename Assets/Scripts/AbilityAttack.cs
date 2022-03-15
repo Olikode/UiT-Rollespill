@@ -9,24 +9,35 @@ public class AbilityAttack : MonoBehaviour
     Random rnd = new Random();
 
     // ability attack 1
-    public (int baseDmg, int hitModifier, bool isStuned, bool isAsleep) FindAbilityAttack1(int classID){
+    public (int baseDmg, int hitModifier, int stun, int sleep, int poison, int protection) FindAbilityAttack1(int classID, bool isCritical){
 
-        // attack damage and effects
-        int baseDmg = 0;
-        int hitModifier = 0;
-        bool stun = false;
-        bool sleep = false;
+        // attack damage and hit and rounds effects lasts
+        int baseDmg = 0; // base damage
+        int hitModifier = 0; // bonus for the attack to hit
+        int stun = 0; // number of rounds defender is stuned
+        int sleep = 0; // number of rounds defender is sleeping
+        int poison = 0; // number of rounds defender is poisoned
+        int protection = 0; // number of hitpoints on defenders protection
 
 
         switch(classID){
 
             // test datateknikk
             case 1:
-            baseDmg = rnd.Next(3); // base dmg 0-2
-            hitModifier = 3;
-            int stunChance = rnd.Next(3); // 0-2
-            if(stunChance >= 1){
-                stun = true;
+
+            // set values to max
+            baseDmg = 2;
+            hitModifier = 50;
+            stun = 2;
+
+            // if not critical, randomize values
+            if(!isCritical){
+                baseDmg = rnd.Next(3); // base dmg 0-2
+                int stunChance = rnd.Next(3); // 0-2
+                hitModifier = 5;
+                if(stunChance >= 1){
+                    stun = rnd.Next(1,3); // stuned 1-2 rounds
+                }
             }
             break;
 
@@ -41,25 +52,32 @@ public class AbilityAttack : MonoBehaviour
         }
 
         Debug.Log("baseDmg: " + baseDmg);
-        return (baseDmg, hitModifier, stun, sleep);
+        return (baseDmg, hitModifier, stun, sleep, poison, protection);
     }
 
     // ability attack 2
-     public (int baseDmg, int hitModifier, bool isStuned, bool isAsleep) FindAbilityAttack2(int classID){
+     public (int baseDmg, int hitModifier, int stun, int sleep, int poison, int protection) FindAbilityAttack2(int classID, bool isCritical){
 
-        // attack damage and effects
-        int baseDmg = 0;
-        int hitModifier = 0;
-        bool stun = false;
-        bool sleep = false;
+        // attack damage and hit and rounds effects lasts
+        int baseDmg = 0; // base damage
+        int hitModifier = 0; // bonus for the attack to hit
+        int stun = 0; // number of rounds defender is stuned
+        int sleep = 0; // number of rounds defender is sleeping
+        int poison = 0; // number of rounds defender is poisoned
+        int protection = 0; // number of hitpoints on defenders protection
 
 
         switch(classID){
 
             // test datateknikk
             case 1:
-            baseDmg = rnd.Next(4, 8); // base dmg 4-7
-            hitModifier = 5;
+            baseDmg = 7;
+            hitModifier = 50;
+
+            if(!isCritical){
+                baseDmg = rnd.Next(4, 8); // base dmg 4-7
+                hitModifier = 5;
+            }
             break;
 
 
@@ -71,6 +89,6 @@ public class AbilityAttack : MonoBehaviour
             default:
             break;
         }
-        return (baseDmg, hitModifier, stun, sleep);
+        return (baseDmg, hitModifier, stun, sleep, poison, protection);
     }
 }

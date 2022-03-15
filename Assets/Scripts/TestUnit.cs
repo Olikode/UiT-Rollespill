@@ -19,6 +19,12 @@ public class TestUnit : MonoBehaviour
     public int dodgeScore = 10;
     public int hitScore = 0;
 
+    // effects
+    public int stun;
+    public int sleep;
+    public int poison;
+    public int protection;
+
 
     
 
@@ -46,40 +52,35 @@ public class TestUnit : MonoBehaviour
         return dmgModifier;
     }*/
 
-    public (float dmg, int hitModifier, bool isStuned, bool isAsleep) UseAbilityAttack1(){
+    public (float dmg, int hitModifier, int stun, int sleep, int poison, int protection) UseAbilityAttack1(bool isCritical){
 
         // finds attack1 from the unit's class
         AbilityAttack abilityAttack = new AbilityAttack();
-        var attackInfo = abilityAttack.FindAbilityAttack1(classID);
+        var attackInfo = abilityAttack.FindAbilityAttack1(classID, isCritical);
 
         // calculates damage
         float dmgModifier = 1.0f + 0.05f * level;
         float dmg = ((float)attackInfo.baseDmg * dmgModifier);
 
-        Debug.Log("dmg: " + dmg);
         // returns damage and effects
-        return (dmg, attackInfo.hitModifier, attackInfo.isStuned, attackInfo.isAsleep);
+        return (dmg, attackInfo.hitModifier, attackInfo.stun, attackInfo.sleep, attackInfo.poison, attackInfo.protection);
     }
 
-        public (float dmg, int hitModifier, bool isStuned, bool isAsleep) UseAbilityAttack2(){
-
+        public (float dmg, int hitModifier, int stun, int sleep, int poison, int protection) UseAbilityAttack2(bool isCritical){
+        
+        // finds attack1 from the unit's class
         AbilityAttack abilityAttack = new AbilityAttack();
-        var attackInfo = abilityAttack.FindAbilityAttack2(classID);
+        var attackInfo = abilityAttack.FindAbilityAttack2(classID, isCritical);
 
+        // calculates damage
         float dmgModifier = 1.0f + 0.05f * level;
         float dmg = ((float)attackInfo.baseDmg * dmgModifier);
 
-        Debug.Log("dmg: " + dmg);
-
-        return (dmg, attackInfo.hitModifier, attackInfo.isStuned, attackInfo.isAsleep);
+        // returns damage and effects
+        return (dmg, attackInfo.hitModifier, attackInfo.stun, attackInfo.sleep, attackInfo.poison, attackInfo.protection);
     }
 
-    public void SetInitiative(){
-        Random rnd = new Random();
-        int roll = rnd.Next(21); // random number 0 - 20
-
-        initiative = roll;
-    }
+    
 
     /*public void CalculateDodgeScore(){
         Random rnd = new Random();

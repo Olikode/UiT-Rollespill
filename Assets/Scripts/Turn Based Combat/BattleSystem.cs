@@ -45,8 +45,6 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator SetupBattle(){
-        //check what class player is, create object based on class (sykepleier, datatek., bygg...)
-
         GameObject playerGO = Instantiate(playerPrefab);
         playerUnit = playerGO.GetComponent<TestUnit>();
 
@@ -68,8 +66,18 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        if(PlayerStarts(playerUnit, enemyUnit)){
+            dialogText.text = "Du angriper først";
+            yield return new WaitForSeconds(1f);
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else{
+            dialogText.text = enemyUnit.name + " angriper først";
+            yield return new WaitForSeconds(1f);
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
     }
 
     IEnumerator PlayerAttack(int attackNr){
@@ -87,13 +95,15 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        var attackInfo = playerUnit.UseAbilityAttack1();
+        var diceRoll = DiceRoll();
+        var attackInfo = playerUnit.UseAbilityAttack1(diceRoll.isCritical);
+        
 
         if(attackNr == 1){
-        attackInfo = playerUnit.UseAbilityAttack1();
+        attackInfo = playerUnit.UseAbilityAttack1(diceRoll.isCritical);
         }
         if(attackNr == 2){
-        attackInfo = playerUnit.UseAbilityAttack2();
+        attackInfo = playerUnit.UseAbilityAttack2(diceRoll.isCritical);
         }
 
         /*successiveDodge = Dodge(playerUnit, enemyUnit);
@@ -110,15 +120,40 @@ public class BattleSystem : MonoBehaviour
         }
         else{
 
-        var diceRoll = DiceRoll();
         float totalDamage = (float)Math.Round(attackInfo.dmg*diceRoll.modifier, 2);
 
         bool isDead = enemyUnit.TakeDamage(totalDamage);
 
         enemyHUD.EnemySetHP(enemyUnit.currentHP);
-        dialogText.text = "Du traff " + enemyUnit.name + ".\nSkade: " + totalDamage;
+        if(diceRoll.isCritical){
+            dialogText.text = "Kritisk-treff på " + enemyUnit.name + ".\nSkade: " + totalDamage;
+        }
+        else{
+            dialogText.text = "Du traff " + enemyUnit.name + ".\nSkade: " + totalDamage;
+        }
 
         yield return new WaitForSeconds(3f);
+
+        if(attackInfo.stun > enemyUnit.stun){
+            enemyUnit.stun = attackInfo.stun;
+            dialogText.text = enemyUnit.name + " ble paralysert og kan ikke bevege seg";
+            yield return new WaitForSeconds(3f);
+        }
+        if(attackInfo.sleep > enemyUnit.sleep){
+            enemyUnit.sleep = attackInfo.sleep;
+            dialogText.text = enemyUnit.name + " sovnet";
+            yield return new WaitForSeconds(3f);
+        }
+        if(attackInfo.poison > enemyUnit.poison){
+            enemyUnit.poison = attackInfo.poison;
+            dialogText.text = enemyUnit.name + " ble forgiftet";
+            yield return new WaitForSeconds(3f);
+        }
+        if(attackInfo.protection > playerUnit.protection){
+            playerUnit.protection = attackInfo.protection;
+            dialogText.text = "Du beskyttet deg selv";
+            yield return new WaitForSeconds(3f);
+        }
 
         }
 
@@ -137,8 +172,8 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        var attackInfo = enemyUnit.UseAbilityAttack1();
-
+        var diceRoll = DiceRoll();
+        var attackInfo = enemyUnit.UseAbilityAttack1(diceRoll.isCritical);
 
         bool isDead = playerUnit.TakeDamage(attackInfo.dmg);
 
@@ -204,8 +239,9 @@ public class BattleSystem : MonoBehaviour
 
         // 1:16 chance at critical damage (50% more damage)
         // if not critical modifier is from 0.85 to 1.00
-        int roll = rnd.Next(17);
-        if(roll != 16){
+        int roll = rnd.Next(100);
+        Debug.Log(roll);
+        if(roll < 0){
             float rollDecimal = roll / 100.0f;
 
             modifier -= rollDecimal;
@@ -233,4 +269,22 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Dodge: " + (attacker.hitScore+hitModifier) + " " + defender.dodgeScore );
         return dodgeAttack;
     }
+
+    
+    public bool PlayerStarts(TestUnit player, TestUnit enemy){
+        Random rnd = new Random();
+        int playerRoll = rnd.Next(21); // random number 0 - 20
+        int enemyRoll = rnd.Next(21); // random number 0 - 20
+
+        playerRoll += player.level /* + modifier */;
+        enemyRoll += enemy.level /* + modifier */;
+
+        Debug.Log("initiative: " + playerRoll + " " + enemyRoll );
+
+        if(playerRoll >= enemyRoll){
+            return true;
+        }
+        return false;
+    }
+
 }
