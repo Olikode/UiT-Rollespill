@@ -13,6 +13,7 @@ public class AbilityAttack : MonoBehaviour
 
         // attack damage and hit and rounds effects lasts
         int baseDmg = 0; // base damage
+        // int baseHeal should be added later
         int hitModifier = 0; // bonus for the attack to hit
         int stun = 0; // number of rounds defender is stuned
         int sleep = 0; // number of rounds defender is sleeping
@@ -44,6 +45,25 @@ public class AbilityAttack : MonoBehaviour
             // test enemy
             case 2:
             baseDmg = 5;
+            break;
+
+            // test sykepleier
+            case 3:
+
+            if(isCritical){
+                baseDmg = 1;
+                hitModifier = 50;
+                sleep = 5;
+
+                break;
+            }
+            
+            baseDmg = 1;
+            int sleepChance = rnd.Next(3); // 0-1
+            hitModifier = 5;
+            if(sleepChance > 0){
+                sleep = rnd.Next(2,6); // stuned 2-5 rounds
+            }
             break;
             
 
@@ -83,6 +103,10 @@ public class AbilityAttack : MonoBehaviour
             break;
 
             case 2:
+            //other class attack
+            break;
+
+            case 3:
             //other class attack
             break;
             

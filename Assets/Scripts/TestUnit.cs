@@ -25,10 +25,6 @@ public class TestUnit : MonoBehaviour
     public int poison;
     public int protection;
 
-
-    
-
-
     //deal damage to unit and return true if unit dies
     public bool TakeDamage(float dmg){
         currentHP -= dmg;
@@ -46,11 +42,6 @@ public class TestUnit : MonoBehaviour
         if(currentHP > maxHP)
             currentHP = maxHP;
     }
-
-    /*public float CalculateDmgNodifier(){
-        float dmgModifier = 1.0f + 0.05f * level;
-        return dmgModifier;
-    }*/
 
     public (float dmg, int hitModifier, int stun, int sleep, int poison, int protection) UseAbilityAttack1(bool isCritical){
 
@@ -80,16 +71,6 @@ public class TestUnit : MonoBehaviour
         return (dmg, attackInfo.hitModifier, attackInfo.stun, attackInfo.sleep, attackInfo.poison, attackInfo.protection);
     }
 
-    
-
-    /*public void CalculateDodgeScore(){
-        Random rnd = new Random();
-        int roll = rnd.Next(11); // random number 0 - 25
-
-        // if has item with doge bonus, + itemBonus
-        this.dodgeScore = roll;
-        Debug.Log("DODGE: " + roll);
-    }*/
     public void CalculateHitScore(){
         Random rnd = new Random();
         int roll = rnd.Next(1, 21); // random number 1 - 20
@@ -98,23 +79,31 @@ public class TestUnit : MonoBehaviour
         this.hitScore = roll + level/2;
     }
 
+    // this function should be moved to AbilityAttacks.cs
     public (string attackName1, string attackName2) FindAttackName(int classID){
 
         string attackName1 = "";
         string attackName2 = "";
+        // attack description should be added later
 
         switch(classID){
 
             // test datateknikk
             case 1:
             attackName1 = "Hack Attack";
-            attackName2 = "Nerd Power";
+            attackName2 = "Nerdekraft";
             break;
 
-
+            // test enemy
             case 2:
             attackName1 = "Slem slag";
             attackName2 = "Frekkis";
+            break;
+
+            // test sykepleier
+            case 3:
+            attackName1 = "Gal sprøyte";
+            attackName2 = "Brukt sprøytespiss";
             break;
         }
 

@@ -4200,7 +4200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fef76dcfeb94a84db4c8ef0c6bae20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2004367134215574926, guid: eb51f211e543a004b83d1f1d7ac9dcd2, type: 3}
+  playerPrefab: {fileID: 213818145828092730, guid: 4abb541d6bef3784cabc5b96d9f9e0f6, type: 3}
   enemyPrefab: {fileID: 5407576137476817769, guid: 0cbbb41832970a44aa11c2cf5ce67066, type: 3}
   attackMenuButton: {fileID: 164771264}
   inventoryMenuButton: {fileID: 1760831675}
