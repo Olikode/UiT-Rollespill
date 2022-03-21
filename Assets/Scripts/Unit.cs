@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     public int classID;
     public string name;
     public int level;
-    public float maxStress;
+    public int maxStress;
     public float currentStress;
     public bool isStuned = false;
     public bool isAsleep = false;
@@ -29,6 +29,12 @@ public class Unit : MonoBehaviour
     public void TakeStress(float dmg)
     {
         currentStress += dmg;
+
+        //if stress goes over max
+        if (currentStress > maxStress)
+        {
+            currentStress = maxStress;
+        }
     }
 
     public void HealUnit(float healAmount)
@@ -37,7 +43,17 @@ public class Unit : MonoBehaviour
 
         //if stress goes under 0
         if (currentStress < 0)
+        {
             currentStress = 0;
+        }
+    }
+
+    public void CalculateHitScore(){
+        Random rnd = new Random();
+        int roll = rnd.Next(1, 21); // random number 1 - 20
+
+        // if has item with hit bonus, + itemBonus
+        this.hitScore = roll + level/2;
     }
 
     public (float dmg, float heal, int hitModifier, int stun, int sleep, int poison, int protection) UseClassAttack1(
@@ -62,7 +78,7 @@ public class Unit : MonoBehaviour
         // calculates hit score
         Random rnd = new Random();
         int roll = rnd.Next(1, 21); // random number 1 - 20
-        hitScore = roll + attackInfo.hitModifier + level/2;
+        hitScore = roll + attackInfo.hitModifier + level / 2;
 
         // returns damage and effects
         return (
@@ -99,7 +115,7 @@ public class Unit : MonoBehaviour
         // calculates hit score
         Random rnd = new Random();
         int roll = rnd.Next(1, 21); // random number 1 - 20
-        hitScore = roll + attackInfo.hitModifier + level/2;
+        hitScore = roll + attackInfo.hitModifier + level / 2;
 
         // returns damage and effects
         return (

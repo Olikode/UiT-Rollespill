@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3819289198398288214
+--- !u!1 &2269983885597218235
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1389009676621230897}
-  - component: {fileID: 4548511852416304986}
-  - component: {fileID: 7388584680586460741}
+  - component: {fileID: 2969301272107395133}
+  - component: {fileID: 8708523641650772337}
+  - component: {fileID: 4865551990755292108}
   m_Layer: 0
-  m_Name: test enemy
+  m_Name: "Mattepr\xF8ve"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1389009676621230897
+--- !u!4 &2969301272107395133
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3819289198398288214}
+  m_GameObject: {fileID: 2269983885597218235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.801, y: 0.314, z: 0}
+  m_LocalPosition: {x: 0.794, y: 0.318, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4548511852416304986
+--- !u!212 &8708523641650772337
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3819289198398288214}
+  m_GameObject: {fileID: 2269983885597218235}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,37 +72,41 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5574873882498854606, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  m_Sprite: {fileID: 6911726981415025543, guid: a247212a4de048344a9899bae349390f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.12, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7388584680586460741
+--- !u!114 &4865551990755292108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3819289198398288214}
+  m_GameObject: {fileID: 2269983885597218235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e776c6cd277ffa449b1b8f7cea39baa, type: 3}
+  m_Script: {fileID: 11500000, guid: 720b1b08ec0628847ba16b7fff149172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  classID: 0
-  name: Matteoppgave
-  level: 2
-  maxHP: 12
-  currentHP: 12
+  enemyID: 1
+  name: "Mattepr\xF8ve"
+  level: 4
+  maxHP: 20
+  currentHP: 20
   isStuned: 0
   isAsleep: 0
   initiative: 0
   critChance: 0
   dodgeScore: 10
   hitScore: 0
+  stun: 0
+  sleep: 0
+  poison: 0
+  protection: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Random = System.Random;
 
-public class ClassAttack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
     Random rnd = new Random();
 
@@ -18,53 +18,36 @@ public class ClassAttack : MonoBehaviour
     int protection = 0; // number of hitpoints on defenders protection
 
     // class attack 1
-    public (int baseDmg, int baseHeal, int hitModifier, int stun, int sleep, int poison, int protection) FindClassAttack1(
-        int classID,
+    public (int baseDmg, int baseHeal, int hitModifier, int stun, int sleep, int poison, int protection) FindEnemyAttack1(
+        int enemyID,
         bool isCritical
     )
     {
-        switch (classID)
+        switch (enemyID)
         {
-            // DATATEKNIKK
+            // MATTEPRØVE
             case 1:
 
                 if (isCritical)
                 {
-                    baseDmg = 2;
+                    baseDmg = 5;
                     hitModifier = 50;
                     stun = 3;
 
                     break;
                 }
 
-                baseDmg = rnd.Next(3); // base dmg 0-2
-                int stunChance = rnd.Next(1,3); // 1-2
-                hitModifier = 2;
-                if (stunChance > 0)
+                baseDmg = rnd.Next(6); // base dmg 0-5
+                int stunChance = rnd.Next(10); // 0-9
+                hitModifier = 3;
+                if (stunChance > 7)
                 {
-                    stun = rnd.Next(2, 5); // stuned 1-4 rounds
+                    stun = rnd.Next(1, 3); // stuned 1-2 rounds
                 }
                 break;
 
-            // SYKEPLEIER
+            // 
             case 2:
-
-                if (isCritical)
-                {
-                    baseDmg = 1;
-                    hitModifier = 50;
-                    sleep = 5;
-
-                    break;
-                }
-
-                baseDmg = 1;
-                int sleepChance = rnd.Next(3); // 0-1
-                hitModifier = 5;
-                if (sleepChance > 0)
-                {
-                    sleep = rnd.Next(2, 6); // stuned 2-5 rounds
-                }
                 break;
 
             default:
@@ -74,8 +57,8 @@ public class ClassAttack : MonoBehaviour
     }
 
     // class attack 2
-    public (int baseDmg, int baseHeal, int hitModifier, int stun, int sleep, int poison, int protection) FindClassAttack2(
-        int classID,
+    public (int baseDmg, int baseHeal, int hitModifier, int stun, int sleep, int poison, int protection) FindEnemyAttack2(
+        int enemyID,
         bool isCritical
     )
     {
@@ -88,30 +71,30 @@ public class ClassAttack : MonoBehaviour
         int poison = 0; // number of rounds defender is poisoned
         int protection = 0; // number of hitpoints on defenders protection
 
-        switch (classID)
+        switch (enemyID)
         {
-            // DATATEKNIKK
+            // MATTEPRØVE
             case 1:
                 if (isCritical)
                 {
-                    baseDmg = 7;
+                    baseDmg = 5;
                     hitModifier = 50;
                     break;
                 }
 
-                baseDmg = rnd.Next(4, 8); // base dmg 4-7
+                baseDmg = rnd.Next(2, 6); // base dmg 2-5
                 hitModifier = 5;
 
                 break;
 
-            // SYKEPLEIER
+            //
             case 2:
-                //other class attack
+                
                 break;
 
             //
             case 3:
-                //other class attack
+                
                 break;
 
             default:
@@ -120,7 +103,7 @@ public class ClassAttack : MonoBehaviour
         return (baseDmg, baseHeal, hitModifier, stun, sleep, poison, protection);
     }
 
-    public (string attackName1, string attackName2) FindAttackName(int classID)
+    public (string attackName1, string attackName2) FindAttackName(int enemyID)
     {
         string attackName1 = "";
         string attackName2 = "";
@@ -128,25 +111,23 @@ public class ClassAttack : MonoBehaviour
         string attackDescription2 = "";
         // attack description should be added later
 
-        switch (classID)
+        switch (enemyID)
         {
-            // DATATEKNIKK
+            // Matteprøve
             case 1:
-                attackName1 = "Hack Attack";
-                attackName2 = "Nerdekraft";
-                attackDescription1 = " Hack fienden din.\nGjør mellom 0 og 2 skade.\nDet har også en sjanse til å paralysere fienden.";
-                attackDescription1 = " Bruk dine indre nerdekrefter.\nGjør mellom 4 og 7 skade.";
+                attackName1 = "Lurespørsmål";
+                attackName2 = "Fuck";
+                attackDescription1 = "";
+                attackDescription1 = "";
                 break;
 
             // SYKEPLEIER
             case 2:
-                attackName1 = "Gal sprøyte";
-                attackName2 = "Brukt sprøytespiss";
                 break;
 
-            // 
+            //
             case 3:
-                
+
                 break;
         }
 
