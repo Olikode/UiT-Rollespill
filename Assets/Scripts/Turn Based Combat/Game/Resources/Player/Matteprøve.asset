@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab424163109291541ab321b9ed12d994, type: 3}
-  m_Name: Oliver
+  m_Name: "Mattepr\xF8ve"
   m_EditorClassIdentifier: 
-  name: Datamann
+  name: "Mattepr\xF8ve"
   description: 
-  type: 0
-  sprite: {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  type: 4
+  sprite: {fileID: 6911726981415025543, guid: a247212a4de048344a9899bae349390f, type: 3}
   maxHP: 50
-  attackPower: 48
-  defensePower: 48
-  dodge: 40
+  attackPower: 40
+  defensePower: 40
+  dodge: 36
   hit: 50
   initiative: 10
   learnableMoves:

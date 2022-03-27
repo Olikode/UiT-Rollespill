@@ -7,14 +7,19 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleUnit playerUnit;
     [SerializeField] BattleHud playerHud;
 
+    [SerializeField] BattleUnit enemyUnit;
+    [SerializeField] BattleHud enemyHud;
+
     void Start()
     {
-        
+        SetupBattle();
     }
 
 
     public void SetupBattle(){
         playerUnit.Setup();
-        playerHud.SetData(playerUnit.unit);
+        enemyUnit.Setup();
+        playerHud.SetData(playerUnit.Unit);
+        enemyHud.SetData(enemyUnit.Unit);
     }
 }

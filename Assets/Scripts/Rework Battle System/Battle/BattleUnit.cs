@@ -14,11 +14,11 @@ public class BattleUnit : MonoBehaviour
     [SerializeField]
     bool isPlayer;
 
-    public Unit1 unit { get; set; }
+    public Unit1 Unit { get; set; }
 
     public void Setup()
     {
-        unit = new Unit1(_base, level);
-        GetComponent<Image>().sprite = unit.Base.Sprite;
+        Unit = new Unit1(_base, level);
+        GetComponent<Image>().sprite = Unit.Base.Sprite;
     }
 }

@@ -11,7 +11,7 @@ public class BattleHud : MonoBehaviour
 
 
     public void SetData(Unit1 unit){
-        //nameText.text = unit.Base.Name;
+        nameText.text = unit.Base.Name;
         lvlText.text = "Lvl " + unit.Level;
         hpBar.SetHp((float)unit.HP / unit.MaxHP);
     }
