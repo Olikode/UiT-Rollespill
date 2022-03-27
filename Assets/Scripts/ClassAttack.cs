@@ -30,14 +30,14 @@ public class ClassAttack : MonoBehaviour
 
                 if (isCritical)
                 {
-                    baseDmg = 2;
+                    baseDmg = 3;
                     hitModifier = 50;
                     stun = 3;
 
                     break;
                 }
 
-                baseDmg = rnd.Next(3); // base dmg 0-2
+                baseDmg = rnd.Next(4); // base dmg 0-3
                 int stunChance = rnd.Next(1,3); // 1-2
                 hitModifier = 2;
                 if (stunChance > 0)

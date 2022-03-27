@@ -40,9 +40,9 @@ public class EnemyAttack : MonoBehaviour
                 baseDmg = rnd.Next(6); // base dmg 0-5
                 int stunChance = rnd.Next(10); // 0-9
                 hitModifier = 3;
-                if (stunChance > 7)
+                if (stunChance > 9)
                 {
-                    stun = rnd.Next(1, 3); // stuned 1-2 rounds
+                    stun = rnd.Next(1, 4); // stuned 1-3 rounds
                 }
                 break;
 

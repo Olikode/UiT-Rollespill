@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class UpdateBattleHUD : MonoBehaviour
 {
@@ -28,12 +29,12 @@ public class UpdateBattleHUD : MonoBehaviour
     public void EnemySetHP(EnemyUnit unit){
         enemyHealthBar.SetHealth(unit.currentHP);
 
-        int healthPercentage = (int)((unit.currentHP / unit.maxHP) * 100);
+        float healthPercentage = ((unit.currentHP / unit.maxHP) * 100);
             if (healthPercentage < 0)
             {
                 healthPercentage = 0;
             }
-            healthField.text = healthPercentage + "%";
+            healthField.text = Math.Ceiling(healthPercentage) + "%";
     }
 
      public void PlayerSetHUD(Unit unit){
@@ -46,11 +47,11 @@ public class UpdateBattleHUD : MonoBehaviour
     public void PlayerSetStress(Unit unit){
         playerHealthBar.SetHealth(unit.currentStress);
 
-        int healthPercentage = (int)(((unit.currentStress / unit.maxStress) * 100));
-            if (healthPercentage > unit.maxStress)
+        float healthPercentage = (((unit.currentStress / unit.maxStress) * 100));
+            if (healthPercentage > 100)
             {
-                healthPercentage = unit.maxStress;
+                healthPercentage = 100;
             }
-            stressField.text = healthPercentage + "%";
+            stressField.text = Math.Ceiling(healthPercentage) + "%";
     }
 }

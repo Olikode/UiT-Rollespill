@@ -147,10 +147,18 @@ public class BattleSys : MonoBehaviour
             if (diceRoll.isCritical)
             {
                 dialogText.text = "Kritisk-treff på " + enemyUnit.name;
+                yield return new WaitForSeconds(3f);
             }
             else
             {
                 dialogText.text = "Du traff " + enemyUnit.name;
+                yield return new WaitForSeconds(3f);
+
+                if (totalDamage == 0)
+                {
+                    dialogText.text = "Men det gjorde ingen skade";
+                    yield return new WaitForSeconds(3f);
+                }
             }
 
             // if enemy is sleeping, a hit has a chance to wake them up
@@ -422,7 +430,16 @@ public class BattleSys : MonoBehaviour
             enemyUnit.TakeDamage(enemyUnit.maxHP / 16);
 
             HUD.EnemySetHP(enemyUnit);
+            dialogText.text = enemyUnit.name + " ble skadet av giften";
+            yield return new WaitForSeconds(3f);
             enemyUnit.poison -= 1;
+
+            // check if enemy is dead by poison
+            if (enemyUnit.currentHP <= 0)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
         }
 
         if (enemyUnit.stun > 0)
@@ -517,12 +534,13 @@ public class BattleSys : MonoBehaviour
         else
         {
             dialogText.text = "Velg hva du vil gjøre:";
-            Debug.Log("Heihå");
             attackMenuButton.SetActive(true);
             inventoryMenuButton.SetActive(true);
 
             attackButton1.GetComponent<Button>().interactable = true;
             attackButton2.GetComponent<Button>().interactable = true;
+
+            //if(WeaponIsEquiped)
             attackButton3.GetComponent<Button>().interactable = true;
             attackButton4.GetComponent<Button>().interactable = true;
         }
@@ -564,6 +582,30 @@ public class BattleSys : MonoBehaviour
         int attackNr = 2;
 
         StartCoroutine(PlayerAttack(attackNr));
+    }
+
+    public void onAttackButton3()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        int attackNr = 2;
+
+        StartCoroutine(PlayerAttack(attackNr));
+    }
+
+    public void onAttackButton4()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        int attackNr = 2;
+
+        StartCoroutine(PlayerAttack(attackNr));
+    }
+
+    public void onItemUse(){
+
     }
 
     private (float modifier, bool isCritical) DiceRoll()
