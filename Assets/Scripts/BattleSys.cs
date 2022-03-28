@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Random = System.Random;
 using System;
 
-public enum BattleState
+public enum BS
 {
     START,
     PLAYERTURN,
@@ -36,14 +36,14 @@ public class BattleSys : MonoBehaviour
 
     public UpdateBattleHUD HUD;
 
-    public BattleState state;
+    public BS state;
     Random rnd = new Random();
     private bool successiveDodge;
 
     // Start is called before the first frame update
     void Start()
     {
-        state = BattleState.START;
+        state = BS.START;
         StartCoroutine(SetupBattle());
     }
 
@@ -81,14 +81,14 @@ public class BattleSys : MonoBehaviour
         {
             dialogText.text = "Du angriper først";
             yield return new WaitForSeconds(1f);
-            state = BattleState.PLAYERTURN;
+            state = BS.PLAYERTURN;
             StartCoroutine(PlayerTurn());
         }
         else
         {
             dialogText.text = enemyUnit.name + " angriper først";
             yield return new WaitForSeconds(1f);
-            state = BattleState.ENEMYTURN;
+            state = BS.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
     }
@@ -253,12 +253,12 @@ public class BattleSys : MonoBehaviour
         // end off attack, check if enemy is dead
         if (enemyUnit.currentHP <= 0)
         {
-            state = BattleState.WON;
+            state = BS.WON;
             EndBattle();
         }
         else
         {
-            state = BattleState.ENEMYTURN;
+            state = BS.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
     }
@@ -411,12 +411,12 @@ public class BattleSys : MonoBehaviour
         // end off attack, check if player is dead
         if (playerUnit.currentStress >= playerUnit.maxStress)
         {
-            state = BattleState.LOST;
+            state = BS.LOST;
             EndBattle();
         }
         else
         {
-            state = BattleState.PLAYERTURN;
+            state = BS.PLAYERTURN;
             StartCoroutine(PlayerTurn());
         }
     }
@@ -437,7 +437,7 @@ public class BattleSys : MonoBehaviour
             // check if enemy is dead by poison
             if (enemyUnit.currentHP <= 0)
             {
-                state = BattleState.WON;
+                state = BS.WON;
                 EndBattle();
             }
         }
@@ -471,7 +471,7 @@ public class BattleSys : MonoBehaviour
                 dialogText.text = enemyUnit.name + " er paralysert og kan ikke angripe";
                 yield return new WaitForSeconds(3f);
 
-                state = BattleState.PLAYERTURN;
+                state = BS.PLAYERTURN;
                 StartCoroutine(PlayerTurn());
             }
             if (enemyUnit.sleep > 0)
@@ -479,7 +479,7 @@ public class BattleSys : MonoBehaviour
                 dialogText.text = enemyUnit.name + " sover og kan ikke angripe";
                 yield return new WaitForSeconds(3f);
 
-                state = BattleState.PLAYERTURN;
+                state = BS.PLAYERTURN;
                 StartCoroutine(PlayerTurn());
             }
         }
@@ -566,7 +566,7 @@ public class BattleSys : MonoBehaviour
 
     public void onAttackButton1()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state != BS.PLAYERTURN)
             return;
 
         int attackNr = 1;
@@ -576,7 +576,7 @@ public class BattleSys : MonoBehaviour
 
     public void onAttackButton2()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state != BS.PLAYERTURN)
             return;
 
         int attackNr = 2;
@@ -586,7 +586,7 @@ public class BattleSys : MonoBehaviour
 
     public void onAttackButton3()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state != BS.PLAYERTURN)
             return;
 
         int attackNr = 2;
@@ -596,7 +596,7 @@ public class BattleSys : MonoBehaviour
 
     public void onAttackButton4()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state != BS.PLAYERTURN)
             return;
 
         int attackNr = 2;
@@ -636,7 +636,7 @@ public class BattleSys : MonoBehaviour
     private bool Dodge(int hitModifier)
     {
         bool dodgeAttack = false;
-        if (state == BattleState.PLAYERTURN)
+        if (state == BS.PLAYERTURN)
         {
             playerUnit.CalculateHitScore();
 
@@ -653,7 +653,7 @@ public class BattleSys : MonoBehaviour
                 dodgeAttack = false;
             }
         }
-        if (state == BattleState.ENEMYTURN)
+        if (state == BS.ENEMYTURN)
         {
             enemyUnit.CalculateHitScore();
 
@@ -676,11 +676,11 @@ public class BattleSys : MonoBehaviour
 
     void EndBattle()
     {
-        if (state == BattleState.WON)
+        if (state == BS.WON)
         {
             dialogText.text = "Du vant!";
         }
-        else if (state == BattleState.LOST)
+        else if (state == BS.LOST)
         {
             dialogText.text = "Du tapte!";
         }

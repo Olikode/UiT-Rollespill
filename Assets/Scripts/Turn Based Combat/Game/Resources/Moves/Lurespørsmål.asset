@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
-  m_Name: Tackle
+  m_Name: "Luresp\xF8rsm\xE5l"
   m_EditorClassIdentifier: 
-  name: Tackle
+  name: "Luresp\xF8rsm\xE5l"
   description: 
-  type: 1
-  power: 40
-  accuracy: 100
-  pp: 20
+  type: 5
+  power: 45
+  accuracy: 95
+  pp: 15

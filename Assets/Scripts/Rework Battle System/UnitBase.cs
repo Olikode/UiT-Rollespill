@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Player", menuName = "Player/Create new player")]
+[CreateAssetMenu(fileName = "Unit", menuName = "Unit/Create new unit")]
 
 public class UnitBase : ScriptableObject
 {
@@ -80,6 +80,7 @@ public class LearnableMove{
 public enum ClassType{
 
     // player types
+    Student,
     Datateknikk,
     Sykepleier,
     Elektro,

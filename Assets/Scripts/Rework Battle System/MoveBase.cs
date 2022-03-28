@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Move", menuName = "Player/Create new move")]
+[CreateAssetMenu(fileName = "Move", menuName = "Unit/Create new move")]
 
 public class MoveBase : ScriptableObject
 {
@@ -33,7 +33,7 @@ public class MoveBase : ScriptableObject
     public int Accuracy{
         get {return accuracy;}
     }
-    public int Pp{
+    public int PP{
         get {return pp;}
     }
 
