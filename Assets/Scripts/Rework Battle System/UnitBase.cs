@@ -92,3 +92,8 @@ public enum ClassType{
     Oppgave,
     Eksamen,
 }
+
+// type effectivenes
+public class TypeChart{
+
+}

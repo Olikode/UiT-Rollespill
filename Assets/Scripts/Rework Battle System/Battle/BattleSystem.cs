@@ -47,7 +47,6 @@ public class BattleSystem : MonoBehaviour
         dialogBox.SetMoveNames(playerUnit.Unit.Moves);
 
         yield return dialogBox.TypeDialog($"En vill {enemyUnit.Unit.Base.Name} dukket opp");
-        yield return new WaitForSeconds(1f);
 
         PlayerAction();
     }
@@ -68,6 +67,59 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableDialogText(false);
 
         dialogBox.EnableMoveSelector(true);
+    }
+
+    IEnumerator PerformPlayerMove()
+    {
+        state = BattleState.Busy;
+
+        var move = playerUnit.Unit.Moves[currentMove];
+        yield return dialogBox.TypeDialog($"Du angriper med {move.Base.Name}");
+
+        playerUnit.PlayAttackAnimation();
+        yield return new WaitForSeconds(1f);
+
+        enemyUnit.PlayHitAnimation();
+        var damageDetails = enemyUnit.Unit.TakeDamage(move, playerUnit.Unit);
+        yield return enemyHud.UpdateHP();
+        yield return ShowDamageDetails(damageDetails);
+
+        if(damageDetails.Fainted){
+            yield return dialogBox.TypeDialog($"{enemyUnit.Unit.Base.Name} er beseiret");
+            enemyUnit.PlayDieAnimation();
+        }
+        else{
+            StartCoroutine(EnemyMove());
+        }
+    }
+
+    IEnumerator EnemyMove(){
+        state = BattleState.EnemyMove;
+
+        var move = enemyUnit.Unit.GetRandomMove();
+        yield return dialogBox.TypeDialog($"{enemyUnit.Unit.Base.Name} angriper med {move.Base.Name}");
+
+        enemyUnit.PlayAttackAnimation();
+        yield return new WaitForSeconds(1f);
+
+        playerUnit.PlayHitAnimation();
+        var damageDetails = playerUnit.Unit.TakeDamage(move, enemyUnit.Unit);
+        yield return playerHud.UpdateHP();
+        yield return ShowDamageDetails(damageDetails);
+
+        if(damageDetails.Fainted){
+            yield return dialogBox.TypeDialog($"Du tapte");
+            playerUnit.PlayDieAnimation();
+        }
+        else{
+            PlayerAction();
+        }
+    }
+
+    IEnumerator ShowDamageDetails(DamageDetails damageDetails){
+        if(damageDetails.Critical > 1f){
+            yield return dialogBox.TypeDialog("Et kritisk treff");
+        }
     }
 
     private void Update()
@@ -131,5 +183,14 @@ public class BattleSystem : MonoBehaviour
         }
 
         dialogBox.UpdateMoveSelection(currentMove, playerUnit.Unit.Moves[currentMove]);
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            dialogBox.EnableMoveSelector(false);
+
+            dialogBox.EnableDialogText(true);
+
+            StartCoroutine(PerformPlayerMove());
+        }
     }
 }

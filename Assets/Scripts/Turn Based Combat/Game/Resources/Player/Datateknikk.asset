@@ -16,9 +16,9 @@ MonoBehaviour:
   description: 
   type: 0
   sprite: {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  maxHP: 50
-  attackPower: 48
-  defensePower: 48
+  maxHP: 45
+  attackPower: 56
+  defensePower: 42
   dodge: 40
   hit: 50
   initiative: 10
