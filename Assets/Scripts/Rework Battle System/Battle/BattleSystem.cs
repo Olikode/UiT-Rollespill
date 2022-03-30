@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,19 +29,27 @@ public class BattleSystem : MonoBehaviour
     [SerializeField]
     BattleDialogBox dialogBox;
 
+    public event Action<bool> OnBattleOver;
+
+
     BattleState state;
     int currentAction;
     int currentMove;
 
-    void Start()
+    UnitList player;
+    UnitList enemy;
+
+    public void StartBattle(UnitList player, UnitList enemy)
     {
+        this.player = player;
+        this.enemy =  enemy;
         StartCoroutine(SetupBattle());
     }
 
     public IEnumerator SetupBattle()
     {
-        playerUnit.Setup();
-        enemyUnit.Setup();
+        playerUnit.Setup(player.GetHealthyUnit());
+        enemyUnit.Setup(enemy.GetHealthyUnit());
         playerHud.SetData(playerUnit.Unit);
         enemyHud.SetData(enemyUnit.Unit);
 
@@ -74,6 +83,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.Busy;
 
         var move = playerUnit.Unit.Moves[currentMove];
+        move.PP--;
         yield return dialogBox.TypeDialog($"Du angriper med {move.Base.Name}");
 
         playerUnit.PlayAttackAnimation();
@@ -87,6 +97,9 @@ public class BattleSystem : MonoBehaviour
         if(damageDetails.Fainted){
             yield return dialogBox.TypeDialog($"{enemyUnit.Unit.Base.Name} er beseiret");
             enemyUnit.PlayDieAnimation();
+
+            yield return new WaitForSeconds(2f);
+            OnBattleOver(true);
         }
         else{
             StartCoroutine(EnemyMove());
@@ -97,6 +110,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.EnemyMove;
 
         var move = enemyUnit.Unit.GetRandomMove();
+        move.PP--;
         yield return dialogBox.TypeDialog($"{enemyUnit.Unit.Base.Name} angriper med {move.Base.Name}");
 
         enemyUnit.PlayAttackAnimation();
@@ -110,6 +124,9 @@ public class BattleSystem : MonoBehaviour
         if(damageDetails.Fainted){
             yield return dialogBox.TypeDialog($"Du tapte");
             playerUnit.PlayDieAnimation();
+
+            yield return new WaitForSeconds(2f);
+            OnBattleOver(false);
         }
         else{
             PlayerAction();
@@ -122,7 +139,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void HandleUpdate()
     {
         if (state == BattleState.PlayerAction)
         {

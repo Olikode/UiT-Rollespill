@@ -6,9 +6,7 @@ using DG.Tweening;
 
 public class BattleUnit : MonoBehaviour
 {
-    [SerializeField] UnitBase _base;
-
-    [SerializeField] int level;
+    
 
     [SerializeField] bool isPlayer;
 
@@ -24,11 +22,12 @@ public class BattleUnit : MonoBehaviour
         orginalPos = image.transform.localPosition;
     }
 
-    public void Setup()
+    public void Setup(Unit unit)
     {
-        Unit = new Unit(_base, level);
+        Unit = unit;
         image.sprite = Unit.Base.Sprite;
 
+        image.color = orginalColor;
         PlayEnterAnimation();
     }
 

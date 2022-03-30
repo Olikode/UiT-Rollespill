@@ -2,20 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Unit
 {
-    public UnitBase Base { get; set; }
-    public int Level { get; set; }
+    [SerializeField] UnitBase _base;
+    [SerializeField] int level;
+
+    public UnitBase Base { 
+        get {
+            return _base;
+        }
+     }
+    public int Level { 
+        get {
+            return level;
+        }
+     }
 
     // current HP
     public int HP { get; set; }
 
     public List<Move> Moves { get; set; }
 
-    public Unit(UnitBase pBase, int pLevel)
+    public void Init()
     {
-        Base = pBase;
-        Level = pLevel;
         HP = MaxHP;
 
         // Generates moves

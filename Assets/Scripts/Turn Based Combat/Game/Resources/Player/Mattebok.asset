@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab424163109291541ab321b9ed12d994, type: 3}
+  m_Name: Mattebok
+  m_EditorClassIdentifier: 
+  name: Mattebok
+  description: 
+  type: 5
+  sprite: {fileID: 4577947218730944924, guid: a247212a4de048344a9899bae349390f, type: 3}
+  maxHP: 58
+  attackPower: 55
+  defensePower: 55
+  dodge: 27
+  hit: 50
+  initiative: 10
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}
+    level: 0
