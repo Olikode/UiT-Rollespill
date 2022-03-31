@@ -10,9 +10,11 @@ public class EnemyController : MonoBehaviour
     private Vector2 moveDirection;
     private Vector3 originalSize;
     private Vector3 playerDirection;
+    bool inBattle;
 
     protected virtual void Start()
     {
+        inBattle = player.gameObject.GetComponent<PlayerController>().inBattle;
         originalSize = transform.localScale;
     }
 
@@ -24,6 +26,14 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (player.gameObject.GetComponent<PlayerController>().inBattle)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
+        else if (!player.gameObject.GetComponent<PlayerController>().inBattle)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+        }
         Move();
     }
 

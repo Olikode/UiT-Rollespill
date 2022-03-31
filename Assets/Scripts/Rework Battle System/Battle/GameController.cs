@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
+        playerController.inBattle = true;
         var player = playerController.GetComponent<UnitList>();
 
         battleSystem.StartBattle(player, enemy);
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour
 
     void EndBattle(bool isWon){
         state = GameState.FreeRoam;
+        playerController.inBattle = false;
         battleSystem.gameObject.SetActive(false);
         worldCamera.gameObject.SetActive(true);
     }

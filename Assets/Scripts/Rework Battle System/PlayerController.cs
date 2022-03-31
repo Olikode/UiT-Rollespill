@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
 
+    public bool inBattle;
+
     public Rigidbody2D rb;
     private Vector2 moveDirection;
     private Vector3 originalSize;
@@ -56,7 +58,6 @@ public class PlayerController : MonoBehaviour
         if (collider.tag == "WildEnemy")
         {
             var enemyUnit = collider.gameObject.GetComponent<UnitList>();
-
             OnEncountered(enemyUnit);
             Destroy(collider.gameObject);
         }
