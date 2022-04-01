@@ -19,7 +19,7 @@ public class UnitBase : ScriptableObject
     [SerializeField] int maxHP;
     [SerializeField] int attackPower;
     [SerializeField] int defensePower;
-    [SerializeField] int dodge;
+    [SerializeField] int speed;
     [SerializeField] int hit;
     [SerializeField] int initiative;
 
@@ -51,8 +51,8 @@ public class UnitBase : ScriptableObject
         get { return defensePower;}
     }
 
-    public int Dodge {
-        get { return dodge;}
+    public int Speed {
+        get { return speed;}
     }
 
     public int Hit {
@@ -91,6 +91,14 @@ public enum ClassType{
     Fysikk,
     Oppgave,
     Eksamen,
+}
+
+public enum Stat{
+
+    Attack,
+    Defense,
+    Speed,
+
 }
 
 // type effectivenes

@@ -3,41 +3,103 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Move", menuName = "Unit/Create new move")]
-
 public class MoveBase : ScriptableObject
 {
-    [SerializeField] string name;
+    [SerializeField]
+    string name;
 
     [TextArea]
-    [SerializeField] string description;
+    [SerializeField]
+    string description;
 
-    [SerializeField] ClassType type;
-    [SerializeField] int power;
-    [SerializeField] int accuracy;
-    [SerializeField] int pp;
+    [SerializeField]
+    ClassType type;
 
+    [SerializeField]
+    MoveCategory category;
 
+    [SerializeField]
+    int power;
 
-    public string Name {
-        get {return name;}
+    [SerializeField]
+    int accuracy;
+
+    [SerializeField]
+    int pp;
+
+    [SerializeField]
+    MoveEffects effects;
+
+    [SerializeField]
+    MoveTarget target;
+
+    public string Name
+    {
+        get { return name; }
     }
-    public string Description{
-        get {return description;}
+    public string Description
+    {
+        get { return description; }
     }
-    public ClassType Type{
-        get {return type;}
+    public ClassType Type
+    {
+        get { return type; }
     }
-    public int Power{
-        get {return power;}
+    public MoveCategory Category
+    {
+        get { return category; }
     }
-    public int Accuracy{
-        get {return accuracy;}
+    public int Power
+    {
+        get { return power; }
     }
-    public int PP{
-        get {return pp;}
+    public int Accuracy
+    {
+        get { return accuracy; }
+    }
+    public int PP
+    {
+        get { return pp; }
     }
 
+    public MoveEffects Effects
+    {
+        get { return effects; }
+    }
 
-    
+    public MoveTarget Target
+    {
+        get { return target; }
+    }
+}
 
+[System.Serializable]
+public class MoveEffects
+{
+    [SerializeField]
+    List<StatBoost> boosts;
+
+    public List<StatBoost> Boosts
+    {
+        get { return boosts; }
+    }
+}
+
+[System.Serializable]
+public class StatBoost
+{
+    public Stat stat;
+    public int boost;
+}
+
+public enum MoveCategory
+{
+    Normal,
+    Status,
+}
+
+public enum MoveTarget
+{
+    Self,
+    Enemy
 }

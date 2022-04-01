@@ -5,29 +5,31 @@ using UnityEngine;
 [System.Serializable]
 public class Unit
 {
-    [SerializeField] UnitBase _base;
-    [SerializeField] int level;
+    [SerializeField]
+    UnitBase _base;
 
-    public UnitBase Base { 
-        get {
-            return _base;
-        }
-     }
-    public int Level { 
-        get {
-            return level;
-        }
-     }
+    [SerializeField]
+    int level;
+
+    public UnitBase Base
+    {
+        get { return _base; }
+    }
+    public int Level
+    {
+        get { return level; }
+    }
 
     // current HP
     public int HP { get; set; }
 
     public List<Move> Moves { get; set; }
+    public Dictionary<Stat, int> Stats { get; private set; }
+
+    public Dictionary<Stat, int> StatBoosts { get; private set; }
 
     public void Init()
     {
-        HP = MaxHP;
-
         // Generates moves
         Moves = new List<Move>();
         foreach (var move in Base.LearnableMoves)
@@ -40,28 +42,78 @@ public class Unit
             if (Moves.Count >= 4)
                 break;
         }
+
+        CalculateStats();
+
+        HP = MaxHP;
+
+        StatBoosts = new Dictionary<Stat, int>()
+        {
+            { Stat.Attack, 0 },
+            { Stat.Defense, 0 },
+            { Stat.Speed, 0 },
+        };
     }
 
-    public int MaxHP
+    void CalculateStats()
     {
-        get { return Mathf.FloorToInt((Base.MaxHP * Level) / 10f) + 10; }
+        Stats = new Dictionary<Stat, int>();
+        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.AttackPower * Level) / 10f) + 5);
+        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.DefensePower * Level) / 10f) + 5);
+        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 10f) + 5);
+
+        MaxHP = Mathf.FloorToInt((Base.MaxHP * Level) / 10f) + 10;
     }
+
+    int GetStat(Stat stat)
+    {
+        int statVal = Stats[stat];
+
+        // TODO: apply stat boost
+        int boost = StatBoosts[stat];
+        var boostValues = new float[]{1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f};
+
+        if(boost >= 0)
+            statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
+        else
+            statVal = Mathf.FloorToInt(statVal / boostValues[-boost]);
+
+
+        return statVal;
+    }
+
+    public void ApplyBoosts(List<StatBoost> statBoosts){
+        foreach (var statBoost in statBoosts){
+            var stat = statBoost.stat;
+            var boost = statBoost.boost;
+
+            StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
+
+            Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
+        }
+    }
+
+    public int MaxHP { get; private set; }
+
     public int AttackPower
     {
-        get { return Mathf.FloorToInt((Base.AttackPower * Level) / 10f) + 5; }
+        get { return GetStat(Stat.Attack); }
     }
+
     public int DefensePower
     {
-        get { return Mathf.FloorToInt((Base.DefensePower * Level) / 10f) + 5; }
+        get { return GetStat(Stat.Defense); }
     }
-    public int Dodge
+
+    public int Speed
     {
-        get { return Mathf.FloorToInt((Base.Dodge * Level) / 10f) + 5; }
+        get { return GetStat(Stat.Speed); }
     }
-    public int Hit
+
+    /* public int Hit
     {
         get { return Mathf.FloorToInt((Base.Hit * Level) / 10f) + 5; }
-    }
+    }*/
 
     public DamageDetails TakeDamage(Move move, Unit attacker)
     {
@@ -69,10 +121,7 @@ public class Unit
         if (Random.value * 100f <= 6.25f)
             critical = 2f;
 
-        var damageDetails = new DamageDetails(){
-            Critical = critical,
-            Fainted = false,
-        };
+        var damageDetails = new DamageDetails() { Critical = critical, Fainted = false, };
 
         float modifiers = Random.Range(0.85f, 1f) * critical;
         float a = (2 * attacker.Level + 10) / 250f;
@@ -99,7 +148,7 @@ public class Unit
 public class DamageDetails
 {
     public bool Fainted { get; set; }
-    public float Critical {get; set;}
+    public float Critical { get; set; }
 
     // public float type {get; set;}
 }

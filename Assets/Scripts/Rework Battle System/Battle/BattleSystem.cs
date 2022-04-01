@@ -101,21 +101,39 @@ public class BattleSystem : MonoBehaviour
     IEnumerator RunMove(BattleUnit attacker, BattleUnit defender, Move move)
     {
         move.PP--;
-        yield return dialogBox.TypeDialog(
-            $"{attacker.Unit.Base.Name} angriper med {move.Base.Name}"
-        );
+        yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} bruker {move.Base.Name}");
 
-        attacker.PlayAttackAnimation();
-        yield return new WaitForSeconds(1f);
-
-        defender.PlayHitAnimation();
-        var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
-        yield return defender.Hud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-        if (damageDetails.Fainted)
+        if (move.Base.Category == MoveCategory.Status)
         {
-            yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} er beseiret");
+            var effects = move.Base.Effects;
+
+            if (move.Base.Effects.Boosts != null)
+            {
+                if (move.Base.Target == MoveTarget.Self)
+                {
+                    attacker.Unit.ApplyBoosts(effects.Boosts);
+                }
+                else
+                {
+                    defender.Unit.ApplyBoosts(effects.Boosts);
+                }
+            }
+        }
+        else if (move.Base.Category == MoveCategory.Normal)
+        {
+            attacker.PlayAttackAnimation();
+            yield return new WaitForSeconds(1f);
+
+            defender.PlayHitAnimation();
+
+            var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
+            yield return defender.Hud.UpdateHP();
+            yield return ShowDamageDetails(damageDetails);
+        }
+
+        if (defender.Unit.HP <= 0)
+        {
+            yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} har tapt");
             defender.PlayDieAnimation();
             yield return new WaitForSeconds(2f);
 
