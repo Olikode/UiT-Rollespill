@@ -6,10 +6,11 @@ using UnityEngine;
 public enum BattleState
 {
     Start,
-    PlayerAction,
-    PlayerMove,
-    EnemyMove,
-    Busy
+    ActionSelection,
+    MoveSelection,
+    PerformMove,
+    Busy,
+    BattleOver
 }
 
 public class BattleSystem : MonoBehaviour
@@ -18,19 +19,12 @@ public class BattleSystem : MonoBehaviour
     BattleUnit playerUnit;
 
     [SerializeField]
-    BattleHud playerHud;
-
-    [SerializeField]
     BattleUnit enemyUnit;
-
-    [SerializeField]
-    BattleHud enemyHud;
 
     [SerializeField]
     BattleDialogBox dialogBox;
 
     public event Action<bool> OnBattleOver;
-
 
     BattleState state;
     int currentAction;
@@ -42,7 +36,7 @@ public class BattleSystem : MonoBehaviour
     public void StartBattle(UnitList player, UnitList enemy)
     {
         this.player = player;
-        this.enemy =  enemy;
+        this.enemy = enemy;
         StartCoroutine(SetupBattle());
     }
 
@@ -50,27 +44,31 @@ public class BattleSystem : MonoBehaviour
     {
         playerUnit.Setup(player.GetHealthyUnit());
         enemyUnit.Setup(enemy.GetHealthyUnit());
-        playerHud.SetData(playerUnit.Unit);
-        enemyHud.SetData(enemyUnit.Unit);
 
         dialogBox.SetMoveNames(playerUnit.Unit.Moves);
 
         yield return dialogBox.TypeDialog($"En vill {enemyUnit.Unit.Base.Name} dukket opp");
 
-        PlayerAction();
+        ActionSelection();
     }
 
-    void PlayerAction()
+    void BattleOver(bool isWon)
     {
-        state = BattleState.PlayerAction;
+        state = BattleState.BattleOver;
+        OnBattleOver(isWon);
+    }
+
+    void ActionSelection()
+    {
+        state = BattleState.ActionSelection;
         StartCoroutine(dialogBox.TypeDialog("Hva vil du gjøre?"));
 
         dialogBox.EnableActionSelector(true);
     }
 
-    void PlayerMove()
+    void MoveSelection()
     {
-        state = BattleState.PlayerMove;
+        state = BattleState.MoveSelection;
 
         dialogBox.EnableActionSelector(false);
         dialogBox.EnableDialogText(false);
@@ -78,74 +76,81 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableMoveSelector(true);
     }
 
-    IEnumerator PerformPlayerMove()
+    IEnumerator PlayerMove()
     {
-        state = BattleState.Busy;
+        state = BattleState.PerformMove;
 
         var move = playerUnit.Unit.Moves[currentMove];
-        move.PP--;
-        yield return dialogBox.TypeDialog($"Du angriper med {move.Base.Name}");
+        yield return RunMove(playerUnit, enemyUnit, move);
 
-        playerUnit.PlayAttackAnimation();
-        yield return new WaitForSeconds(1f);
-
-        enemyUnit.PlayHitAnimation();
-        var damageDetails = enemyUnit.Unit.TakeDamage(move, playerUnit.Unit);
-        yield return enemyHud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-        if(damageDetails.Fainted){
-            yield return dialogBox.TypeDialog($"{enemyUnit.Unit.Base.Name} er beseiret");
-            enemyUnit.PlayDieAnimation();
-
-            yield return new WaitForSeconds(2f);
-            OnBattleOver(true);
-        }
-        else{
+        if (state == BattleState.PerformMove)
             StartCoroutine(EnemyMove());
-        }
     }
 
-    IEnumerator EnemyMove(){
-        state = BattleState.EnemyMove;
+    IEnumerator EnemyMove()
+    {
+        state = BattleState.PerformMove;
 
         var move = enemyUnit.Unit.GetRandomMove();
-        move.PP--;
-        yield return dialogBox.TypeDialog($"{enemyUnit.Unit.Base.Name} angriper med {move.Base.Name}");
+        yield return RunMove(enemyUnit, playerUnit, move);
 
-        enemyUnit.PlayAttackAnimation();
+        if (state == BattleState.PerformMove)
+            ActionSelection();
+    }
+
+    IEnumerator RunMove(BattleUnit attacker, BattleUnit defender, Move move)
+    {
+        move.PP--;
+        yield return dialogBox.TypeDialog(
+            $"{attacker.Unit.Base.Name} angriper med {move.Base.Name}"
+        );
+
+        attacker.PlayAttackAnimation();
         yield return new WaitForSeconds(1f);
 
-        playerUnit.PlayHitAnimation();
-        var damageDetails = playerUnit.Unit.TakeDamage(move, enemyUnit.Unit);
-        yield return playerHud.UpdateHP();
+        defender.PlayHitAnimation();
+        var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
+        yield return defender.Hud.UpdateHP();
         yield return ShowDamageDetails(damageDetails);
 
-        if(damageDetails.Fainted){
-            yield return dialogBox.TypeDialog($"Du tapte");
-            playerUnit.PlayDieAnimation();
-
+        if (damageDetails.Fainted)
+        {
+            yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} er beseiret");
+            defender.PlayDieAnimation();
             yield return new WaitForSeconds(2f);
-            OnBattleOver(false);
-        }
-        else{
-            PlayerAction();
+
+            CheckForBattleOver(defender);
         }
     }
 
-    IEnumerator ShowDamageDetails(DamageDetails damageDetails){
-        if(damageDetails.Critical > 1f){
+    void CheckForBattleOver(BattleUnit faintedUnit)
+    {
+        if (faintedUnit.IsPlayer)
+        {
+            BattleOver(false);
+        }
+        else
+        {
+            //check if oponent has more units
+            BattleOver(true);
+        }
+    }
+
+    IEnumerator ShowDamageDetails(DamageDetails damageDetails)
+    {
+        if (damageDetails.Critical > 1f)
+        {
             yield return dialogBox.TypeDialog("Et kritisk treff");
         }
     }
 
     public void HandleUpdate()
     {
-        if (state == BattleState.PlayerAction)
+        if (state == BattleState.ActionSelection)
         {
             HandleActionSelection();
         }
-        else if (state == BattleState.PlayerMove)
+        else if (state == BattleState.MoveSelection)
         {
             HandleMoveSelection();
         }
@@ -170,7 +175,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (currentAction == 0)
             {
-                PlayerMove();
+                MoveSelection();
             }
             else if (currentAction == 1) { }
         }
@@ -207,7 +212,7 @@ public class BattleSystem : MonoBehaviour
 
             dialogBox.EnableDialogText(true);
 
-            StartCoroutine(PerformPlayerMove());
+            StartCoroutine(PlayerMove());
         }
     }
 }

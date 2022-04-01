@@ -9,6 +9,15 @@ public class BattleUnit : MonoBehaviour
     
 
     [SerializeField] bool isPlayer;
+    [SerializeField] BattleHud hud;
+
+    public bool IsPlayer{
+        get{return isPlayer;}
+    }
+
+    public BattleHud Hud {
+        get{return hud;}
+    }
 
     public Unit Unit { get; set; }
 
@@ -26,6 +35,7 @@ public class BattleUnit : MonoBehaviour
     {
         Unit = unit;
         image.sprite = Unit.Base.Sprite;
+        hud.SetData(unit);
 
         image.color = orginalColor;
         PlayEnterAnimation();

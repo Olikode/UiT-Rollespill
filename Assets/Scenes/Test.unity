@@ -1394,9 +1394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUnit: {fileID: 1676979562}
-  playerHud: {fileID: 1440993856}
   enemyUnit: {fileID: 2146078393}
-  enemyHud: {fileID: 1956138558}
   dialogBox: {fileID: 1742041851}
 --- !u!4 &309139139
 Transform:
@@ -7116,6 +7114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  hud: {fileID: 0}
 --- !u!61 &566243004
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7761,7 +7760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   units:
   - _base: {fileID: 11400000, guid: 38dc188aee7aa7f44b1eec12d39f7ed8, type: 2}
-    level: 25
+    level: 5
 --- !u!1 &732933123
 GameObject:
   m_ObjectHideFlags: 0
@@ -9932,7 +9931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1189419288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10670,6 +10669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  hud: {fileID: 0}
 --- !u!114 &1397721137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11118,6 +11118,10 @@ PrefabInstance:
     - target: {fileID: 2706650765824412088, guid: 0baafc9e26936c847ad548c9cbb7783a, type: 3}
       propertyPath: m_Name
       value: Player_old
+      objectReference: {fileID: 0}
+    - target: {fileID: 2706650765824412088, guid: 0baafc9e26936c847ad548c9cbb7783a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2706650765824412088, guid: 0baafc9e26936c847ad548c9cbb7783a, type: 3}
       propertyPath: m_TagString
@@ -11624,6 +11628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
+  hud: {fileID: 1440993856}
 --- !u!1 &1742041850
 GameObject:
   m_ObjectHideFlags: 0
@@ -40039,3 +40044,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  hud: {fileID: 1956138558}

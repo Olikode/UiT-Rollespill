@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Nerdekraft
   description: 
-  type: 0
+  type: 1
   power: 100
   accuracy: 95
   pp: 5
