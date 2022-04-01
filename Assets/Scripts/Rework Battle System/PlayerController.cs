@@ -27,6 +27,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (inBattle)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
+        else if (!inBattle)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
         Move();
     }
 

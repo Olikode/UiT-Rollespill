@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
         else if (!player.gameObject.GetComponent<PlayerController>().inBattle)
         {
             rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         Move();
     }

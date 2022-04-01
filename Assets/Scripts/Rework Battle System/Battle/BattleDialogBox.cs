@@ -48,7 +48,14 @@ public class BattleDialogBox : MonoBehaviour
         foreach (var letter in dialg.ToCharArray())
         {
             dialogText.text += letter;
-            yield return new WaitForSeconds(1f / letterPerSecond);
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Return))
+            {
+                yield return new WaitForSeconds(1f / (letterPerSecond*10));
+            }
+            else
+            {
+                yield return new WaitForSeconds(1f / (letterPerSecond));
+            }
         }
 
         yield return new WaitForSeconds(1f);
@@ -82,9 +89,11 @@ public class BattleDialogBox : MonoBehaviour
         }
     }
 
-    public void UpdateMoveSelection(int selectedMove, Move move){
+    public void UpdateMoveSelection(int selectedMove, Move move)
+    {
         // highlights currently selected move
-        for (int i=0; i < moveText.Count; ++i){
+        for (int i = 0; i < moveText.Count; ++i)
+        {
             if (i == selectedMove)
                 moveText[i].color = highLightedColor;
             else
@@ -92,7 +101,7 @@ public class BattleDialogBox : MonoBehaviour
         }
 
         // show info of currently selected move
-        ppText.text =$"PP {move.PP}/{move.Base.PP}";
+        ppText.text = $"PP {move.PP}/{move.Base.PP}";
         typeText.text = move.Base.Type.ToString();
     }
 
