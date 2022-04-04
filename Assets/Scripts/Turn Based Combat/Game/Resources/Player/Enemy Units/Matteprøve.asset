@@ -19,9 +19,13 @@ MonoBehaviour:
   maxHP: 50
   attackPower: 40
   defensePower: 40
-  dodge: 36
+  speed: 45
   hit: 50
   initiative: 10
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}
+  - moveBase: {fileID: 11400000, guid: ad40697a7ba3ba343aa25b7c7284edbe, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 133193c8a96f6e440bb65864cc1d4576, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 51fb350baf29ff94aa08f6b43edec3b7, type: 2}
     level: 0

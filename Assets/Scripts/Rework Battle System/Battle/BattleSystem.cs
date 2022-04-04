@@ -49,12 +49,21 @@ public class BattleSystem : MonoBehaviour
 
         yield return dialogBox.TypeDialog($"En vill {enemyUnit.Unit.Base.Name} dukket opp");
 
-        ActionSelection();
+        ChooseFirstTurn();
+    }
+
+    void ChooseFirstTurn()
+    {
+        if (playerUnit.Unit.Speed >= enemyUnit.Unit.Speed)
+            ActionSelection();
+        else
+            StartCoroutine(EnemyMove());
     }
 
     void BattleOver(bool isWon)
     {
         state = BattleState.BattleOver;
+        playerUnit.Unit.OnBattleOver();
         OnBattleOver(isWon);
     }
 
@@ -100,32 +109,27 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit attacker, BattleUnit defender, Move move)
     {
+        bool canRunMove = attacker.Unit.OnBeforeMove();
+        if (!canRunMove)
+        {
+            yield return ShowStatusChanges(attacker.Unit);
+            yield break;
+        }
+        yield return ShowStatusChanges(attacker.Unit);
+
         move.PP--;
         yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} bruker {move.Base.Name}");
 
+        attacker.PlayAttackAnimation();
+        yield return new WaitForSeconds(1f);
+        defender.PlayHitAnimation();
+
         if (move.Base.Category == MoveCategory.Status)
         {
-            var effects = move.Base.Effects;
-
-            if (move.Base.Effects.Boosts != null)
-            {
-                if (move.Base.Target == MoveTarget.Self)
-                {
-                    attacker.Unit.ApplyBoosts(effects.Boosts);
-                }
-                else
-                {
-                    defender.Unit.ApplyBoosts(effects.Boosts);
-                }
-            }
+            yield return RunMoveEffects(move, attacker.Unit, defender.Unit);
         }
         else if (move.Base.Category == MoveCategory.Normal)
         {
-            attacker.PlayAttackAnimation();
-            yield return new WaitForSeconds(1f);
-
-            defender.PlayHitAnimation();
-
             var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
             yield return defender.Hud.UpdateHP();
             yield return ShowDamageDetails(damageDetails);
@@ -138,6 +142,56 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
             CheckForBattleOver(defender);
+        }
+
+        // Some status effects will change HP of the unit after the turn
+        defender.Unit.OnAfterTurn();
+        yield return ShowStatusChanges(attacker.Unit);
+        yield return attacker.Hud.UpdateHP();
+
+        if (attacker.Unit.HP <= 0)
+        {
+            yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har tapt");
+            attacker.PlayDieAnimation();
+            yield return new WaitForSeconds(2f);
+
+            CheckForBattleOver(defender);
+        }
+    }
+
+    IEnumerator RunMoveEffects(Move move, Unit attacker, Unit defender)
+    {
+        var effects = move.Base.Effects;
+
+        // Stat boosting
+        if (move.Base.Effects.Boosts != null)
+        {
+            if (move.Base.Target == MoveTarget.Self)
+            {
+                attacker.ApplyBoosts(effects.Boosts);
+            }
+            else
+            {
+                defender.ApplyBoosts(effects.Boosts);
+            }
+        }
+
+        // Status condition
+        if (effects.Status != ConditionID.Null)
+        {
+            defender.SetStatus(effects.Status);
+        }
+
+        yield return ShowStatusChanges(attacker);
+        yield return ShowStatusChanges(defender);
+    }
+
+    IEnumerator ShowStatusChanges(Unit unit)
+    {
+        while (unit.StatusChanges.Count > 0)
+        {
+            var message = unit.StatusChanges.Dequeue();
+            yield return dialogBox.TypeDialog(message);
         }
     }
 

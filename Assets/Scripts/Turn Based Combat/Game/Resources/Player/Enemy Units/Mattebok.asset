@@ -19,7 +19,7 @@ MonoBehaviour:
   maxHP: 58
   attackPower: 55
   defensePower: 55
-  dodge: 27
+  speed: 35
   hit: 50
   initiative: 10
   learnableMoves:

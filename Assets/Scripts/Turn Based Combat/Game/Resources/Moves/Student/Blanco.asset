@@ -10,11 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
-  m_Name: "Luresp\xF8rsm\xE5l"
+  m_Name: Blanco
   m_EditorClassIdentifier: 
-  name: "Luresp\xF8rsm\xE5l"
+  name: 
   description: 
-  type: 5
-  power: 45
-  accuracy: 95
-  pp: 15
+  type: 0
+  category: 0
+  power: 0
+  accuracy: 0
+  pp: 0
+  effects:
+    boosts: []
+    status: 0
+  target: 0

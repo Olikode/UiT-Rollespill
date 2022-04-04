@@ -95,9 +95,9 @@ public enum ClassType{
 
 public enum Stat{
 
-    Attack,
-    Defense,
-    Speed,
+    Angrep,
+    Forsvar,
+    Hurtighet,
 
 }
 

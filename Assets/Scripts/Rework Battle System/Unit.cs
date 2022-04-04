@@ -28,6 +28,14 @@ public class Unit
 
     public Dictionary<Stat, int> StatBoosts { get; private set; }
 
+    public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
+
+    public Condition Status {get; set;}
+
+    public int StatusTime {get; set;}
+
+    public bool HpChanged {get; set;}
+
     public void Init()
     {
         // Generates moves
@@ -47,22 +55,27 @@ public class Unit
 
         HP = MaxHP;
 
-        StatBoosts = new Dictionary<Stat, int>()
-        {
-            { Stat.Attack, 0 },
-            { Stat.Defense, 0 },
-            { Stat.Speed, 0 },
-        };
+        ResetStatBoost();
     }
 
     void CalculateStats()
     {
         Stats = new Dictionary<Stat, int>();
-        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.AttackPower * Level) / 10f) + 5);
-        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.DefensePower * Level) / 10f) + 5);
-        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 10f) + 5);
+        Stats.Add(Stat.Angrep, Mathf.FloorToInt((Base.AttackPower * Level) / 10f) + 5);
+        Stats.Add(Stat.Forsvar, Mathf.FloorToInt((Base.DefensePower * Level) / 10f) + 5);
+        Stats.Add(Stat.Hurtighet, Mathf.FloorToInt((Base.Speed * Level) / 10f) + 5);
 
         MaxHP = Mathf.FloorToInt((Base.MaxHP * Level) / 10f) + 10;
+    }
+
+    void ResetStatBoost()
+    {
+        StatBoosts = new Dictionary<Stat, int>()
+        {
+            { Stat.Angrep, 0 },
+            { Stat.Forsvar, 0 },
+            { Stat.Hurtighet, 0 },
+        };
     }
 
     int GetStat(Stat stat)
@@ -71,23 +84,33 @@ public class Unit
 
         // TODO: apply stat boost
         int boost = StatBoosts[stat];
-        var boostValues = new float[]{1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f};
+        var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
 
-        if(boost >= 0)
+        if (boost >= 0)
             statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
         else
             statVal = Mathf.FloorToInt(statVal / boostValues[-boost]);
 
-
         return statVal;
     }
 
-    public void ApplyBoosts(List<StatBoost> statBoosts){
-        foreach (var statBoost in statBoosts){
+    public void ApplyBoosts(List<StatBoost> statBoosts)
+    {
+        foreach (var statBoost in statBoosts)
+        {
             var stat = statBoost.stat;
             var boost = statBoost.boost;
 
             StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
+
+            if (boost > 0)
+            {
+                StatusChanges.Enqueue($"{Base.Name} sitt {stat}-nivå økte");
+            }
+            else
+            {
+                StatusChanges.Enqueue($"{Base.Name} sitt {stat}-nivå minsket");
+            }
 
             Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
         }
@@ -97,17 +120,17 @@ public class Unit
 
     public int AttackPower
     {
-        get { return GetStat(Stat.Attack); }
+        get { return GetStat(Stat.Angrep); }
     }
 
     public int DefensePower
     {
-        get { return GetStat(Stat.Defense); }
+        get { return GetStat(Stat.Forsvar); }
     }
 
     public int Speed
     {
-        get { return GetStat(Stat.Speed); }
+        get { return GetStat(Stat.Hurtighet); }
     }
 
     /* public int Hit
@@ -128,20 +151,47 @@ public class Unit
         float d = a * move.Base.Power * ((float)attacker.AttackPower / DefensePower) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        HP -= damage;
-        if (HP <= 0)
-        {
-            HP = 0;
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(damage);
 
         return damageDetails;
+    }
+
+    public void UpdateHP(int damage){
+        HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+        HpChanged = true;
+    }
+
+    public void SetStatus(ConditionID conditionId){
+        Status = ConditionsDB.Conditions[conditionId];
+        Status?.OnStart?.Invoke(this);
+        StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
+    }
+
+    public void CureStatus(){
+        Status = null;
+    }
+
+    public void OnAfterTurn(){
+        Status?.OnAfterTurn?.Invoke(this);
+    }
+
+    public bool OnBeforeMove(){
+
+        if(Status?.OnBeforeMove != null){
+            return Status.OnBeforeMove(this);
+        }
+
+        return true;
     }
 
     public Move GetRandomMove()
     {
         int r = Random.Range(0, Moves.Count);
         return Moves[r];
+    }
+
+    public void OnBattleOver(){
+        ResetStatBoost();
     }
 }
 
