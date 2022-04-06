@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Blanco
   m_EditorClassIdentifier: 
-  name: 
+  name: Blanco
   description: 
   type: 0
-  category: 0
+  category: 1
   power: 0
-  accuracy: 0
-  pp: 0
+  accuracy: 100
+  pp: 10
   effects:
     boosts: []
-    status: 0
-  target: 0
+    status: 3
+  target: 1

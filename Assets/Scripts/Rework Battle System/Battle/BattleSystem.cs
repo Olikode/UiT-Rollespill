@@ -133,6 +133,17 @@ public class BattleSystem : MonoBehaviour
             var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
             yield return defender.Hud.UpdateHP();
             yield return ShowDamageDetails(damageDetails);
+
+            if(defender.Unit.Status?.Id != null){
+                if(defender.Unit.Status.Id.Equals(ConditionID.Søvn)){
+                    Debug.Log("Før: " + defender.Unit.StatusTime);
+                    var random = UnityEngine.Random.Range(0,2);
+                    if(random == 1){
+                        defender.Unit.StatusTime -= 1;
+                        yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} vrir seg i søvne");
+                    }   
+                }
+            }
         }
 
         if (defender.Unit.HP <= 0)

@@ -23,5 +23,7 @@ MonoBehaviour:
   hit: 50
   initiative: 10
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}
+  - moveBase: {fileID: 11400000, guid: 51fb350baf29ff94aa08f6b43edec3b7, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: c2870fde372b4cd43b8d753872a0f7e6, type: 2}
     level: 0

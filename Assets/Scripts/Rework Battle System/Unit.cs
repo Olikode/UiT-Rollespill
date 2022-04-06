@@ -30,11 +30,13 @@ public class Unit
 
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
 
-    public Condition Status {get; set;}
+    public Condition Status { get; set; }
 
-    public int StatusTime {get; set;}
+    public int StatusTime { get; set; }
 
-    public bool HpChanged {get; set;}
+    public bool HpChanged { get; set; }
+
+    public event System.Action OnStatusChanged;
 
     public void Init()
     {
@@ -65,7 +67,7 @@ public class Unit
         Stats.Add(Stat.Forsvar, Mathf.FloorToInt((Base.DefensePower * Level) / 10f) + 5);
         Stats.Add(Stat.Hurtighet, Mathf.FloorToInt((Base.Speed * Level) / 10f) + 5);
 
-        MaxHP = Mathf.FloorToInt((Base.MaxHP * Level) / 10f) + 10;
+        MaxHP = Mathf.FloorToInt((Base.MaxHP * Level) / 10f) + 10 + Level;
     }
 
     void ResetStatBoost()
@@ -156,28 +158,38 @@ public class Unit
         return damageDetails;
     }
 
-    public void UpdateHP(int damage){
+    public void UpdateHP(int damage)
+    {
         HP = Mathf.Clamp(HP - damage, 0, MaxHP);
         HpChanged = true;
     }
 
-    public void SetStatus(ConditionID conditionId){
+    public void SetStatus(ConditionID conditionId)
+    {
+        if (Status != null)
+            return;
+
         Status = ConditionsDB.Conditions[conditionId];
         Status?.OnStart?.Invoke(this);
         StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
     }
 
-    public void CureStatus(){
+    public void CureStatus()
+    {
         Status = null;
+        OnStatusChanged?.Invoke();
     }
 
-    public void OnAfterTurn(){
+    public void OnAfterTurn()
+    {
         Status?.OnAfterTurn?.Invoke(this);
     }
 
-    public bool OnBeforeMove(){
-
-        if(Status?.OnBeforeMove != null){
+    public bool OnBeforeMove()
+    {
+        if (Status?.OnBeforeMove != null)
+        {
             return Status.OnBeforeMove(this);
         }
 
@@ -190,7 +202,8 @@ public class Unit
         return Moves[r];
     }
 
-    public void OnBattleOver(){
+    public void OnBattleOver()
+    {
         ResetStatBoost();
     }
 }
