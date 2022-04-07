@@ -8,10 +8,12 @@ public enum BattleState
     Start,
     ActionSelection,
     MoveSelection,
-    PerformMove,
+    RunningTurn,
     Busy,
     BattleOver
 }
+
+public enum BattleAction { Move, UseItem, Run}
 
 public class BattleSystem : MonoBehaviour
 {
@@ -49,15 +51,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return dialogBox.TypeDialog($"En vill {enemyUnit.Unit.Base.Name} dukket opp");
 
-        ChooseFirstTurn();
-    }
-
-    void ChooseFirstTurn()
-    {
-        if (playerUnit.Unit.Speed >= enemyUnit.Unit.Speed)
-            ActionSelection();
-        else
-            StartCoroutine(EnemyMove());
+        ActionSelection();
     }
 
     void BattleOver(bool isWon)
@@ -85,25 +79,41 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableMoveSelector(true);
     }
 
-    IEnumerator PlayerMove()
-    {
-        state = BattleState.PerformMove;
+    IEnumerator RunTurns(BattleAction playerAction){
+        state = BattleState.RunningTurn;
 
-        var move = playerUnit.Unit.Moves[currentMove];
-        yield return RunMove(playerUnit, enemyUnit, move);
+        if (playerAction == BattleAction.Move){
+            playerUnit.Unit.CurrentMove = playerUnit.Unit.Moves[currentMove];
+            enemyUnit.Unit.CurrentMove = enemyUnit.Unit.GetRandomMove();
 
-        if (state == BattleState.PerformMove)
-            StartCoroutine(EnemyMove());
-    }
+            // check who attacks first
+            bool playerFirst = playerUnit.Unit.Speed >= enemyUnit.Unit.Speed;
 
-    IEnumerator EnemyMove()
-    {
-        state = BattleState.PerformMove;
+            var firstUnit = (playerFirst) ? playerUnit : enemyUnit;
+            var secondUnit = (playerFirst) ? enemyUnit : playerUnit;
 
-        var move = enemyUnit.Unit.GetRandomMove();
-        yield return RunMove(enemyUnit, playerUnit, move);
+            var SU = secondUnit.Unit;
 
-        if (state == BattleState.PerformMove)
+            // First Turn
+            yield return RunMove(firstUnit, secondUnit, firstUnit.Unit.CurrentMove);
+            yield return RunAfterTurn(firstUnit);
+            if (state == BattleState.BattleOver) yield break;
+
+            // check if secound unit is still alive
+            if(SU.HP > 0){
+                // Second Turn
+                yield return RunMove(secondUnit, firstUnit, secondUnit.Unit.CurrentMove);
+                yield return RunAfterTurn(secondUnit);
+                if (state == BattleState.BattleOver) yield break;
+            }
+        }
+        else {
+            // TODO: add more actions
+            // Enemy switching unit
+            // Using item
+        }
+
+        if(state != BattleState.BattleOver)
             ActionSelection();
     }
 
@@ -162,19 +172,6 @@ public class BattleSystem : MonoBehaviour
                 CheckForBattleOver(defender);
             }
 
-            // Some status effects will change HP of the unit after the turn
-            defender.Unit.OnAfterTurn();
-            yield return ShowStatusChanges(attacker.Unit);
-            yield return attacker.Hud.UpdateHP();
-
-            if (attacker.Unit.HP <= 0)
-            {
-                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har tapt");
-                attacker.PlayDieAnimation();
-                yield return new WaitForSeconds(2f);
-
-                CheckForBattleOver(defender);
-            }
         }
         else{
             yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} sitt angrep bommet");
@@ -204,6 +201,26 @@ public class BattleSystem : MonoBehaviour
 
         yield return ShowStatusChanges(attacker);
         yield return ShowStatusChanges(defender);
+    }
+
+    IEnumerator RunAfterTurn(BattleUnit attacker){
+
+        if (state == BattleState.BattleOver) yield break;
+        yield return new WaitUntil(() => state == BattleState.RunningTurn);
+
+        // Some status effects will change HP of the unit after the turn
+            attacker.Unit.OnAfterTurn();
+            yield return ShowStatusChanges(attacker.Unit);
+            yield return attacker.Hud.UpdateHP();
+
+            if (attacker.Unit.HP <= 0)
+            {
+                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har tapt");
+                attacker.PlayDieAnimation();
+                yield return new WaitForSeconds(2f);
+
+                CheckForBattleOver(attacker);
+            }
     }
 
     bool CheckIfMoveHits(Move move, Unit attacker, Unit defender){
@@ -295,7 +312,10 @@ public class BattleSystem : MonoBehaviour
             {
                 MoveSelection();
             }
-            else if (currentAction == 1) { }
+            else if (currentAction == 1) 
+            { 
+                // ryggsekk (use item)
+            }
         }
     }
 
@@ -330,7 +350,7 @@ public class BattleSystem : MonoBehaviour
 
             dialogBox.EnableDialogText(true);
 
-            StartCoroutine(PlayerMove());
+            StartCoroutine(RunTurns(BattleAction.Move));
         }
     }
 }

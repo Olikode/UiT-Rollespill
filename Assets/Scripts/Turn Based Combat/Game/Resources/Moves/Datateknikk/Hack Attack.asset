@@ -15,6 +15,17 @@ MonoBehaviour:
   name: Hack Attack
   description: 
   type: 1
+  category: 0
   power: 50
   accuracy: 95
+  alwaysHit: 0
   pp: 10
+  effects:
+    boosts: []
+    status: 0
+  secondaryEffects:
+    boosts: []
+    status: 3
+    chance: 30
+    target: 1
+  target: 1
