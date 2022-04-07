@@ -120,64 +120,73 @@ public class BattleSystem : MonoBehaviour
         move.PP--;
         yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} bruker {move.Base.Name}");
 
-        attacker.PlayAttackAnimation();
-        yield return new WaitForSeconds(1f);
-        defender.PlayHitAnimation();
+        if (CheckIfMoveHits(move, attacker.Unit, defender.Unit)){
 
-        if (move.Base.Category == MoveCategory.Status)
-        {
-            yield return RunMoveEffects(move, attacker.Unit, defender.Unit);
-        }
-        else if (move.Base.Category == MoveCategory.Normal)
-        {
-            var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
-            yield return defender.Hud.UpdateHP();
-            yield return ShowDamageDetails(damageDetails);
+            attacker.PlayAttackAnimation();
+            yield return new WaitForSeconds(1f);
+            defender.PlayHitAnimation();
 
-            if(defender.Unit.Status?.Id != null){
-                if(defender.Unit.Status.Id.Equals(ConditionID.Søvn)){
-                    Debug.Log("Før: " + defender.Unit.StatusTime);
-                    var random = UnityEngine.Random.Range(0,2);
-                    if(random == 1){
-                        defender.Unit.StatusTime -= 1;
-                        yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} vrir seg i søvne");
-                    }   
+            if (move.Base.Category == MoveCategory.Status)
+            {
+                yield return RunMoveEffects(move.Base.Effects, attacker.Unit, defender.Unit, move.Base.Target);
+            }
+            else if (move.Base.Category == MoveCategory.Normal)
+            {
+                var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
+                yield return defender.Hud.UpdateHP();
+                yield return ShowDamageDetails(damageDetails);
+
+                if(defender.Unit.Status?.Id != null){
+                    if(defender.Unit.Status.Id.Equals(ConditionID.Søvn)){
+                        var random = UnityEngine.Random.Range(0,2);
+                        if(random == 1){
+                            defender.Unit.StatusTime -= 1;
+                            yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} vrir seg i søvne");
+                        }   
+                    }
                 }
             }
+
+            if (move.Base.SecondaryEffects != null && defender.Unit.HP > 0){
+                var random = UnityEngine.Random.Range(1, 101);
+                if(random <= move.Base.SecondaryEffects.Chance)
+                    yield return RunMoveEffects(move.Base.SecondaryEffects, attacker.Unit, defender.Unit, move.Base.Target);
+            }
+
+            if (defender.Unit.HP <= 0)
+            {
+                yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} har tapt");
+                defender.PlayDieAnimation();
+                yield return new WaitForSeconds(2f);
+
+                CheckForBattleOver(defender);
+            }
+
+            // Some status effects will change HP of the unit after the turn
+            defender.Unit.OnAfterTurn();
+            yield return ShowStatusChanges(attacker.Unit);
+            yield return attacker.Hud.UpdateHP();
+
+            if (attacker.Unit.HP <= 0)
+            {
+                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har tapt");
+                attacker.PlayDieAnimation();
+                yield return new WaitForSeconds(2f);
+
+                CheckForBattleOver(defender);
+            }
         }
-
-        if (defender.Unit.HP <= 0)
-        {
-            yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} har tapt");
-            defender.PlayDieAnimation();
-            yield return new WaitForSeconds(2f);
-
-            CheckForBattleOver(defender);
-        }
-
-        // Some status effects will change HP of the unit after the turn
-        defender.Unit.OnAfterTurn();
-        yield return ShowStatusChanges(attacker.Unit);
-        yield return attacker.Hud.UpdateHP();
-
-        if (attacker.Unit.HP <= 0)
-        {
-            yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har tapt");
-            attacker.PlayDieAnimation();
-            yield return new WaitForSeconds(2f);
-
-            CheckForBattleOver(defender);
+        else{
+            yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} sitt angrep bommet");
         }
     }
 
-    IEnumerator RunMoveEffects(Move move, Unit attacker, Unit defender)
+    IEnumerator RunMoveEffects(MoveEffects effects, Unit attacker, Unit defender, MoveTarget target)
     {
-        var effects = move.Base.Effects;
-
         // Stat boosting
-        if (move.Base.Effects.Boosts != null)
+        if (effects.Boosts != null)
         {
-            if (move.Base.Target == MoveTarget.Self)
+            if (target == MoveTarget.Self)
             {
                 attacker.ApplyBoosts(effects.Boosts);
             }
@@ -195,6 +204,31 @@ public class BattleSystem : MonoBehaviour
 
         yield return ShowStatusChanges(attacker);
         yield return ShowStatusChanges(defender);
+    }
+
+    bool CheckIfMoveHits(Move move, Unit attacker, Unit defender){
+
+        if (move.Base.AlwaysHit == true)
+            return true;
+
+        float moveAccuracy = move.Base.Accuracy;
+
+        int accuracy = attacker.StatBoosts[Stat.Treffsikkerhet];
+        int evasion = defender.StatBoosts[Stat.Unnvikelse];
+
+        var boostValues = new float[] { 1f, 4f / 3f, 5f / 3f, 2f, 7f / 3f, 8f / 3f, 3f };
+
+        if(accuracy > 0)
+            moveAccuracy *= boostValues[accuracy];
+        else
+            moveAccuracy /= boostValues[-accuracy];
+
+        if(evasion > 0)
+            moveAccuracy /= boostValues[evasion];
+        else
+            moveAccuracy *= boostValues[-evasion];
+
+        return UnityEngine.Random.Range(1, 101) <= moveAccuracy;
     }
 
     IEnumerator ShowStatusChanges(Unit unit)
@@ -215,6 +249,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
             //check if oponent has more units
+            playerUnit.Unit.CureStatus();
             BattleOver(true);
         }
     }

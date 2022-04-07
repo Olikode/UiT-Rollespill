@@ -15,6 +15,17 @@ MonoBehaviour:
   name: Nerdekraft
   description: 
   type: 1
+  category: 0
   power: 100
-  accuracy: 95
+  accuracy: 90
+  alwaysHit: 0
   pp: 5
+  effects:
+    boosts: []
+    status: 0
+  secondaryEffects:
+    boosts: []
+    status: 0
+    chance: 0
+    target: 0
+  target: 0

@@ -77,6 +77,8 @@ public class Unit
             { Stat.Angrep, 0 },
             { Stat.Forsvar, 0 },
             { Stat.Hurtighet, 0 },
+            { Stat.Treffsikkerhet, 0 },
+            { Stat.Unnvikelse, 0 },
         };
     }
 

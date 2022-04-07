@@ -5,33 +5,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "Unit/Create new move")]
 public class MoveBase : ScriptableObject
 {
-    [SerializeField]
-    string name;
+    [SerializeField] string name;
 
     [TextArea]
-    [SerializeField]
-    string description;
+    [SerializeField] string description;
 
-    [SerializeField]
-    ClassType type;
+    [SerializeField] ClassType type;
 
-    [SerializeField]
-    MoveCategory category;
+    [SerializeField] MoveCategory category;
 
-    [SerializeField]
-    int power;
+    [SerializeField] int power;
 
-    [SerializeField]
-    int accuracy;
+    [SerializeField] int accuracy;
+    [SerializeField] bool alwaysHit;
 
-    [SerializeField]
-    int pp;
+    [SerializeField] int pp;
 
-    [SerializeField]
-    MoveEffects effects;
+    [SerializeField] MoveEffects effects;
+    [SerializeField] SecondaryEffects secondaryEffects;
 
-    [SerializeField]
-    MoveTarget target;
+    [SerializeField] MoveTarget target;
 
     public string Name
     {
@@ -57,6 +50,10 @@ public class MoveBase : ScriptableObject
     {
         get { return accuracy; }
     }
+    public bool AlwaysHit
+    {
+        get { return alwaysHit; }
+    }
     public int PP
     {
         get { return pp; }
@@ -65,6 +62,11 @@ public class MoveBase : ScriptableObject
     public MoveEffects Effects
     {
         get { return effects; }
+    }
+
+    public SecondaryEffects SecondaryEffects
+    {
+        get { return secondaryEffects; }
     }
 
     public MoveTarget Target
@@ -90,6 +92,21 @@ public class MoveEffects
     public ConditionID Status
     {
         get {return status;}
+    }
+}
+
+[System.Serializable]
+public class SecondaryEffects : MoveEffects
+{
+    [SerializeField] int chance;
+    [SerializeField] MoveTarget target;
+
+    public int Chance {
+        get {return chance;}
+    }
+
+    public MoveTarget Target {
+        get {return target;}
     }
 }
 

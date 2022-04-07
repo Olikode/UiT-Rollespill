@@ -15,11 +15,19 @@ MonoBehaviour:
   name: "Luresp\xF8rsm\xE5l"
   description: 
   type: 5
-  category: 1
-  power: 0
+  category: 0
+  power: 25
   accuracy: 95
+  alwaysHit: 0
   pp: 15
   effects:
     boosts: []
+    status: 0
+  secondaryEffects:
+    boosts:
+    - stat: 4
+      boost: -1
     status: 3
-  target: 1
+    chance: 25
+    target: 1
+  target: 0

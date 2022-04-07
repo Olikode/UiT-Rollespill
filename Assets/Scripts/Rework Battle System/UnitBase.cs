@@ -98,7 +98,8 @@ public enum Stat{
     Angrep,
     Forsvar,
     Hurtighet,
-
+    Treffsikkerhet,
+    Unnvikelse,
 }
 
 // type effectivenes
