@@ -35,10 +35,23 @@ public class BattleUnit : MonoBehaviour
     {
         Unit = unit;
         image.sprite = Unit.Base.Sprite;
+        hud.gameObject.SetActive(true);
         hud.SetData(unit);
 
         image.color = orginalColor;
         PlayEnterAnimation();
+    }
+
+    public void SetupNoAnimation(Unit unit)
+    {
+        Unit = unit;
+        image.sprite = Unit.Base.Sprite;
+        hud.gameObject.SetActive(true);
+        hud.SetData(unit);
+    }
+
+    public void Clear(){
+        hud.gameObject.SetActive(false);
     }
 
     public void PlayEnterAnimation(){

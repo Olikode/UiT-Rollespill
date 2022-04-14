@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fighter
   - WildEnemy
+  - Challenger
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BattleState
 {
@@ -24,6 +25,9 @@ public class BattleSystem : MonoBehaviour
     BattleUnit enemyUnit;
 
     [SerializeField]
+    GameObject challengerImage;
+
+    [SerializeField]
     BattleDialogBox dialogBox;
 
     public event Action<bool> OnBattleOver;
@@ -35,6 +39,10 @@ public class BattleSystem : MonoBehaviour
     UnitList player;
     UnitList enemy;
 
+    Challenger challenger;
+
+    bool isExamBattle = false;
+
     public void StartBattle(UnitList player, UnitList enemy)
     {
         this.player = player;
@@ -42,14 +50,52 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());
     }
 
+    public void StartExamBattle(UnitList player, UnitList enemy, Challenger x)
+    {
+        this.player = player;
+        this.enemy = enemy;
+        this.challenger = x;
+        Debug.Log(challenger.Name);
+        isExamBattle = true;
+
+        StartCoroutine(SetupBattle());
+    }
+
     public IEnumerator SetupBattle()
     {
-        playerUnit.Setup(player.GetHealthyUnit());
-        enemyUnit.Setup(enemy.GetHealthyUnit());
+        playerUnit.Clear();
+        enemyUnit.Clear();
 
-        dialogBox.SetMoveNames(playerUnit.Unit.Moves);
+        if(!isExamBattle){
+            // wild enemy
+            playerUnit.Setup(player.GetHealthyUnit());
+            enemyUnit.Setup(enemy.GetHealthyUnit());
 
-        yield return dialogBox.TypeDialog($"En vill {enemyUnit.Unit.Base.Name} dukket opp");
+            dialogBox.SetMoveNames(playerUnit.Unit.Moves);
+
+            yield return dialogBox.TypeDialog($"En vill {enemyUnit.Unit.Base.Name} dukket opp");
+        }
+        else{
+            // challenger
+
+            enemyUnit.gameObject.SetActive(false);
+
+            challengerImage.GetComponent<Image>().sprite = challenger.Sprite;
+            challengerImage.gameObject.SetActive(true);
+
+            yield return dialogBox.TypeDialog($"{challenger.Prefix} {challenger.Name} utfordrer deg");
+
+            // challenger sends out units
+            challengerImage.gameObject.SetActive(false);
+            enemyUnit.gameObject.SetActive(true);
+
+            var enemyUnits = enemy.GetHealthyUnit();
+            enemyUnit.Setup(enemyUnits);
+            playerUnit.SetupNoAnimation(player.GetHealthyUnit());
+
+            yield return dialogBox.TypeDialog($"{challenger.Name} sendte ut en {enemyUnits.Base.Name}");
+            dialogBox.SetMoveNames(playerUnit.Unit.Moves);
+        }
 
         ActionSelection();
     }
@@ -86,12 +132,22 @@ public class BattleSystem : MonoBehaviour
             playerUnit.Unit.CurrentMove = playerUnit.Unit.Moves[currentMove];
             enemyUnit.Unit.CurrentMove = enemyUnit.Unit.GetRandomMove();
 
-            // check who attacks first
-            bool playerFirst = playerUnit.Unit.Speed >= enemyUnit.Unit.Speed;
+            int playerMovePriority = playerUnit.Unit.CurrentMove.Base.Priority;
+            int enemyMovePriority = enemyUnit.Unit.CurrentMove.Base.Priority;
 
+            // check who attacks first
+            // if move priority is higher, that move always goes first
+            bool playerFirst = true;
+            if (enemyMovePriority > playerMovePriority)
+                playerFirst = false;
+            else if (enemyMovePriority == playerMovePriority){
+                playerFirst = playerUnit.Unit.Speed >= enemyUnit.Unit.Speed;
+            }
+    
             var firstUnit = (playerFirst) ? playerUnit : enemyUnit;
             var secondUnit = (playerFirst) ? enemyUnit : playerUnit;
 
+            // store secondUnit in variable in case it is killed before its turn and enemy switch out new unit
             var SU = secondUnit.Unit;
 
             // First Turn
@@ -265,9 +321,17 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            //check if oponent has more units
-            playerUnit.Unit.CureStatus();
-            BattleOver(true);
+            if (!isExamBattle){
+                playerUnit.Unit.CureStatus();
+                BattleOver(true);
+            }
+            else{
+                var nextUnit = enemy.GetHealthyUnit();
+                if(nextUnit != null)
+                    StartCoroutine(sendOutNextUnit(nextUnit));
+                else
+                    BattleOver(true);
+            }
         }
     }
 
@@ -346,11 +410,22 @@ public class BattleSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
+            var move = playerUnit.Unit.Moves[currentMove];
+            if (move.PP == 0) return;
+
             dialogBox.EnableMoveSelector(false);
 
             dialogBox.EnableDialogText(true);
 
             StartCoroutine(RunTurns(BattleAction.Move));
         }
+    }
+
+    IEnumerator sendOutNextUnit(Unit nextUnit){
+        state = BattleState.Busy;
+        enemyUnit.Setup(nextUnit);
+        yield return dialogBox.TypeDialog($"{challenger.Name} sendte ut {nextUnit.Base.Name}");
+
+        state = BattleState.RunningTurn;
     }
 }

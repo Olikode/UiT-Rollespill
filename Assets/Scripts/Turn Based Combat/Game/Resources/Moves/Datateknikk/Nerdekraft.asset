@@ -20,6 +20,7 @@ MonoBehaviour:
   accuracy: 90
   alwaysHit: 0
   pp: 5
+  priority: 0
   effects:
     boosts: []
     status: 0

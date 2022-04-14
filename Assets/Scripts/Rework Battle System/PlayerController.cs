@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     public event Action<UnitList> OnEncountered;
 
+    public event Action<UnitList, Challenger> OnChallenged;
+
     protected virtual void Start()
     {
         originalSize = transform.localScale;
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+        
         Move();
     }
 
@@ -70,5 +73,21 @@ public class PlayerController : MonoBehaviour
             OnEncountered(enemyUnit);
             Destroy(collider.gameObject);
         }
+
+        if (collider.tag == "Challenger")
+        {
+            var enemyUnits = collider.gameObject.GetComponent<UnitList>();
+            Challenger challenger = collider.gameObject.GetComponent<Challenger>();
+            OnChallenged(enemyUnits, challenger);
+            Destroy(collider.gameObject);
+        }
     }
+
+    /*private bool IsWalkable(Vector3 targetPos){
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, blockingLayer) != null){
+            return false;
+        }
+
+        return true;
+    }*/
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -201,8 +202,13 @@ public class Unit
 
     public Move GetRandomMove()
     {
-        int r = Random.Range(0, Moves.Count);
-        return Moves[r];
+        // currently this will give an error if enemy is out of moves with PP
+        // TODO: add a move the unit does if out of moves with PP
+        // or make sure the enemies always have a move with lots of PP
+        var movesWithPP = Moves.Where(x => x.PP > 0).ToList();
+
+        int r = Random.Range(0, movesWithPP.Count);
+        return movesWithPP[r];
     }
 
     public void OnBattleOver()

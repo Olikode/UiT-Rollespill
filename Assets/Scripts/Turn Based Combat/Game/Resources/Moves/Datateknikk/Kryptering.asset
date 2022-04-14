@@ -10,23 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
-  m_Name: Tungt Lesestoff
+  m_Name: Kryptering
   m_EditorClassIdentifier: 
-  name: Tungt Lesestoff
-  description: 
-  type: 5
-  category: 0
-  power: 40
-  accuracy: 95
+  name: Kryptering
+  description: Beskytt deg fra farer der ute!
+  type: 1
+  category: 1
+  power: 0
+  accuracy: 100
   alwaysHit: 0
-  pp: 10
+  pp: 25
   priority: 0
   effects:
-    boosts: []
+    boosts:
+    - stat: 1
+      boost: 1
     status: 0
   secondaryEffects:
     boosts: []
-    status: 2
-    chance: 40
-    target: 1
-  target: 1
+    status: 0
+    chance: 0
+    target: 0
+  target: 0
