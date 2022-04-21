@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BattleHud : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class BattleHud : MonoBehaviour
     [SerializeField]
     HPBar hpBar;
 
+    [SerializeField]
+    GameObject expBar;
+
     Unit _unit;
 
     public void SetData(Unit unit)
@@ -39,8 +43,9 @@ public class BattleHud : MonoBehaviour
         _unit = unit;
 
         nameText.text = unit.Base.Name;
-        lvlText.text = "Lvl " + unit.Level;
+        SetLevel();
         hpBar.SetHP((float)unit.HP / unit.MaxHP);
+        SetExp();
 
         SetStatusIcon();
         unit.OnStatusChanged += SetStatusIcon;
@@ -64,6 +69,41 @@ public class BattleHud : MonoBehaviour
             conditionImage.sprite = stunIcon;
             conditionImage.color = iconColor;
         }
+    }
+
+    public void SetLevel(){
+        lvlText.text = "Lvl " + _unit.Level;
+    }
+
+    public void SetExp()
+    {
+        if(expBar == null){
+            return;
+        }
+
+        float normalizedExp = GetNormalizedExp();
+        expBar.transform.localScale = new Vector3(normalizedExp, 1, 1);
+    }
+
+        public IEnumerator SetExpSmooth(bool reset=false)
+    {
+        if(expBar == null)
+            yield break;
+
+        if(reset)
+            expBar.transform.localScale = new Vector3(0, 1, 1);
+
+
+        float normalizedExp = GetNormalizedExp();
+        yield return expBar.transform.DOScaleX(normalizedExp, 1.5f).WaitForCompletion();
+    }
+
+    float GetNormalizedExp(){
+        int currentLevelExp = _unit.Base.GetExpForLevel(_unit.Level);
+        int nextLevelExp = _unit.Base.GetExpForLevel(_unit.Level + 1);
+
+        float normalizedExp = (float)(_unit.Exp - currentLevelExp) / (nextLevelExp - currentLevelExp);
+        return Mathf.Clamp01(normalizedExp);
     }
 
     public IEnumerator UpdateHP()

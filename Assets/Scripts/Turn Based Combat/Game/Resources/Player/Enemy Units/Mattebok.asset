@@ -17,11 +17,12 @@ MonoBehaviour:
   type: 5
   sprite: {fileID: 4577947218730944924, guid: a247212a4de048344a9899bae349390f, type: 3}
   maxHP: 58
-  attackPower: 55
+  attackPower: 50
   defensePower: 55
   speed: 35
   hit: 50
   initiative: 10
+  expYield: 50
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 51fb350baf29ff94aa08f6b43edec3b7, type: 2}
     level: 0

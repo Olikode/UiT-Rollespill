@@ -23,8 +23,17 @@ public class UnitBase : ScriptableObject
     [SerializeField] int hit;
     [SerializeField] int initiative;
 
+
+    [SerializeField] int expYield;
+
     // Unlock more moves when leveling up
     [SerializeField] List<LearnableMove> learnableMoves;
+
+
+    public int GetExpForLevel(int level)
+    {
+        return (9 *(level * level * level) / 5);
+    }
 
 
     public string Name {
@@ -61,6 +70,10 @@ public class UnitBase : ScriptableObject
 
     public List<LearnableMove> LearnableMoves {
         get { return learnableMoves; }
+    }
+
+    public int ExpYield{
+        get {return expYield;}
     }
 }
 

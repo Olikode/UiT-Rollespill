@@ -24,6 +24,8 @@ public class Unit
     // current HP
     public int HP { get; set; }
 
+    public int Exp {get; set;}
+
     public List<Move> Moves { get; set; }
     public Move CurrentMove {get; set; }
     public Dictionary<Stat, int> Stats { get; private set; }
@@ -55,8 +57,9 @@ public class Unit
                 break;
         }
 
-        CalculateStats();
+        Exp = Base.GetExpForLevel(level);
 
+        CalculateStats();
         HP = MaxHP;
 
         ResetStatBoost();
@@ -120,6 +123,15 @@ public class Unit
 
             Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
         }
+    }
+
+    public bool CheckForLevelUp(){
+        if (Exp >= Base.GetExpForLevel(level+1)){
+            ++level;
+            return true;
+        }
+
+        return false;
     }
 
     public int MaxHP { get; private set; }

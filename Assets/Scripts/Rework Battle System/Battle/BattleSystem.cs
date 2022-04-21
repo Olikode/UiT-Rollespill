@@ -47,6 +47,9 @@ public class BattleSystem : MonoBehaviour
     {
         this.player = player;
         this.enemy = enemy;
+
+        isExamBattle = false;
+        
         StartCoroutine(SetupBattle());
     }
 
@@ -55,7 +58,7 @@ public class BattleSystem : MonoBehaviour
         this.player = player;
         this.enemy = enemy;
         this.challenger = x;
-        Debug.Log(challenger.Name);
+        
         isExamBattle = true;
 
         StartCoroutine(SetupBattle());
@@ -221,11 +224,7 @@ public class BattleSystem : MonoBehaviour
 
             if (defender.Unit.HP <= 0)
             {
-                yield return dialogBox.TypeDialog($"{defender.Unit.Base.Name} har tapt");
-                defender.PlayDieAnimation();
-                yield return new WaitForSeconds(2f);
-
-                CheckForBattleOver(defender);
+                yield return HandleUnitFainted(defender);
             }
 
         }
@@ -271,11 +270,8 @@ public class BattleSystem : MonoBehaviour
 
             if (attacker.Unit.HP <= 0)
             {
-                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har tapt");
-                attacker.PlayDieAnimation();
-                yield return new WaitForSeconds(2f);
-
-                CheckForBattleOver(attacker);
+                yield return HandleUnitFainted(attacker);
+                yield return new WaitUntil(() => state == BattleState.RunningTurn);
             }
     }
 
@@ -311,6 +307,40 @@ public class BattleSystem : MonoBehaviour
             var message = unit.StatusChanges.Dequeue();
             yield return dialogBox.TypeDialog(message);
         }
+    }
+
+    IEnumerator HandleUnitFainted(BattleUnit faintedUnit)
+    {
+        yield return dialogBox.TypeDialog($"{faintedUnit.Unit.Base.Name} har tapt");
+        faintedUnit.PlayDieAnimation();
+        yield return new WaitForSeconds(2f);
+
+
+        if(!faintedUnit.IsPlayer)
+        {
+            // Exp gain
+            int expYield = faintedUnit.Unit.Base.ExpYield;
+            int levelBonus = faintedUnit.Unit.Level;
+            float examBonus = (isExamBattle)? 1.5f : 0.5f;
+
+            int expGain = Mathf.FloorToInt((expYield * levelBonus * examBonus)/10);
+            Debug.Log("exp " + expGain);
+            playerUnit.Unit.Exp += expGain;
+            yield return dialogBox.TypeDialog($"Du har fått {expGain} studiepoeng");
+            yield return playerUnit.Hud.SetExpSmooth();
+
+
+            // Level up
+            while (playerUnit.Unit.CheckForLevelUp()){
+                playerUnit.Hud.SetLevel();
+                yield return dialogBox.TypeDialog($"Du er nå level {playerUnit.Unit.Level}");
+
+                yield return playerUnit.Hud.SetExpSmooth(true);
+            }
+        }
+
+
+        CheckForBattleOver(faintedUnit);
     }
 
     void CheckForBattleOver(BattleUnit faintedUnit)
