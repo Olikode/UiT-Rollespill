@@ -26,12 +26,16 @@ public class UnitBase : ScriptableObject
 
     [SerializeField] int expYield;
 
+    public static int MaxNumOfMoves {get; set;} = 4;
+
     // Unlock more moves when leveling up
     [SerializeField] List<LearnableMove> learnableMoves;
 
 
     public int GetExpForLevel(int level)
     {
+        // formula for calculating exp gain
+        // TODO: rebalance when game is close to finished
         return (9 *(level * level * level) / 5);
     }
 

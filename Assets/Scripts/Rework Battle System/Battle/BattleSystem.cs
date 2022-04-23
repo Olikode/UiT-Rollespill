@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public enum BattleState
 {
@@ -11,6 +12,7 @@ public enum BattleState
     MoveSelection,
     RunningTurn,
     Busy,
+    MoveToForget,
     BattleOver
 }
 
@@ -18,17 +20,14 @@ public enum BattleAction { Move, UseItem, Run}
 
 public class BattleSystem : MonoBehaviour
 {
-    [SerializeField]
-    BattleUnit playerUnit;
+    [SerializeField] BattleUnit playerUnit;
+    [SerializeField] BattleUnit enemyUnit;
 
-    [SerializeField]
-    BattleUnit enemyUnit;
+    [SerializeField] GameObject challengerImage;
+    [SerializeField] BattleDialogBox dialogBox;
 
-    [SerializeField]
-    GameObject challengerImage;
+    [SerializeField] LearnMoveUI learnMoveUI;
 
-    [SerializeField]
-    BattleDialogBox dialogBox;
 
     public event Action<bool> OnBattleOver;
 
@@ -43,13 +42,15 @@ public class BattleSystem : MonoBehaviour
 
     bool isExamBattle = false;
 
+    MoveBase moveToLearn;
+
     public void StartBattle(UnitList player, UnitList enemy)
     {
         this.player = player;
         this.enemy = enemy;
 
         isExamBattle = false;
-        
+
         StartCoroutine(SetupBattle());
     }
 
@@ -275,6 +276,17 @@ public class BattleSystem : MonoBehaviour
             }
     }
 
+    IEnumerator ChooseMoveToFerget(MoveBase newMove)
+    {
+        state = BattleState.Busy;
+        yield return dialogBox.TypeDialog($"Velg et angrep å glemme");
+        learnMoveUI.gameObject.SetActive(true);
+        learnMoveUI.SetMoveData(playerUnit.Unit.Moves.Select(x => x.Base).ToList(), newMove);
+        moveToLearn = newMove;
+
+        state = BattleState.MoveToForget;
+    }
+
     bool CheckIfMoveHits(Move move, Unit attacker, Unit defender){
 
         if (move.Base.AlwaysHit == true)
@@ -315,7 +327,7 @@ public class BattleSystem : MonoBehaviour
         faintedUnit.PlayDieAnimation();
         yield return new WaitForSeconds(2f);
 
-
+        // Gain Exp if fainted unit is not the player
         if(!faintedUnit.IsPlayer)
         {
             // Exp gain
@@ -326,7 +338,7 @@ public class BattleSystem : MonoBehaviour
             int expGain = Mathf.FloorToInt((expYield * levelBonus * examBonus)/10);
             Debug.Log("exp " + expGain);
             playerUnit.Unit.Exp += expGain;
-            yield return dialogBox.TypeDialog($"Du har fått {expGain} studiepoeng");
+            yield return dialogBox.TypeDialog($"Hjernekraften din økte med {expGain}");
             yield return playerUnit.Hud.SetExpSmooth();
 
 
@@ -335,10 +347,30 @@ public class BattleSystem : MonoBehaviour
                 playerUnit.Hud.SetLevel();
                 yield return dialogBox.TypeDialog($"Du er nå level {playerUnit.Unit.Level}");
 
+                // Learn new move
+                var newMove = playerUnit.Unit.GetCurrentLevelMove();
+                if (newMove != null)
+                {
+                    if (playerUnit.Unit.Moves.Count < UnitBase.MaxNumOfMoves)
+                    {
+                        playerUnit.Unit.LearnMove(newMove);
+                        yield return dialogBox.TypeDialog($"Du har lært {newMove.Base.Name}");
+                        dialogBox.SetMoveNames(playerUnit.Unit.Moves);
+                    }
+                    else
+                    {
+                        yield return dialogBox.TypeDialog($"Du prøver å lære {newMove.Base.Name}");
+                        yield return dialogBox.TypeDialog($"Men du kan ikke lære mer. Vil du glemme noe for å lære {newMove.Base.Name}");
+                        yield return ChooseMoveToFerget(newMove.Base);
+
+                        yield return new WaitUntil(() => state != BattleState.MoveToForget);
+                    }
+                }
+                
+
                 yield return playerUnit.Hud.SetExpSmooth(true);
             }
         }
-
 
         CheckForBattleOver(faintedUnit);
     }
@@ -382,6 +414,30 @@ public class BattleSystem : MonoBehaviour
         else if (state == BattleState.MoveSelection)
         {
             HandleMoveSelection();
+        }
+        else if (state == BattleState.MoveToForget)
+        {
+            Action<int> onMoveSelected = (moveIndex) =>
+            {
+                learnMoveUI.gameObject.SetActive(false);
+                if(moveIndex == UnitBase.MaxNumOfMoves)
+                {
+                    StartCoroutine(dialogBox.TypeDialog($"Du glemmer ingenting"));
+                }
+                else
+                {
+                    // forgets selected move, learns new move
+                    var selectedMove = playerUnit.Unit.Moves[moveIndex].Base;
+                    StartCoroutine(dialogBox.TypeDialog($"Du glemte {selectedMove.Name} og lærte {moveToLearn.Name}"));
+
+                    playerUnit.Unit.Moves[moveIndex] = new Move(moveToLearn);
+                }
+
+                moveToLearn = null;
+                state = BattleState.RunningTurn;
+            };
+
+            learnMoveUI.HandleMoveSelection(onMoveSelected);
         }
     }
 
