@@ -164,19 +164,16 @@ public class Unit
         get { return GetStat(Stat.Hurtighet); }
     }
 
-    /* public int Hit
-    {
-        get { return Mathf.FloorToInt((Base.Hit * Level) / 10f) + 5; }
-    }*/
-
     public DamageDetails TakeDamage(Move move, Unit attacker)
     {
+        // calculate if attack gets critical-bonus
         float critical = 1f;
         if (Random.value * 100f <= 6.25f)
             critical = 2f;
 
         var damageDetails = new DamageDetails() { Critical = critical, Fainted = false, };
 
+        // calculates damaged similarly to the formula used in the pokemon games
         float modifiers = Random.Range(0.85f, 1f) * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attacker.AttackPower / DefensePower) + 2;

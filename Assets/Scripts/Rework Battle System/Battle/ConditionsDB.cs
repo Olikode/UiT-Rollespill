@@ -14,6 +14,7 @@ public class ConditionsDB : MonoBehaviour
         }
     }
 
+    // dictionary of how status conditions act
     public static Dictionary<ConditionID, Condition> Conditions {get; set;} 
     = new Dictionary<ConditionID, Condition>() {
         {

@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Studer
   m_EditorClassIdentifier: 
   name: Studer
-  description: 
+  description: "Det er viktig \xE5 studere. Studer firenden din slik at du vet hva
+    som skal til for \xE5 vinne.\nAngrepsniv\xE5et ditt \xF8ker."
   type: 0
   category: 1
   power: 0
   accuracy: 100
+  alwaysHit: 0
   pp: 30
+  priority: 0
   effects:
     boosts:
     - stat: 0
       boost: 1
+    status: 0
+  secondaryEffects:
+    boosts: []
+    status: 0
+    chance: 0
+    target: 0
   target: 0

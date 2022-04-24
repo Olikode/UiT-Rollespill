@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Nerdekraft
   m_EditorClassIdentifier: 
   name: Nerdekraft
-  description: 
+  description: "Bruk r\xE5 nerdekraft for \xE5 vinne over motstanderen."
   type: 1
   category: 0
-  power: 100
+  power: 150
   accuracy: 90
   alwaysHit: 0
   pp: 5

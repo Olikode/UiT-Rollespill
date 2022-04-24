@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kryptering
   m_EditorClassIdentifier: 
   name: Kryptering
-  description: Beskytt deg fra farer der ute!
+  description: "Beskytt deg fra farer der ute!\n\xD8ker forsvarsniv\xE5et ditt."
   type: 1
   category: 1
   power: 0

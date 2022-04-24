@@ -27,6 +27,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleDialogBox dialogBox;
 
     [SerializeField] LearnMoveUI learnMoveUI;
+    [SerializeField] GameObject LearnMoveInfo;
 
 
     public event Action<bool> OnBattleOver;
@@ -81,7 +82,6 @@ public class BattleSystem : MonoBehaviour
         }
         else{
             // challenger
-
             enemyUnit.gameObject.SetActive(false);
 
             challengerImage.GetComponent<Image>().sprite = challenger.Sprite;
@@ -431,6 +431,7 @@ public class BattleSystem : MonoBehaviour
                     StartCoroutine(dialogBox.TypeDialog($"Du glemte {selectedMove.Name} og lærte {moveToLearn.Name}"));
 
                     playerUnit.Unit.Moves[moveIndex] = new Move(moveToLearn);
+                    dialogBox.SetMoveNames(playerUnit.Unit.Moves);
                 }
 
                 moveToLearn = null;
@@ -465,6 +466,7 @@ public class BattleSystem : MonoBehaviour
             else if (currentAction == 1) 
             { 
                 // ryggsekk (use item)
+                // TODO: add inventory to the game and useable items
             }
         }
     }

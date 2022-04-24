@@ -13,13 +13,22 @@ MonoBehaviour:
   m_Name: Blanco
   m_EditorClassIdentifier: 
   name: Blanco
-  description: 
+  description: 'Selv det skrevet med kulepenn, kan forsvinne.
+
+    Gir fienden hjerneteppe.'
   type: 0
   category: 1
   power: 0
   accuracy: 100
+  alwaysHit: 0
   pp: 10
+  priority: 0
   effects:
     boosts: []
     status: 3
+  secondaryEffects:
+    boosts: []
+    status: 0
+    chance: 0
+    target: 0
   target: 1

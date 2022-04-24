@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Hack Attack
   m_EditorClassIdentifier: 
   name: Hack Attack
-  description: 
+  description: "Hack fienden din.\nDette angrepet kan ogs\xE5 gi fienden hjerneteppe."
   type: 1
   category: 0
   power: 50
   accuracy: 95
   alwaysHit: 0
   pp: 10
+  priority: 0
   effects:
     boosts: []
     status: 0
