@@ -5,7 +5,8 @@ using UnityEngine;
 public enum GameState
 {
     FreeRoam,
-    Battle
+    Battle,
+    Menu,
 }
 
 public class GameController : MonoBehaviour
@@ -18,10 +19,15 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     Camera worldCamera;
+    
+    MenuController menuController;
 
     GameState state;
 
     private void Awake(){
+
+        menuController = GetComponent<MenuController>();
+
         ConditionsDB.Init();
     }
 
@@ -30,6 +36,11 @@ public class GameController : MonoBehaviour
         playerController.OnEncountered += StartBattle;
         playerController.OnChallenged += StartExamBattle;
         battleSystem.OnBattleOver += EndBattle;
+        menuController.onBack += () =>
+        {
+            state = GameState.FreeRoam;
+        };
+        menuController.onMenuSelected += OnMenuSelected;
     }
 
     void StartBattle(UnitList enemy)
@@ -38,7 +49,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        playerController.inBattle = true;
+        playerController.isPaused = true;
         var player = playerController.GetComponent<UnitList>();
 
         battleSystem.StartBattle(player, enemy);
@@ -49,7 +60,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        playerController.inBattle = true;
+        playerController.isPaused = true;
         var player = playerController.GetComponent<UnitList>();
         var enemyList = challenger.GetComponent<UnitList>();
 
@@ -58,7 +69,7 @@ public class GameController : MonoBehaviour
 
     void EndBattle(bool isWon){
         state = GameState.FreeRoam;
-        playerController.inBattle = false;
+        playerController.isPaused = false;
         battleSystem.gameObject.SetActive(false);
         worldCamera.gameObject.SetActive(true);
     }
@@ -68,10 +79,47 @@ public class GameController : MonoBehaviour
         if (state == GameState.FreeRoam)
         {
             playerController.HandleUpdate();
+            playerController.isPaused = false;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                menuController.OpenMenu();
+                state = GameState.Menu;
+            }
+
         }
         else if (state == GameState.Battle)
         {
             battleSystem.HandleUpdate();
         }
+        else if(state == GameState.Menu)
+        {
+            menuController.HandleUpdate();
+            playerController.isPaused = true;
+        }
+    }
+
+    void OnMenuSelected(int selectedItem)
+    {
+        if (selectedItem == 0)
+        {
+            // student-info
+        }
+        else if (selectedItem == 1)
+        {
+            // ryggsekk
+        }
+        else if (selectedItem == 2)
+        {
+            // save
+            // TODO add load and save
+        }
+        else if (selectedItem == 3)
+        {
+            // load
+            // TODO add load and save
+        }
+
+        state = GameState.FreeRoam;
     }
 }

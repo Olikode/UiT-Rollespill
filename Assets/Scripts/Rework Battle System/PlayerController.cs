@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
 
-    public bool inBattle;
+    public bool isPaused;
 
     public Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -29,11 +29,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (inBattle)
+        if (isPaused)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
-        else if (!inBattle)
+        else if (!isPaused)
         {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;

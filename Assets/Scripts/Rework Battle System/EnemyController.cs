@@ -10,11 +10,11 @@ public class EnemyController : MonoBehaviour
     private Vector2 moveDirection;
     private Vector3 originalSize;
     private Vector3 playerDirection;
-    bool inBattle;
+    bool isPaused;
 
     protected virtual void Start()
     {
-        inBattle = player.gameObject.GetComponent<PlayerController>().inBattle;
+        isPaused = player.gameObject.GetComponent<PlayerController>().isPaused;
         originalSize = transform.localScale;
     }
 
@@ -26,11 +26,11 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (player.gameObject.GetComponent<PlayerController>().inBattle)
+        if (player.gameObject.GetComponent<PlayerController>().isPaused)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
-        else if (!player.gameObject.GetComponent<PlayerController>().inBattle)
+        else if (!player.gameObject.GetComponent<PlayerController>().isPaused)
         {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
