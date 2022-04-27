@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b790629b9165ef848bf9d23be65844e7, type: 3}
+  m_Name: Eple
+  m_EditorClassIdentifier: 
+  name: Eple
+  description: Et eple om dagen, gir spilleren 50 HP... og er godt for magen.
+  icon: {fileID: -4709942542109779779, guid: 8f4722900c9caae4a8250abe32f08c77, type: 3}
+  hpAmount: 50
+  restoreMaxHP: 0
+  ppAmount: 0
+  restoreMaxPP: 0
+  status: 0
+  recoverAnyStatus: 0

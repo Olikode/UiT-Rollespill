@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum GameState
 {
     FreeRoam,
     Battle,
     Menu,
+    Bag,
 }
 
 public class GameController : MonoBehaviour
@@ -21,6 +23,7 @@ public class GameController : MonoBehaviour
     Camera worldCamera;
     
     MenuController menuController;
+    [SerializeField] InventoryUI inventoryUI;
 
     GameState state;
 
@@ -49,7 +52,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        playerController.isPaused = true;
+        
         var player = playerController.GetComponent<UnitList>();
 
         battleSystem.StartBattle(player, enemy);
@@ -60,7 +63,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        playerController.isPaused = true;
+        
         var player = playerController.GetComponent<UnitList>();
         var enemyList = challenger.GetComponent<UnitList>();
 
@@ -69,17 +72,22 @@ public class GameController : MonoBehaviour
 
     void EndBattle(bool isWon){
         state = GameState.FreeRoam;
-        playerController.isPaused = false;
         battleSystem.gameObject.SetActive(false);
         worldCamera.gameObject.SetActive(true);
     }
 
     private void Update()
     {
+        if(state == GameState.FreeRoam)
+            playerController.isPaused = false;
+        else   
+            playerController.isPaused = true;
+
+
         if (state == GameState.FreeRoam)
         {
             playerController.HandleUpdate();
-            playerController.isPaused = false;
+            
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -95,7 +103,17 @@ public class GameController : MonoBehaviour
         else if(state == GameState.Menu)
         {
             menuController.HandleUpdate();
-            playerController.isPaused = true;
+        }
+        else if (state == GameState.Bag)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = GameState.Menu;
+                
+            };
+
+            inventoryUI.HandleUpdate(onBack);
         }
     }
 
@@ -107,7 +125,8 @@ public class GameController : MonoBehaviour
         }
         else if (selectedItem == 1)
         {
-            // ryggsekk
+            inventoryUI.gameObject.SetActive(true);
+            state = GameState.Bag;
         }
         else if (selectedItem == 2)
         {
@@ -120,6 +139,6 @@ public class GameController : MonoBehaviour
             // TODO add load and save
         }
 
-        state = GameState.FreeRoam;
+        //state = GameState.FreeRoam;
     }
 }
