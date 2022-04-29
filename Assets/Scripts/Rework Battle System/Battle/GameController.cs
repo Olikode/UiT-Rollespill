@@ -9,6 +9,7 @@ public enum GameState
     Battle,
     Menu,
     Bag,
+    Summary,
 }
 
 public class GameController : MonoBehaviour
@@ -24,6 +25,7 @@ public class GameController : MonoBehaviour
     
     MenuController menuController;
     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] SummaryUI summaryUI;
 
     GameState state;
 
@@ -112,8 +114,18 @@ public class GameController : MonoBehaviour
                 state = GameState.Menu;
                 
             };
-
             inventoryUI.HandleUpdate(onBack);
+        }
+        else if (state == GameState.Summary)
+        {
+            Action onBack = () =>
+            {
+                summaryUI.gameObject.SetActive(false);
+                state = GameState.Menu;
+                
+            };
+
+            summaryUI.HandleUpdate(onBack);
         }
     }
 
@@ -121,7 +133,8 @@ public class GameController : MonoBehaviour
     {
         if (selectedItem == 0)
         {
-            // student-info
+            summaryUI.gameObject.SetActive(true);
+            state = GameState.Summary;
         }
         else if (selectedItem == 1)
         {

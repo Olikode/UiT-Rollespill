@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790629b9165ef848bf9d23be65844e7, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  name: Error
+  name: Test
   description: I'm here only for test purposes
   icon: {fileID: -8700288420119475449, guid: 4cdd9cc67bf595e45bcf593a5ef68c0f, type: 3}
   hpAmount: 0

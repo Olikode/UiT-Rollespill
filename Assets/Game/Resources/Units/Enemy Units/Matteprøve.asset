@@ -22,7 +22,7 @@ MonoBehaviour:
   speed: 45
   hit: 50
   initiative: 10
-  expYield: 500000
+  expYield: 50
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: ad40697a7ba3ba343aa25b7c7284edbe, type: 2}
     level: 0

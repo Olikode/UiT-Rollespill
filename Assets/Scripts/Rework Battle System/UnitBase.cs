@@ -48,6 +48,10 @@ public class UnitBase : ScriptableObject
         get { return description;}
     }
 
+    public ClassType Type {
+        get { return type;}
+    }
+
     public Sprite Sprite {
         get { return sprite;}
     }
