@@ -14,6 +14,9 @@ public class SummaryUI : MonoBehaviour
     [SerializeField] Text levelText;
     [SerializeField] Text typeText;
     [SerializeField] Text hpText;
+    [SerializeField] Text descriptionText;
+    [SerializeField] Text accuracyText;
+    [SerializeField] Text PowerText;
 
     [SerializeField] GameObject playerGO;
     Unit player;
@@ -31,7 +34,7 @@ public class SummaryUI : MonoBehaviour
     public void SetPlayerInfo(Unit player)
     {
         nameText.text = $"{player.Base.Name}";
-        typeText.text = $"{player.Base.Type}";
+        typeText.text = $"{player.Base.Type}-Student";
         levelText.text = $"Level {player.Level}";
         hpText.text = $"HP: {player.HP}/{player.MaxHP}";
 
@@ -70,7 +73,12 @@ public class SummaryUI : MonoBehaviour
         for (int i = 0; i < moveInfoFields.Count; i++)
         {
             if (i == selectedMove)
+            {
                 moveInfoFields[i].GetComponent<MoveInfoUI>().ShowSelected(GlobalSettings.i.HighlightedColor);
+                descriptionText.text = moves[i].Base.Description;
+                accuracyText.text = $"Treffsikkerhet: {moves[i].Base.Accuracy}";
+                PowerText.text = $"Kraft: {moves[i].Base.Power}";
+            }
             else
                 moveInfoFields[i].GetComponent<MoveInfoUI>().ShowSelected(Color.black);
         }
