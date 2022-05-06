@@ -24,7 +24,7 @@ public class ConditionsDB : MonoBehaviour
                 StartMessage ="Har blitt forgiftet",
                 OnAfterTurn = (Unit unit) =>
                 {
-                    unit.UpdateHP(unit.MaxHP / 8);
+                    unit.DecreaseHP(unit.MaxHP / 8);
                     unit.StatusChanges.Enqueue($"{unit.Base.Name} ble skadet av giften");
                 }
             }

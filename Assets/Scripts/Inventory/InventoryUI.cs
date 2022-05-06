@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+public enum InventoryUIState { ItemSelection, UseSelection, Busy}
+
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject itemList;
@@ -17,7 +19,21 @@ public class InventoryUI : MonoBehaviour
     Inventory inventory;
     RectTransform itemListRect;
 
+    [SerializeField] SummaryUI summaryUI;
+    [SerializeField] GameObject player;
+
+    [Header("Dialog Box")]
+    [SerializeField] GameObject UIDialogBox;
+    [SerializeField] Text UIDialogText;
+
     int selectedItem = 0;
+    public bool inBattle = false;
+    InventoryUIState state;
+    Unit playerUnit;
+
+    public string itemUseMessage;
+
+    Action onItemUsed;
 
     // number of items shown before scrollbar appares
     const int itemsInViewport = 8;
@@ -33,10 +49,14 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         UpdateItemList();
+
+        inventory.OnUpdated += UpdateItemList;
     }
 
     void UpdateItemList()
     {
+        playerUnit = player.gameObject.GetComponent<UnitList>().GetHealthyUnit();
+
         // clear existing items
         foreach (Transform child in itemList.transform)
             Destroy(child.gameObject);
@@ -51,19 +71,43 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void HandleUpdate(Action onBack)
+    public void HandleUpdate(Action onBack, Action onItemUsed=null)
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            ++selectedItem;
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-            --selectedItem;
+        this.onItemUsed = onItemUsed;
 
-        selectedItem = Mathf.Clamp(selectedItem, 0, inventory.Slots.Count - 1);
+        if(state == InventoryUIState.ItemSelection)
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+                ++selectedItem;
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+                --selectedItem;
 
-        UpdateItemSlection();
+            selectedItem = Mathf.Clamp(selectedItem, 0, inventory.Slots.Count - 1);
 
-        if(Input.GetKeyDown(KeyCode.Escape))
-            onBack?.Invoke();
+            UpdateItemSlection();
+
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            {
+                OpenSummaryScreen();
+            }
+            else if(Input.GetKeyDown(KeyCode.Escape))
+                onBack?.Invoke();
+        }
+        else if(state == InventoryUIState.UseSelection)
+        {
+            Action onSelected = () =>
+            {
+                StartCoroutine(UseItem());
+            };
+
+            Action onBackSummary = () =>
+            {
+                UIDialogBox.gameObject.SetActive(false);
+                CloseSummaryScreen();
+            };
+
+            summaryUI.HandleUpdate(onBackSummary, onSelected);
+        }
     }
 
     void UpdateItemSlection()
@@ -93,5 +137,69 @@ public class InventoryUI : MonoBehaviour
 
         bool showDownArrow = selectedItem + itemsInViewport/2 < slotUIList.Count;
         downArrow.gameObject.SetActive(showDownArrow);
+    }
+
+    void OpenSummaryScreen()
+    {
+        state = InventoryUIState.UseSelection;
+        summaryUI.gameObject.SetActive(true);
+    }
+    void CloseSummaryScreen()
+    {
+        state = InventoryUIState.ItemSelection;
+        summaryUI.gameObject.SetActive(false);
+    }
+
+    IEnumerator UseItemDialog(ItemBase item)
+    {
+        UIDialogBox.gameObject.SetActive(true);
+        UIDialogText.text = $"Du brukte {item.Name}";
+
+        yield return new WaitForSeconds(2f);
+        UIDialogBox.gameObject.SetActive(false);
+        CloseSummaryScreen();
+    }
+
+    IEnumerator CanNotUseItem(ItemBase item)
+    {
+        UIDialogBox.gameObject.SetActive(true);
+        UIDialogText.text = $"Du kan ikke bruke {item.Name}";
+
+        yield return new WaitForSeconds(2f);
+        UIDialogBox.gameObject.SetActive(false);
+    }
+
+    IEnumerator UseItem()
+    {
+        state = InventoryUIState.Busy;
+
+        var usedItem = inventory.UseItem(selectedItem, playerUnit);
+        var item = inventory.GetItem(selectedItem);
+
+        if (usedItem != null)
+        {
+            if(inBattle){
+                itemUseMessage = $"Du brukte {item.Name}";
+
+                CloseSummaryScreen();
+                onItemUsed?.Invoke();
+            }
+            else
+            {
+                UIDialogBox.gameObject.SetActive(true);
+                UIDialogText.text = $"Du brukte {item.Name}";
+                yield return new WaitForSeconds(2f);
+                UIDialogBox.gameObject.SetActive(false);
+                CloseSummaryScreen();
+            }
+        }
+        else
+        {
+            UIDialogBox.gameObject.SetActive(true);
+            UIDialogText.text = $"Du kan ikke bruke {item.Name}";
+            yield return new WaitForSeconds(2f);
+            UIDialogBox.gameObject.SetActive(false);
+            CloseSummaryScreen();
+        }
     }
 }

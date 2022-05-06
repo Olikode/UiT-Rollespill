@@ -49,6 +49,7 @@ public class BattleHud : MonoBehaviour
 
         SetStatusIcon();
         unit.OnStatusChanged += SetStatusIcon;
+        unit.OnHPChanged += UpdateHP;
     }
 
     void SetStatusIcon(){
@@ -106,12 +107,18 @@ public class BattleHud : MonoBehaviour
         return Mathf.Clamp01(normalizedExp);
     }
 
-    public IEnumerator UpdateHP()
+    public IEnumerator UpdateHPAsync()
     {
-        if (_unit.HpChanged)
-        {
-            yield return hpBar.SetHPSmooth((float)_unit.HP / _unit.MaxHP);
-            _unit.HpChanged = false;
-        }
+        yield return hpBar.SetHPSmooth((float)_unit.HP / _unit.MaxHP);
+    }
+
+    public void UpdateHP()
+    {
+        StartCoroutine(UpdateHPAsync());
+    }
+
+    public IEnumerator WaitForHPUpdate()
+    {
+        yield return new WaitUntil(() => hpBar.isUpdating == false);
     }
 }

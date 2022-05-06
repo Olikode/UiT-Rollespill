@@ -20,4 +20,9 @@ public class UnitList : MonoBehaviour
     {
         return units.Where(x => x.HP > 0).FirstOrDefault();
     }
+
+    public Unit GetPlayerUnit()
+    {
+        return units[0];
+    }
 }

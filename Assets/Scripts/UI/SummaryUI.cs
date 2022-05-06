@@ -9,7 +9,6 @@ public class SummaryUI : MonoBehaviour
     [SerializeField] List<GameObject> moveInfoFields;
 
     [SerializeField] Image playerImage;
-
     [SerializeField] Text nameText;
     [SerializeField] Text levelText;
     [SerializeField] Text typeText;
@@ -17,21 +16,28 @@ public class SummaryUI : MonoBehaviour
     [SerializeField] Text descriptionText;
     [SerializeField] Text accuracyText;
     [SerializeField] Text PowerText;
-
     [SerializeField] GameObject playerGO;
+
+    Inventory inventory;
     Unit player;
     List<Move> moves;
 
-    int selectedMove = 0;
+    int selectedItem = -1;
 
+    private void Awake()
+    {
+        inventory = Inventory.GetInventory();
+    }
     private void Start()
     {
         player = playerGO.GetComponent<UnitList>().GetHealthyUnit();
         moves = player.Moves;
-        SetPlayerInfo(player);
+        SetPlayerInfo();
+        inventory.OnUpdated += SetPlayerInfo;
+        player.OnHPChanged += SetPlayerInfo;
     }
     
-    public void SetPlayerInfo(Unit player)
+    public void SetPlayerInfo()
     {
         nameText.text = $"{player.Base.Name}";
         typeText.text = $"{player.Base.Type}-Student";
@@ -53,27 +59,53 @@ public class SummaryUI : MonoBehaviour
         }
     }
 
-    public void HandleUpdate(Action onBack)
+    public void HandleUpdate(Action onBack, Action onSelected)
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
-            ++selectedMove;
+        {
+            ++selectedItem;
+        }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
-            --selectedMove;
+        {
+            --selectedItem;
+            if(selectedItem < 0)
+                selectedItem = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            selectedItem = -1;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if(selectedItem == -1)
+            selectedItem = 0;
+        }
 
-        selectedMove = Mathf.Clamp(selectedMove, 0, 3);
+        selectedItem = Mathf.Clamp(selectedItem, -1, 3);
 
         UpdateMoveSlection();
 
         if(Input.GetKeyDown(KeyCode.Escape))
             onBack?.Invoke();
+        if(Input.GetKeyDown(KeyCode.Return))
+            onSelected?.Invoke();
     }
 
     void UpdateMoveSlection()
     {
         for (int i = 0; i < moveInfoFields.Count; i++)
         {
-            if (i == selectedMove)
+            if(selectedItem < 0)
             {
+                nameText.color = GlobalSettings.i.HighlightedColor;
+                descriptionText.text = "";
+                accuracyText.text = $"Treffsikkerhet: -";
+                PowerText.text = $"Kraft: -";
+            }
+
+            if (i == selectedItem)
+            {
+                nameText.color = Color.black;
                 moveInfoFields[i].GetComponent<MoveInfoUI>().ShowSelected(GlobalSettings.i.HighlightedColor);
                 descriptionText.text = moves[i].Base.Description;
                 accuracyText.text = $"Treffsikkerhet: {moves[i].Base.Accuracy}";
@@ -83,5 +115,4 @@ public class SummaryUI : MonoBehaviour
                 moveInfoFields[i].GetComponent<MoveInfoUI>().ShowSelected(Color.black);
         }
     }
-
 }

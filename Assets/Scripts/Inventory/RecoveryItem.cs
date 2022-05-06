@@ -17,4 +17,24 @@ public class RecoveryItem : ItemBase
     [Header("Condition recovery")]
     [SerializeField] ConditionID status;
     [SerializeField] bool recoverAnyStatus;
+
+    public override bool Use(Unit unit)
+    {
+        if (hpAmount > 0)
+        {
+            if (unit.HP == unit.MaxHP)
+                return false;
+            
+            unit.IncreaseHP(hpAmount);
+        }
+        if (ppAmount > 0)
+        {
+           /* if (unit.HP == unit.MaxHP)
+                return false;
+            
+            unit.IncreaseHP(hpAmount);*/
+        }
+
+        return true;
+    }
 }

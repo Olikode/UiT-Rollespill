@@ -13,21 +13,28 @@ public enum BattleState
     RunningTurn,
     Busy,
     MoveToForget,
-    BattleOver
+    BattleOver,
+    Bag,
 }
 
 public enum BattleAction { Move, UseItem, Run}
 
 public class BattleSystem : MonoBehaviour
 {
+    [Header("Units")]
     [SerializeField] BattleUnit playerUnit;
     [SerializeField] BattleUnit enemyUnit;
 
+    [Header("")]
     [SerializeField] GameObject challengerImage;
     [SerializeField] BattleDialogBox dialogBox;
 
+    [Header("Moves")]
     [SerializeField] LearnMoveUI learnMoveUI;
     [SerializeField] GameObject LearnMoveInfo;
+
+    [Header("Inventory")]
+    [SerializeField] InventoryUI inventoryUI;
 
 
     public event Action<bool> OnBattleOver;
@@ -73,7 +80,7 @@ public class BattleSystem : MonoBehaviour
 
         if(!isExamBattle){
             // wild enemy
-            playerUnit.Setup(player.GetHealthyUnit());
+            playerUnit.Setup(player.GetPlayerUnit());
             enemyUnit.Setup(enemy.GetHealthyUnit());
 
             dialogBox.SetMoveNames(playerUnit.Unit.Moves);
@@ -95,7 +102,7 @@ public class BattleSystem : MonoBehaviour
 
             var enemyUnits = enemy.GetHealthyUnit();
             enemyUnit.Setup(enemyUnits);
-            playerUnit.SetupNoAnimation(player.GetHealthyUnit());
+            playerUnit.SetupNoAnimation(player.GetPlayerUnit());
 
             yield return dialogBox.TypeDialog($"{challenger.Name} sendte ut en {enemyUnits.Base.Name}");
             dialogBox.SetMoveNames(playerUnit.Unit.Moves);
@@ -129,10 +136,17 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableMoveSelector(true);
     }
 
+    void OpenBag()
+    {
+        inventoryUI.gameObject.SetActive(true);
+        state = BattleState.Bag;
+    }
+
     IEnumerator RunTurns(BattleAction playerAction){
         state = BattleState.RunningTurn;
 
-        if (playerAction == BattleAction.Move){
+        if (playerAction == BattleAction.Move)
+        {
             playerUnit.Unit.CurrentMove = playerUnit.Unit.Moves[currentMove];
             enemyUnit.Unit.CurrentMove = enemyUnit.Unit.GetRandomMove();
 
@@ -167,10 +181,23 @@ public class BattleSystem : MonoBehaviour
                 if (state == BattleState.BattleOver) yield break;
             }
         }
-        else {
-            // TODO: add more actions
-            // Enemy switching unit
-            // Using item
+        else
+        {
+            if (playerAction == BattleAction.UseItem)
+            {
+                dialogBox.EnableActionSelector(false);
+                yield return dialogBox.TypeDialog($"{inventoryUI.itemUseMessage}");
+            }
+            else {
+                // TODO: add more actions
+            }
+
+            // Enemy turn
+            var enemyMove = enemyUnit.Unit.GetRandomMove();
+            yield return RunMove(enemyUnit, playerUnit, enemyMove);
+            yield return RunAfterTurn(enemyUnit);
+            if(state == BattleState.BattleOver) yield break;
+
         }
 
         if(state != BattleState.BattleOver)
@@ -203,7 +230,7 @@ public class BattleSystem : MonoBehaviour
             else if (move.Base.Category == MoveCategory.Normal)
             {
                 var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
-                yield return defender.Hud.UpdateHP();
+                yield return defender.Hud.WaitForHPUpdate();
                 yield return ShowDamageDetails(damageDetails);
 
                 if(defender.Unit.Status?.Id != null){
@@ -267,7 +294,7 @@ public class BattleSystem : MonoBehaviour
         // Some status effects will change HP of the unit after the turn
             attacker.Unit.OnAfterTurn();
             yield return ShowStatusChanges(attacker.Unit);
-            yield return attacker.Hud.UpdateHP();
+            yield return attacker.Hud.WaitForHPUpdate();
 
             if (attacker.Unit.HP <= 0)
             {
@@ -415,6 +442,23 @@ public class BattleSystem : MonoBehaviour
         {
             HandleMoveSelection();
         }
+        else if (state == BattleState.Bag)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = BattleState.ActionSelection;
+            };
+
+            Action onItemUsed = () =>
+            {
+                state = BattleState.Busy;
+                inventoryUI.gameObject.SetActive(false);
+                StartCoroutine(RunTurns(BattleAction.UseItem));
+            };
+
+            inventoryUI.HandleUpdate(onBack, onItemUsed);
+        }
         else if (state == BattleState.MoveToForget)
         {
             Action<int> onMoveSelected = (moveIndex) =>
@@ -465,8 +509,7 @@ public class BattleSystem : MonoBehaviour
             }
             else if (currentAction == 1) 
             { 
-                // ryggsekk (use item)
-                // TODO: add inventory to the game and useable items
+                OpenBag();
             }
         }
     }

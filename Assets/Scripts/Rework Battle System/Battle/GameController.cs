@@ -88,6 +88,7 @@ public class GameController : MonoBehaviour
 
         if (state == GameState.FreeRoam)
         {
+            inventoryUI.inBattle = false;
             playerController.HandleUpdate();
             
 
@@ -100,6 +101,7 @@ public class GameController : MonoBehaviour
         }
         else if (state == GameState.Battle)
         {
+            inventoryUI.inBattle = true;
             battleSystem.HandleUpdate();
         }
         else if(state == GameState.Menu)
@@ -125,7 +127,7 @@ public class GameController : MonoBehaviour
                 
             };
 
-            summaryUI.HandleUpdate(onBack);
+            summaryUI.HandleUpdate(onBack, null);
         }
     }
 

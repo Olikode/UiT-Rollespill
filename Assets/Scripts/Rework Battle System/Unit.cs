@@ -38,9 +38,8 @@ public class Unit
 
     public int StatusTime { get; set; }
 
-    public bool HpChanged { get; set; }
-
     public event System.Action OnStatusChanged;
+    public event System.Action OnHPChanged;
 
     public void Init()
     {
@@ -179,15 +178,20 @@ public class Unit
         float d = a * move.Base.Power * ((float)attacker.AttackPower / DefensePower) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        UpdateHP(damage);
+        DecreaseHP(damage);
 
         return damageDetails;
     }
 
-    public void UpdateHP(int damage)
+    public void IncreaseHP(int amount)
+    {
+        HP = Mathf.Clamp(HP + amount, 0, MaxHP);
+        OnHPChanged?.Invoke();
+    }
+    public void DecreaseHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, MaxHP);
-        HpChanged = true;
+        OnHPChanged?.Invoke();
     }
 
     public void SetStatus(ConditionID conditionId)
