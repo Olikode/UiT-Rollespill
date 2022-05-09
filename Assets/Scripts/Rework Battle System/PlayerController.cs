@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private DialougeManager dialougeManager;
+
+    public DialougeManager DialougeManager => dialougeManager;
+
+    public IInteractable Interactable { get; set; }
+
+
     public float moveSpeed;
 
     public bool isPaused;
@@ -27,9 +34,20 @@ public class PlayerController : MonoBehaviour
         ProcessInputs();
     }
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (Interactable != null)
+            {
+                Interactable.Interact(this);
+            }
+        }
+    }
     void FixedUpdate()
     {
-        if (isPaused)
+        if (isPaused || dialougeManager.IsOpen)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
@@ -38,6 +56,8 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+
+
         
         Move();
     }
