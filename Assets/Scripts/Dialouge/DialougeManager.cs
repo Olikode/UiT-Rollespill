@@ -33,6 +33,11 @@ public class DialougeManager : MonoBehaviour
         StartCoroutine(StepThroughDialouge(dialougeObject));
     }
 
+    public void AddResponseEvents(ResponseEvent[] responseEvents)
+    {
+        responseHandler.AddResponseEvents(responseEvents);
+    }
+
     private IEnumerator StepThroughDialouge(DialougeObject dialougeObject)
     {
         for (int i = 0; i < dialougeObject.Dialouge.Length; i++)
