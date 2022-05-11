@@ -38,10 +38,14 @@ public class DialougeManager : MonoBehaviour
         for (int i = 0; i < dialougeObject.Dialouge.Length; i++)
         {
             string dialouge = dialougeObject.Dialouge[i];
-            yield return dialougetypingEffect.Run(dialouge, textLabel);
 
-            if (i == dialougeObject.Dialouge.Length - 1 && dialougeObject.HasResponses) break; 
+            yield return RunTypingEffect(dialouge);
 
+            textLabel.text = dialouge; 
+
+            if (i == dialougeObject.Dialouge.Length - 1 && dialougeObject.HasResponses) break;
+
+            yield return null; 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.L));
         }
 
@@ -52,6 +56,21 @@ public class DialougeManager : MonoBehaviour
         else 
         {
             CloseDialougeBox(); 
+        }
+    }
+
+    private IEnumerator RunTypingEffect(string dialouge)
+    {
+        dialougetypingEffect.Run(dialouge, textLabel);
+
+        while (dialougetypingEffect.IsRunning)
+        {
+            yield return null;
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                dialougetypingEffect.Stop();
+            }
         }
     }
 
