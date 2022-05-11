@@ -6,6 +6,8 @@ public class DialougeResponseEvents : MonoBehaviour
     [SerializeField] private DialougeObject dialougeObject;
     [SerializeField] private ResponseEvent[] events;
 
+    public DialougeObject DialougeObject => dialougeObject;
+
     public ResponseEvent[] Events => events;
 
     public void OnValidate()

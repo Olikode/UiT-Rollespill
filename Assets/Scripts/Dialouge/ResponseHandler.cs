@@ -62,6 +62,16 @@ public class ResponseHandler : MonoBehaviour
             responseEvents[responseIndex].OnPickedResponse?.Invoke();
         }
 
+        responseEvents = null;
+
+        if (response.DialougeObject)
+        {
+            dialougeManager.ShowDialouge(response.DialougeObject);
+        }
+        else 
+        {
+            dialougeManager.CloseDialougeBox(); 
+        }
 
         dialougeManager.ShowDialouge(response.DialougeObject);
     }

@@ -6,6 +6,11 @@ public class DialougeActivator : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialougeObject dialougeObject;
 
+    public void UpdateDialogueObject(DialougeObject dialougeObject)
+    {
+        this.dialougeObject = dialougeObject;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
@@ -27,9 +32,13 @@ public class DialougeActivator : MonoBehaviour, IInteractable
 
     public void Interact(PlayerController playerController)
     {
-        if (TryGetComponent(out DialougeResponseEvents responseEvents))
+        foreach (DialougeResponseEvents responseEvents in GetComponents<DialougeResponseEvents>())
         {
-            playerController.DialougeManager.AddResponseEvents(responseEvents.Events);
+            if (responseEvents.DialougeObject == dialougeObject)
+            {
+                playerController.DialougeManager.AddResponseEvents(responseEvents.Events);
+                break;
+            }
         }
 
         playerController.DialougeManager.ShowDialouge(dialougeObject);

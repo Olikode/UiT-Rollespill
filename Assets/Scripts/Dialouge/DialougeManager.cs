@@ -79,7 +79,7 @@ public class DialougeManager : MonoBehaviour
         }
     }
 
-    private void CloseDialougeBox()
+    public void CloseDialougeBox()
     {
         IsOpen = false; 
         dialogBox.SetActive(false);
