@@ -9072,7 +9072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   units:
   - _base: {fileID: 11400000, guid: 38dc188aee7aa7f44b1eec12d39f7ed8, type: 2}
-    level: 1
+    level: 8
 --- !u!114 &689908820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9088,7 +9088,7 @@ MonoBehaviour:
   slots:
   - item: {fileID: 11400000, guid: d3d4f177e7bb735459f8617b386efc25, type: 2}
     count: 1
-  - item: {fileID: 11400000, guid: 5b1c853add1ef2f489e3afb692afc95f, type: 2}
+  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
     count: 3
   - item: {fileID: 11400000, guid: 2dc6e26950eb9dd4c9c2282fdaf1bfbb, type: 2}
     count: 1
@@ -9116,8 +9116,8 @@ MonoBehaviour:
     count: 5
   - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
     count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
+  - item: {fileID: 11400000, guid: 5b1c853add1ef2f489e3afb692afc95f, type: 2}
+    count: 1
   bookSlots:
   - item: {fileID: 11400000, guid: ec7bd838eac7e0848a1dee7569648f8c, type: 2}
     count: 1
