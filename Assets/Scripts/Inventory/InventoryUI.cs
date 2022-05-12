@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject itemList;
     [SerializeField] ItemSlotUI itemSlotUI;
 
+    [SerializeField] Text categoryText;
     [SerializeField] Image itemIcon;
     [SerializeField] Text itemDescription;
 
@@ -27,11 +28,13 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Text UIDialogText;
 
     int selectedItem = 0;
+    int selectedCategory = 0;
     public bool inBattle = false;
     InventoryUIState state;
     Unit playerUnit;
 
-    public string itemUseMessage;
+    public string itemName;
+    public string itemMessage;
 
     Action onItemUsed;
 
@@ -62,7 +65,7 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
 
         slotUIList = new List<ItemSlotUI>();
-        foreach (var itemSlot in inventory.Slots)
+        foreach (var itemSlot in inventory.GetSlotsByCategory(selectedCategory))
         {
             var slotUIObj = Instantiate(itemSlotUI, itemList.transform);
             slotUIObj.SetData(itemSlot);
@@ -77,14 +80,36 @@ public class InventoryUI : MonoBehaviour
 
         if(state == InventoryUIState.ItemSelection)
         {
+            
+            int prevSelection = selectedItem;
+            int prevCategory = selectedCategory;
+
             if (Input.GetKeyDown(KeyCode.DownArrow))
                 ++selectedItem;
             else if (Input.GetKeyDown(KeyCode.UpArrow))
                 --selectedItem;
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                ++selectedCategory;
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                --selectedCategory;
 
-            selectedItem = Mathf.Clamp(selectedItem, 0, inventory.Slots.Count - 1);
+            if (selectedCategory > Inventory.ItemCategories.Count -1)
+                selectedCategory = 0;
+            else if (selectedCategory < 0)
+                selectedCategory = Inventory.ItemCategories.Count -1;
+
+
+
+            selectedCategory = Mathf.Clamp(selectedCategory, 0, Inventory.ItemCategories.Count - 1);
+            selectedItem = Mathf.Clamp(selectedItem, 0, inventory.GetSlotsByCategory(selectedCategory).Count - 1);
 
             UpdateItemSlection();
+
+            if(prevCategory != selectedCategory){
+                ResetSelection();
+                categoryText.text = Inventory.ItemCategories[selectedCategory];
+                UpdateItemList();
+            }
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
@@ -112,6 +137,8 @@ public class InventoryUI : MonoBehaviour
 
     void UpdateItemSlection()
     {
+        var slots = inventory.GetSlotsByCategory(selectedCategory);
+
         for (int i = 0; i <slotUIList.Count; i++)
         {
             if (i == selectedItem)
@@ -120,23 +147,29 @@ public class InventoryUI : MonoBehaviour
                 slotUIList[i].NameText.color = Color.black;
         }
 
-        var item = inventory.Slots[selectedItem].Item;
-        itemIcon.sprite = item.Icon;
-        itemDescription.text = item.Description;
+        selectedItem = Mathf.Clamp(selectedItem, 0, slots.Count);
+
+        if(slots.Count > 0){
+            var item = slots[selectedItem].Item;
+            itemIcon.sprite = item.Icon;
+            itemDescription.text = item.Description;
+        }
 
         HandleScrolling();
     }
 
     void HandleScrolling()
     {
-        float scrollPos = Mathf.Clamp(selectedItem - itemsInViewport/2, 0, selectedItem) * slotUIList[0].Height;
-        itemListRect.localPosition = new Vector2(itemListRect.localPosition.x, scrollPos);
+        if(slotUIList.Count > 0){
+            float scrollPos = Mathf.Clamp(selectedItem - itemsInViewport/2, 0, selectedItem) * slotUIList[0].Height;
+            itemListRect.localPosition = new Vector2(itemListRect.localPosition.x, scrollPos);
 
-        bool showUpArrow = selectedItem > itemsInViewport/2;
-        upArrow.gameObject.SetActive(showUpArrow);
+            bool showUpArrow = selectedItem > itemsInViewport/2;
+            upArrow.gameObject.SetActive(showUpArrow);
 
-        bool showDownArrow = selectedItem + itemsInViewport/2 < slotUIList.Count;
-        downArrow.gameObject.SetActive(showDownArrow);
+            bool showDownArrow = selectedItem + itemsInViewport/2 < slotUIList.Count;
+            downArrow.gameObject.SetActive(showDownArrow);
+        }
     }
 
     void OpenSummaryScreen()
@@ -150,36 +183,28 @@ public class InventoryUI : MonoBehaviour
         summaryUI.gameObject.SetActive(false);
     }
 
-    IEnumerator UseItemDialog(ItemBase item)
+    void ResetSelection()
     {
-        UIDialogBox.gameObject.SetActive(true);
-        UIDialogText.text = $"Du brukte {item.Name}";
+        selectedItem = 0;
+        upArrow.gameObject.SetActive(false);
+        downArrow.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(2f);
-        UIDialogBox.gameObject.SetActive(false);
-        CloseSummaryScreen();
-    }
-
-    IEnumerator CanNotUseItem(ItemBase item)
-    {
-        UIDialogBox.gameObject.SetActive(true);
-        UIDialogText.text = $"Du kan ikke bruke {item.Name}";
-
-        yield return new WaitForSeconds(2f);
-        UIDialogBox.gameObject.SetActive(false);
+        itemIcon.sprite = null;
+        itemDescription.text = "";
     }
 
     IEnumerator UseItem()
     {
         state = InventoryUIState.Busy;
 
-        var usedItem = inventory.UseItem(selectedItem, playerUnit);
-        var item = inventory.GetItem(selectedItem);
+        var item = inventory.GetItem(selectedItem, selectedCategory);
+        var usedItem = inventory.UseItem(selectedItem, selectedCategory, playerUnit);
 
         if (usedItem != null)
         {
             if(inBattle){
-                itemUseMessage = $"Du brukte {item.Name}";
+                itemName = $"{item.Name}";
+                itemMessage = $"{item.UseMessage}";
 
                 CloseSummaryScreen();
                 onItemUsed?.Invoke();

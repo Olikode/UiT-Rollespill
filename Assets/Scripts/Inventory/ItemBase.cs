@@ -13,6 +13,7 @@ public class ItemBase : ScriptableObject
 
     public string Name => name;
     public string Description => description;
+    public string UseMessage => useMessage;
     public Sprite Icon => icon;
 
     public virtual bool Use(Unit unit)

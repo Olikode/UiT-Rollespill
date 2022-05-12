@@ -115,6 +115,8 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.BattleOver;
         playerUnit.Unit.OnBattleOver();
+        playerUnit.Hud.ClearData();
+        enemyUnit.Hud.ClearData();
         OnBattleOver(isWon);
     }
 
@@ -186,7 +188,8 @@ public class BattleSystem : MonoBehaviour
             if (playerAction == BattleAction.UseItem)
             {
                 dialogBox.EnableActionSelector(false);
-                yield return dialogBox.TypeDialog($"{inventoryUI.itemUseMessage}");
+                yield return dialogBox.TypeDialog($"Du brukte {inventoryUI.itemName}");
+                yield return dialogBox.TypeDialog($"{inventoryUI.itemMessage}");
             }
             else {
                 // TODO: add more actions

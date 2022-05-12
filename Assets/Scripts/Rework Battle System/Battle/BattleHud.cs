@@ -121,4 +121,10 @@ public class BattleHud : MonoBehaviour
     {
         yield return new WaitUntil(() => hpBar.isUpdating == false);
     }
+
+    public void ClearData()
+    {
+        _unit.OnStatusChanged -= SetStatusIcon;
+        _unit.OnHPChanged -= UpdateHP;
+    }
 }

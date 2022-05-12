@@ -11,4 +11,9 @@ public class Move
         Base = pBase;
         PP = pBase.PP;
     }
+
+    public void IncreasePP(int amount)
+    {
+        PP = Mathf.Clamp(PP + amount, 0, Base.PP);
+    }
 }

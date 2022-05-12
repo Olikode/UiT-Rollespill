@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Kaffee
   description: "En kopp kaffee som gir spilleren tilbake 5 PP p\xE5 et angrep."
+  useMessage: '*Glugg glugg* Koffeinen gir deg litt ekstra energi'
   icon: {fileID: -5277416899212292434, guid: 8f4722900c9caae4a8250abe32f08c77, type: 3}
   hpAmount: 0
   restoreMaxHP: 0
-  ppAmount: 0
+  ppAmount: 5
   restoreMaxPP: 0
-  status: 0
-  recoverAnyStatus: 0
+  status: 2
+  recoverAllStatus: 0

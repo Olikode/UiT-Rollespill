@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Salat
   description: "En gr\xF8nn salat som hjelper mot hjerneteppe"
+  useMessage: Mmm, salat er godt for kropp og sinn
   icon: {fileID: 3888485862653501721, guid: 8f4722900c9caae4a8250abe32f08c77, type: 3}
   hpAmount: 0
   restoreMaxHP: 0
   ppAmount: 0
   restoreMaxPP: 0
   status: 3
-  recoverAnyStatus: 0
+  recoverAllStatus: 0

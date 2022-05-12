@@ -16,24 +16,46 @@ public class RecoveryItem : ItemBase
 
     [Header("Condition recovery")]
     [SerializeField] ConditionID status;
-    [SerializeField] bool recoverAnyStatus;
+    [SerializeField] bool recoverAllStatus;
 
     public override bool Use(Unit unit)
     {
-        if (hpAmount > 0)
+        // restore health
+        if (restoreMaxHP || hpAmount > 0)
         {
+            // check if player is not already full at max HP 
             if (unit.HP == unit.MaxHP)
                 return false;
-            
-            unit.IncreaseHP(hpAmount);
+
+            if(restoreMaxHP)
+                unit.IncreaseHP(unit.MaxHP);
+            else
+                unit.IncreaseHP(hpAmount);
         }
-        if (ppAmount > 0)
+
+        // recover status condition
+        if (recoverAllStatus || status != ConditionID.Null)
         {
-           /* if (unit.HP == unit.MaxHP)
+            // check if player has status condition
+            if(unit.Status == null)
                 return false;
-            
-            unit.IncreaseHP(hpAmount);*/
+
+            if(recoverAllStatus)
+                unit.CureStatus();
+            else
+            {
+                if (unit.Status.Id == status)
+                    unit.CureStatus();
+                else
+                    return false;
+            }
         }
+
+        // restore PP
+        if (restoreMaxPP)
+           unit.Moves.ForEach(m => m.IncreasePP(m.Base.PP));
+        else if (ppAmount > 0)
+            unit.Moves.ForEach(m => m.IncreasePP(ppAmount));
 
         return true;
     }
