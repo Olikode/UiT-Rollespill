@@ -34,10 +34,10 @@ public class PlayerController : MonoBehaviour
         ProcessInputs();
     }
 
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        //If player presses M, the dialouge starts. Also checks if the dialouge is open, to stop the player from pressing M again, and ending up with double the text. 
+        if (Input.GetKeyDown(KeyCode.M) && dialougeManager.IsOpen == false)
         {
             if (Interactable != null)
             {

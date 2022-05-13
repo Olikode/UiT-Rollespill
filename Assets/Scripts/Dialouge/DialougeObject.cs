@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//DialougeObject for instantiating Dialouge objects
 [CreateAssetMenu(menuName = "Dialouge/DialougeObject")]
 public class DialougeObject : ScriptableObject
 {
@@ -11,6 +12,4 @@ public class DialougeObject : ScriptableObject
     public bool HasResponses => Responses != null && Responses.Length > 0;
 
     public Response[] Responses => responses;
-
-
 }

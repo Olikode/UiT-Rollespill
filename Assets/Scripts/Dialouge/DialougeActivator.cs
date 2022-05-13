@@ -6,11 +6,13 @@ public class DialougeActivator : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialougeObject dialougeObject;
 
+    //Updates the dialougeObject
     public void UpdateDialogueObject(DialougeObject dialougeObject)
     {
         this.dialougeObject = dialougeObject;
     }
 
+    //Checks if NPC is colliding with player
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
@@ -19,6 +21,7 @@ public class DialougeActivator : MonoBehaviour, IInteractable
         }
     }
 
+    //Resets the
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
@@ -29,6 +32,7 @@ public class DialougeActivator : MonoBehaviour, IInteractable
             }
         }
     }
+
 
     public void Interact(PlayerController playerController)
     {
