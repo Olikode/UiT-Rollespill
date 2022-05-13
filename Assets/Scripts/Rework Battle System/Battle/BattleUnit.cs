@@ -27,7 +27,7 @@ public class BattleUnit : MonoBehaviour
 
     private void Awake(){
         image = GetComponent<Image>();
-        orginalColor = image.color;
+        orginalColor = GlobalSettings.i.OrginalColor;
         orginalPos = image.transform.localPosition;
     }
 

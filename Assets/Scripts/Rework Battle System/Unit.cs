@@ -242,7 +242,6 @@ public class Unit
         ResetStatBoost();
     }
 }
-
 public class DamageDetails
 {
     public bool Fainted { get; set; }
