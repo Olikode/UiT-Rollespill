@@ -10,11 +10,9 @@ public class EnemyController : MonoBehaviour
     private Vector2 moveDirection;
     private Vector3 originalSize;
     private Vector3 playerDirection;
-    bool isPaused;
 
     protected virtual void Start()
     {
-        isPaused = player.gameObject.GetComponent<PlayerController>().isPaused;
         originalSize = transform.localScale;
     }
 
@@ -26,6 +24,7 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // when game is paused, enemies can't move
         if (player.gameObject.GetComponent<PlayerController>().isPaused)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;

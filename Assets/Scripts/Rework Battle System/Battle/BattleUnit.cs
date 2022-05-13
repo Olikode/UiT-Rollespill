@@ -54,6 +54,8 @@ public class BattleUnit : MonoBehaviour
         hud.gameObject.SetActive(false);
     }
 
+
+    // animations
     public void PlayEnterAnimation(){
         if(isPlayer)
             image.transform.localPosition = new Vector3(-500f, orginalPos.y);

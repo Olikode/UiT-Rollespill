@@ -6,16 +6,18 @@ using System;
 
 public class SummaryUI : MonoBehaviour
 {
-    [SerializeField] List<GameObject> moveInfoFields;
-
+    [Header("Player Info")]
     [SerializeField] Image playerImage;
     [SerializeField] Text nameText;
     [SerializeField] Text levelText;
     [SerializeField] Text typeText;
     [SerializeField] Text hpText;
+    [Header("Moves")]
+    [SerializeField] List<GameObject> moveInfoFields;
     [SerializeField] Text descriptionText;
     [SerializeField] Text accuracyText;
     [SerializeField] Text PowerText;
+    [Header("Player gameobject")]
     [SerializeField] GameObject playerGO;
 
     Inventory inventory;
@@ -30,7 +32,7 @@ public class SummaryUI : MonoBehaviour
     }
     private void Start()
     {
-        player = playerGO.GetComponent<UnitList>().GetHealthyUnit();
+        player = playerGO.GetComponent<UnitList>().GetPlayerUnit();
         moves = player.Moves;
         SetPlayerInfo();
         inventory.OnUpdated += SetPlayerInfo;
@@ -43,19 +45,14 @@ public class SummaryUI : MonoBehaviour
         typeText.text = $"{player.Base.Type}-Student";
         levelText.text = $"Level {player.Level}";
         hpText.text = $"HP: {player.HP}/{player.MaxHP}";
-
         
+        // set move info
         for (int i = 0; i < moves.Count; i++)
         {
             string name = moves[i].Base.Name;
             string pp = $"PP: {moves[i].PP}/{moves[i].Base.PP}";
 
             moveInfoFields[i].GetComponent<MoveInfoUI>().SetInfo(name, pp);
-
-            /*if (moves[i].PP == 0)
-                ppText.color = Color.red;
-            else    
-                ppText.color = Color.black;*/
         }
     }
 
@@ -71,6 +68,7 @@ public class SummaryUI : MonoBehaviour
             if(selectedItem < 0)
                 selectedItem = 0;
         }
+        // switch between player and move list
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             selectedItem = -1;
@@ -95,6 +93,7 @@ public class SummaryUI : MonoBehaviour
     {
         for (int i = 0; i < moveInfoFields.Count; i++)
         {
+            // If player is highlighted instead of moves
             if(selectedItem < 0)
             {
                 nameText.color = GlobalSettings.i.HighlightedColor;

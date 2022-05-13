@@ -48,7 +48,7 @@ public class ConditionsDB : MonoBehaviour
                         unit.StatusChanges.Enqueue($"{unit.Base.Name} har ikke hjerneteppe lengre");
                         return true;
                     }
-
+                    // 50% chance to not let unit attack
                     if (Random.Range(1,3) == 1){
                     unit.StatusChanges.Enqueue($"{unit.Base.Name} har hjerneteppe og klarer ikke tenke");
                     return false;

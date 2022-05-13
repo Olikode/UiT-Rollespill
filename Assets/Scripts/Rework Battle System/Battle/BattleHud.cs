@@ -6,35 +6,16 @@ using DG.Tweening;
 
 public class BattleHud : MonoBehaviour
 {
-    [SerializeField]
-    Text nameText;
-
-    [SerializeField]
-    Text lvlText;
-
-    [SerializeField]
-    Image conditionImage;
-
-    [SerializeField]
-    Sprite sleepIcon;
-
-    [SerializeField]
-    Sprite poisonIcon;
-
-    [SerializeField]
-    Sprite stunIcon;
-
-    [SerializeField]
-    Color iconColor;
-
-    [SerializeField]
-    Color noIconColor;
-
-    [SerializeField]
-    HPBar hpBar;
-
-    [SerializeField]
-    GameObject expBar;
+    [SerializeField] Text nameText;
+    [SerializeField] Text lvlText;
+    [SerializeField] Image conditionImage;
+    [SerializeField] Sprite sleepIcon;
+    [SerializeField] Sprite poisonIcon;
+    [SerializeField] Sprite stunIcon;
+    [SerializeField] Color iconColor;
+    [SerializeField] Color noIconColor;
+    [SerializeField] HPBar hpBar;
+    [SerializeField] GameObject expBar;
 
     Unit _unit;
 
@@ -124,6 +105,7 @@ public class BattleHud : MonoBehaviour
 
     public void ClearData()
     {
+        // unsubscribe from events
         _unit.OnStatusChanged -= SetStatusIcon;
         _unit.OnHPChanged -= UpdateHP;
     }

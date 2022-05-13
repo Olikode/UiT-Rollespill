@@ -7,27 +7,29 @@ using UnityEngine;
 
 public class UnitBase : ScriptableObject
 {
+    [Header("Apparence")]
     [SerializeField] string name;
 
     [TextArea]
     [SerializeField] string description;
     [SerializeField] ClassType type;
-
     [SerializeField] Sprite sprite;
 
     //Base stats
+    [Header("Base stats")]
     [SerializeField] int maxHP;
     [SerializeField] int attackPower;
     [SerializeField] int defensePower;
     [SerializeField] int speed;
-    [SerializeField] int hit;
-    [SerializeField] int initiative;
 
 
+    [Header("EXP and loot")]
     [SerializeField] int expYield;
+    // TODO add SerializeField list with possible lootdrops
 
     public static int MaxNumOfMoves {get; set;} = 4;
 
+    [Header("Moves")]
     // Unlock more moves when leveling up
     [SerializeField] List<LearnableMove> learnableMoves;
 
@@ -70,10 +72,6 @@ public class UnitBase : ScriptableObject
 
     public int Speed {
         get { return speed;}
-    }
-
-    public int Hit {
-        get { return hit;}
     }
 
     public List<LearnableMove> LearnableMoves {

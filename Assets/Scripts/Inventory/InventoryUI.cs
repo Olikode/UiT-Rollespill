@@ -106,13 +106,16 @@ public class InventoryUI : MonoBehaviour
             UpdateItemSlection();
 
             if(prevCategory != selectedCategory){
+                // reset selected item for switching categories
                 ResetSelection();
+                // show new category list
                 categoryText.text = Inventory.ItemCategories[selectedCategory];
                 UpdateItemList();
             }
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
+                // go to summary screen when using items
                 OpenSummaryScreen();
             }
             else if(Input.GetKeyDown(KeyCode.Escape))
@@ -127,6 +130,7 @@ public class InventoryUI : MonoBehaviour
 
             Action onBackSummary = () =>
             {
+                // close summary screen when canceling using items
                 UIDialogBox.gameObject.SetActive(false);
                 CloseSummaryScreen();
             };
@@ -150,6 +154,7 @@ public class InventoryUI : MonoBehaviour
         selectedItem = Mathf.Clamp(selectedItem, 0, slots.Count);
 
         if(slots.Count > 0){
+            // shows the player the selected item and description
             var item = slots[selectedItem].Item;
             itemIcon.sprite = item.Icon;
             itemDescription.text = item.Description;
@@ -202,6 +207,7 @@ public class InventoryUI : MonoBehaviour
 
         if (usedItem != null)
         {
+            // shows the player item used in battle dialog
             if(inBattle){
                 itemName = $"{item.Name}";
                 itemMessage = $"{item.UseMessage}";
@@ -209,6 +215,7 @@ public class InventoryUI : MonoBehaviour
                 CloseSummaryScreen();
                 onItemUsed?.Invoke();
             }
+            // shows the player item used in dialog box overlaying UI
             else
             {
                 UIDialogBox.gameObject.SetActive(true);
@@ -218,6 +225,7 @@ public class InventoryUI : MonoBehaviour
                 CloseSummaryScreen();
             }
         }
+        // shows the player if item could not be used
         else
         {
             UIDialogBox.gameObject.SetActive(true);

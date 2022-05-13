@@ -54,6 +54,7 @@ public class BattleSystem : MonoBehaviour
 
     public void StartBattle(UnitList player, UnitList enemy)
     {
+        // stat battle with wild enemy
         this.player = player;
         this.enemy = enemy;
 
@@ -62,11 +63,12 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());
     }
 
-    public void StartExamBattle(UnitList player, UnitList enemy, Challenger x)
+    public void StartExamBattle(UnitList player, UnitList enemy, Challenger enemyChallenger)
     {
+        // start battle with challenger
         this.player = player;
         this.enemy = enemy;
-        this.challenger = x;
+        this.challenger = enemyChallenger;
         
         isExamBattle = true;
 
@@ -122,6 +124,7 @@ public class BattleSystem : MonoBehaviour
 
     void ActionSelection()
     {
+        // player select action
         state = BattleState.ActionSelection;
         StartCoroutine(dialogBox.TypeDialog("Hva vil du gjøre?"));
 
@@ -130,6 +133,7 @@ public class BattleSystem : MonoBehaviour
 
     void MoveSelection()
     {
+        // player select move
         state = BattleState.MoveSelection;
 
         dialogBox.EnableActionSelector(false);
@@ -140,6 +144,7 @@ public class BattleSystem : MonoBehaviour
 
     void OpenBag()
     {
+        // shows player inventory
         inventoryUI.gameObject.SetActive(true);
         state = BattleState.Bag;
     }
@@ -209,6 +214,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit attacker, BattleUnit defender, Move move)
     {
+        // runs turn of player and enemy
         bool canRunMove = attacker.Unit.OnBeforeMove();
         if (!canRunMove)
         {
@@ -308,6 +314,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ChooseMoveToFerget(MoveBase newMove)
     {
+        // when player level up and can choose new move
         state = BattleState.Busy;
         yield return dialogBox.TypeDialog($"Velg et angrep å glemme");
         learnMoveUI.gameObject.SetActive(true);
@@ -318,6 +325,8 @@ public class BattleSystem : MonoBehaviour
     }
 
     bool CheckIfMoveHits(Move move, Unit attacker, Unit defender){
+        //calculates if attack hits or not based on move stats
+        //formula based on pokemon games
 
         if (move.Base.AlwaysHit == true)
             return true;
@@ -353,6 +362,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator HandleUnitFainted(BattleUnit faintedUnit)
     {
+        // Show player unit who lost 
         yield return dialogBox.TypeDialog($"{faintedUnit.Unit.Base.Name} har tapt");
         faintedUnit.PlayDieAnimation();
         yield return new WaitForSeconds(2f);
@@ -381,6 +391,7 @@ public class BattleSystem : MonoBehaviour
                 var newMove = playerUnit.Unit.GetCurrentLevelMove();
                 if (newMove != null)
                 {
+                    // Check if player can learn new move
                     if (playerUnit.Unit.Moves.Count < UnitBase.MaxNumOfMoves)
                     {
                         playerUnit.Unit.LearnMove(newMove);
@@ -396,12 +407,9 @@ public class BattleSystem : MonoBehaviour
                         yield return new WaitUntil(() => state != BattleState.MoveToForget);
                     }
                 }
-                
-
                 yield return playerUnit.Hud.SetExpSmooth(true);
             }
         }
-
         CheckForBattleOver(faintedUnit);
     }
 
@@ -414,10 +422,13 @@ public class BattleSystem : MonoBehaviour
         else
         {
             if (!isExamBattle){
+                // TODO add loot drops
+
                 playerUnit.Unit.CureStatus();
                 BattleOver(true);
             }
             else{
+                // check if enemy have more units
                 var nextUnit = enemy.GetHealthyUnit();
                 if(nextUnit != null)
                     StartCoroutine(sendOutNextUnit(nextUnit));
@@ -519,6 +530,9 @@ public class BattleSystem : MonoBehaviour
 
     void HandleMoveSelection()
     {
+        // TODO add move like struggle, when player is out of moves with PP
+        // From Bulbapedia: It damages an enemy, but it also damages you. 
+        // (If there's no move available, your move will be Struggle.)
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             if (currentMove < playerUnit.Unit.Moves.Count - 1)

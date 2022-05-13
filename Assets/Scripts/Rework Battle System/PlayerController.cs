@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // freeze when paused
+        // unfreeze when not paused
         if (isPaused)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = originalSize;
         }
+        // flip character
         else if (moveDirection.x < 0)
         {
             transform.localScale = new Vector3(originalSize.x * -1, originalSize.y, originalSize.z);
@@ -74,6 +77,8 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
         }
 
+        // TODO change when dialog system is working
+        // should not destroy object
         if (collider.tag == "Challenger")
         {
             var enemyUnits = collider.gameObject.GetComponent<UnitList>();
@@ -82,12 +87,4 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
         }
     }
-
-    /*private bool IsWalkable(Vector3 targetPos){
-        if (Physics2D.OverlapCircle(targetPos, 0.3f, blockingLayer) != null){
-            return false;
-        }
-
-        return true;
-    }*/
 }

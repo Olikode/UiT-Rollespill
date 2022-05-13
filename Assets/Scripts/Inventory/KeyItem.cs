@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class KeyItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Should be used as quest items to unlock new places or finish quests
 }

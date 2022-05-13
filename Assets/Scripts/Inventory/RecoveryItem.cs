@@ -20,8 +20,17 @@ public class RecoveryItem : ItemBase
 
     public override bool Use(Unit unit)
     {
+        // restore PP
+        // TODO make it so it only recovers PP of one move
+        if(restoreMaxPP || ppAmount > 0)
+        {
+            if (restoreMaxPP)
+                unit.Moves.ForEach(m => m.IncreasePP(m.Base.PP));
+            else if (ppAmount > 0)
+                unit.Moves.ForEach(m => m.IncreasePP(ppAmount));
+        }
         // restore health
-        if (restoreMaxHP || hpAmount > 0)
+        else if (restoreMaxHP || hpAmount > 0)
         {
             // check if player is not already full at max HP 
             if (unit.HP == unit.MaxHP)
@@ -32,9 +41,8 @@ public class RecoveryItem : ItemBase
             else
                 unit.IncreaseHP(hpAmount);
         }
-
         // recover status condition
-        if (recoverAllStatus || status != ConditionID.Null)
+        else if (recoverAllStatus || status != ConditionID.Null)
         {
             // check if player has status condition
             if(unit.Status == null)
@@ -50,12 +58,6 @@ public class RecoveryItem : ItemBase
                     return false;
             }
         }
-
-        // restore PP
-        if (restoreMaxPP)
-           unit.Moves.ForEach(m => m.IncreasePP(m.Base.PP));
-        else if (ppAmount > 0)
-            unit.Moves.ForEach(m => m.IncreasePP(ppAmount));
 
         return true;
     }

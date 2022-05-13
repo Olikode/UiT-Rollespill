@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "Unit/Create new move")]
 public class MoveBase : ScriptableObject
 {
+    [Header("Name and description")]
     [SerializeField] string name;
 
     [TextArea]
@@ -14,6 +15,7 @@ public class MoveBase : ScriptableObject
 
     [SerializeField] MoveCategory category;
 
+    [Header("Stats")]
     [SerializeField] int power;
 
     [SerializeField] int accuracy;
@@ -22,10 +24,11 @@ public class MoveBase : ScriptableObject
     [SerializeField] int pp;
     [SerializeField] int priority;
 
+    [Header("Effects")]
     [SerializeField] MoveEffects effects;
+    [SerializeField] MoveTarget target;
     [SerializeField] SecondaryEffects secondaryEffects;
 
-    [SerializeField] MoveTarget target;
 
     public string Name
     {
@@ -69,15 +72,16 @@ public class MoveBase : ScriptableObject
         get { return effects; }
     }
 
+    public MoveTarget Target
+    {
+        get { return target; }
+    }
+
     public SecondaryEffects SecondaryEffects
     {
         get { return secondaryEffects; }
     }
 
-    public MoveTarget Target
-    {
-        get { return target; }
-    }
 }
 
 [System.Serializable]

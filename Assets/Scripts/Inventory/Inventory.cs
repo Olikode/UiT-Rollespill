@@ -53,6 +53,7 @@ public class Inventory : MonoBehaviour
             return item;
         }
         
+        // if item is not used
         return null;
     }
 
@@ -67,11 +68,12 @@ public class Inventory : MonoBehaviour
         // remove item from inventory when 0 left
         if(itemSlot.Count == 0)
             slots.Remove(itemSlot);
-
+        
         OnUpdated?.Invoke();
     }
 }
 
+// contains item and count of item
 [Serializable] public class ItemSlot
 {
     [SerializeField] ItemBase item;

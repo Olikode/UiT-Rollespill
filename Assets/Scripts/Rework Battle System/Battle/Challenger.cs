@@ -5,7 +5,7 @@ using UnityEngine;
 public class Challenger : MonoBehaviour
 {
     [SerializeField] string name;
-    [SerializeField] string prefix;
+    [SerializeField] string prefix; //Foreleser, student, rektor osv
     [SerializeField] Sprite sprite;
 
     public string Name{

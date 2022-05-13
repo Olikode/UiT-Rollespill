@@ -55,6 +55,7 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    // show player currently selected menu item
     void UpdateItemSlection()
     {
         for (int i = 0; i < menuItems.Count; i++)

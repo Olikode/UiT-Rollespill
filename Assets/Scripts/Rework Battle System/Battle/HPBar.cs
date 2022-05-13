@@ -12,6 +12,7 @@ public class HPBar : MonoBehaviour
         health.transform.localScale = new Vector3(hpNormalized, 1f);
     }
 
+    // shows player HPbar decreasing smoothly
     public IEnumerator SetHPSmooth(float newHp){
         isUpdating = true;
 

@@ -6,11 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class Unit
 {
-    [SerializeField]
-    UnitBase _base;
+    [SerializeField] UnitBase _base;
 
-    [SerializeField]
-    int level;
+    [SerializeField] int level;
 
     public UnitBase Base
     {
@@ -66,6 +64,7 @@ public class Unit
 
     void CalculateStats()
     {
+        // stat calculation is based from the pokemon games
         Stats = new Dictionary<Stat, int>();
         Stats.Add(Stat.Angrep, Mathf.FloorToInt((Base.AttackPower * Level) / 10f) + 5);
         Stats.Add(Stat.Forsvar, Mathf.FloorToInt((Base.DefensePower * Level) / 10f) + 5);
@@ -90,7 +89,6 @@ public class Unit
     {
         int statVal = Stats[stat];
 
-        // TODO: apply stat boost
         int boost = StatBoosts[stat];
         var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
 
@@ -109,6 +107,7 @@ public class Unit
             var stat = statBoost.stat;
             var boost = statBoost.boost;
 
+            // stats boosts is always between -6 and 6
             StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
 
             if (boost > 0)
@@ -143,6 +142,7 @@ public class Unit
         if(Moves.Count > UnitBase.MaxNumOfMoves)
             return;
 
+        // learn move automatically if player has less than max amount of moves
         Moves.Add(new Move(moveToLearn.Base));
     }
 

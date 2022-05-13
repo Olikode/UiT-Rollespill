@@ -5,35 +5,18 @@ using UnityEngine.UI;
 
 public class BattleDialogBox : MonoBehaviour
 {
-    [SerializeField]
-    int letterPerSecond;
-
-    [SerializeField]
-    Color highLightedColor;
-
-    [SerializeField]
-    Text dialogText;
-
-    [SerializeField]
-    GameObject actionSelector;
-
-    [SerializeField]
-    GameObject moveSelector;
-
-    [SerializeField]
-    GameObject moveDetails;
-
-    [SerializeField]
-    List<Text> actionText;
-
-    [SerializeField]
-    List<Text> moveText;
-
-    [SerializeField]
-    Text ppText;
-
-    [SerializeField]
-    Text typeText;
+    [SerializeField] int letterPerSecond;
+    [SerializeField] Text dialogText;
+    [Header("Selectors")]
+    [SerializeField] GameObject actionSelector;
+    [SerializeField] GameObject moveSelector;
+    [Header("Action Text")]
+    [SerializeField] List<Text> actionText;
+    [Header("Moves")]
+    [SerializeField] GameObject moveDetails;
+    [SerializeField] List<Text> moveText;
+    [SerializeField] Text ppText;
+    [SerializeField] Text typeText;
 
     public void SetDialog(string dialog)
     {
@@ -83,7 +66,7 @@ public class BattleDialogBox : MonoBehaviour
         for (int i = 0; i < actionText.Count; ++i)
         {
             if (i == selectedAction)
-                actionText[i].color = highLightedColor;
+                actionText[i].color = GlobalSettings.i.HighlightedColor;
             else
                 actionText[i].color = Color.black;
         }
@@ -95,7 +78,7 @@ public class BattleDialogBox : MonoBehaviour
         for (int i = 0; i < moveText.Count; ++i)
         {
             if (i == selectedMove)
-                moveText[i].color = highLightedColor;
+                moveText[i].color = GlobalSettings.i.HighlightedColor;
             else
                 moveText[i].color = Color.black;
         }

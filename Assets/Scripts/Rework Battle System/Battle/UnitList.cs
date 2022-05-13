@@ -16,11 +16,14 @@ public class UnitList : MonoBehaviour
         }
     }
 
+    // get the first healthy unit from challenger
     public Unit GetHealthyUnit()
     {
         return units.Where(x => x.HP > 0).FirstOrDefault();
     }
 
+    // get player unit
+    // player will only have a list of 1 unit 
     public Unit GetPlayerUnit()
     {
         return units[0];

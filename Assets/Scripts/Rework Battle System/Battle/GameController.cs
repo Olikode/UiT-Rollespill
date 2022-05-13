@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
         playerController.OnEncountered += StartBattle;
         playerController.OnChallenged += StartExamBattle;
         battleSystem.OnBattleOver += EndBattle;
+        // back to freeroam state when not paused
         menuController.onBack += () =>
         {
             state = GameState.FreeRoam;
@@ -65,7 +66,6 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        
         var player = playerController.GetComponent<UnitList>();
         var enemyList = challenger.GetComponent<UnitList>();
 
@@ -80,6 +80,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        // checks current gamestate and runs belonging function
         if(state == GameState.FreeRoam)
             playerController.isPaused = false;
         else   
@@ -153,7 +154,5 @@ public class GameController : MonoBehaviour
             // load
             // TODO add load and save
         }
-
-        //state = GameState.FreeRoam;
     }
 }
