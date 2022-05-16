@@ -5,7 +5,14 @@ using UnityEngine;
 public class DialougeActivator : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialougeObject dialougeObject;
+    [SerializeField] public SpriteRenderer nPCImage; 
 
+
+
+    public void Start()
+    {
+        nPCImage = GetComponent<SpriteRenderer>();
+    }
     //Updates the dialougeObject
     public void UpdateDialogueObject(DialougeObject dialougeObject)
     {
