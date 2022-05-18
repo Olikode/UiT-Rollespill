@@ -41,16 +41,28 @@ public class SummaryUI : MonoBehaviour
     
     public void SetPlayerInfo()
     {
+        playerImage.sprite = player.Base.Sprite;
         nameText.text = $"{player.Base.Name}";
         typeText.text = $"{player.Base.Type}-Student";
         levelText.text = $"Level {player.Level}";
         hpText.text = $"HP: {player.HP}/{player.MaxHP}";
         
         // set move info
-        for (int i = 0; i < moves.Count; i++)
+        for (int i = 0; i < UnitBase.MaxNumOfMoves; i++)
         {
-            string name = moves[i].Base.Name;
-            string pp = $"PP: {moves[i].PP}/{moves[i].Base.PP}";
+            string name;
+            string pp;
+
+            if(i < moves.Count)
+            {
+                name = moves[i].Base.Name;
+                pp = $"PP: {moves[i].PP}/{moves[i].Base.PP}";
+            }
+            else
+            {
+                name = "";
+                pp = "";
+            }
 
             moveInfoFields[i].GetComponent<MoveInfoUI>().SetInfo(name, pp);
         }
@@ -79,7 +91,7 @@ public class SummaryUI : MonoBehaviour
             selectedItem = 0;
         }
 
-        selectedItem = Mathf.Clamp(selectedItem, -1, 3);
+        selectedItem = Mathf.Clamp(selectedItem, -1, moves.Count-1);
 
         UpdateMoveSlection();
 

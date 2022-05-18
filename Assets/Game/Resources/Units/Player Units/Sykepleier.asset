@@ -15,11 +15,12 @@ MonoBehaviour:
   name: Sykepleier
   description: 
   type: 2
-  sprite: {fileID: 0}
+  sprite: {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   maxHP: 50
   attackPower: 47
   defensePower: 58
-  dodge: 0
-  hit: 0
-  initiative: 0
-  learnableMoves: []
+  speed: 0
+  expYield: 0
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: e50df8868979f5746aa91ee4c2593a94, type: 2}
+    level: 0

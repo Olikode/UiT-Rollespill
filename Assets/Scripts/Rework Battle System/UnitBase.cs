@@ -9,7 +9,6 @@ public class UnitBase : ScriptableObject
 {
     [Header("Apparence")]
     [SerializeField] string name;
-
     [TextArea]
     [SerializeField] string description;
     [SerializeField] ClassType type;
@@ -113,15 +112,9 @@ public enum ClassType{
 }
 
 public enum Stat{
-
     Angrep,
     Forsvar,
     Hurtighet,
     Treffsikkerhet,
     Unnvikelse,
-}
-
-// type effectivenes
-public class TypeChart{
-
 }
