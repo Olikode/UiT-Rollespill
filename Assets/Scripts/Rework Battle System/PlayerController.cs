@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     private Vector2 moveDirection;
     private Vector3 originalSize;
+    private SpriteRenderer spriteR;
 
     public event Action<UnitList> OnEncountered;
 
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
     protected virtual void Start()
     {
         originalSize = transform.localScale;
+        spriteR = gameObject.GetComponent<SpriteRenderer>();
+        var playerSprite = gameObject.GetComponent<UnitList>().GetPlayerUnit().Base.Sprite;
+        spriteR.sprite = playerSprite;
     }
 
     public void HandleUpdate()

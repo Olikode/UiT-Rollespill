@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Sykepleier
   description: 
   type: 2
-  sprite: {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  sprite: {fileID: -4869357254534750094, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   maxHP: 50
   attackPower: 47
   defensePower: 58
