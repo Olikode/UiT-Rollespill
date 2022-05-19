@@ -53,6 +53,10 @@ public class BattleUnit : MonoBehaviour
     public void Clear(){
         hud.gameObject.SetActive(false);
     }
+    public void ChallengerResetPos()
+    {
+        image.transform.localPosition = new Vector3(orginalPos.x, orginalPos.y);
+    }
 
 
     // animations
@@ -63,6 +67,10 @@ public class BattleUnit : MonoBehaviour
             image.transform.localPosition = new Vector3(500f, orginalPos.y);
 
         image.transform.DOLocalMoveX(orginalPos.x, 2f);
+    }
+
+    public void PlayLeaveAnimation(){
+        image.transform.DOLocalMoveX(500, 2f);
     }
 
     public void PlayAttackAnimation(){

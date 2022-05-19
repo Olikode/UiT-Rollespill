@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+public enum ItemCategory {Items, Books, Keys}
+
 public class Inventory : MonoBehaviour
 {
     [SerializeField] List<ItemSlot> slots;
@@ -21,6 +23,10 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        slots.Sort((x, y) => string.Compare(x.Item.Name, y.Item.Name));
+        bookSlots.Sort((x, y) => string.Compare(x.Item.Name, y.Item.Name));
+        keySlots.Sort((x, y) => string.Compare(x.Item.Name, y.Item.Name));
+
         allSlots = new List<List<ItemSlot>>() { slots, bookSlots, keySlots};
     }
 
@@ -38,6 +44,38 @@ public class Inventory : MonoBehaviour
     {
         var currentSlots = GetSlotsByCategory(categoryIndex);
         return currentSlots[itemIndex].Item;
+    }
+
+    ItemCategory GetCategoryFromItem(ItemBase item)
+    {
+        if (item is RecoveryItem)
+            return ItemCategory.Items;
+        else if (item is BookItem)
+            return ItemCategory.Books;
+        else 
+            return ItemCategory.Keys;
+    }
+
+    public void AddItem(ItemBase item, int count=1)
+    {
+        int category = (int)GetCategoryFromItem(item);
+        var currentSlots = GetSlotsByCategory(category);
+
+        var itemSlot = currentSlots.FirstOrDefault(slot => slot.Item == item);
+
+        if(itemSlot != null)
+        {
+            itemSlot.Count += count;
+        }
+        else
+        {
+            currentSlots.Add(new ItemSlot()
+            {
+                Item = item,
+                Count = count,
+            });
+        }
+        OnUpdated?.Invoke();
     }
 
     public ItemBase UseItem(int itemIndex, int categoryIndex, Unit unit)
@@ -79,7 +117,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] ItemBase item;
     [SerializeField] int count;
 
-    public ItemBase Item => item;
+    public ItemBase Item {
+        get => item;
+        set => item = value;
+    }
     public int Count {
         get => count;
         set => count = value;

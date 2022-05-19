@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     protected virtual void Start()
     {
         originalSize = transform.localScale;
+
+        // set gameobject sprite based on what class player is
         spriteR = gameObject.GetComponent<SpriteRenderer>();
         var playerSprite = gameObject.GetComponent<UnitList>().GetPlayerUnit().Base.Sprite;
         spriteR.sprite = playerSprite;

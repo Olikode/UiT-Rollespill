@@ -96,11 +96,12 @@ public class BattleSystem : MonoBehaviour
 
             challengerImage.GetComponent<Image>().sprite = challenger.Sprite;
             challengerImage.gameObject.SetActive(true);
+            challengerImage.GetComponent<BattleUnit>().ChallengerResetPos();
 
             yield return dialogBox.TypeDialog($"{challenger.Prefix} {challenger.Name} utfordrer deg");
 
             // challenger sends out units
-            challengerImage.gameObject.SetActive(false);
+            challengerImage.GetComponent<BattleUnit>().PlayLeaveAnimation();
             enemyUnit.gameObject.SetActive(true);
 
             var enemyUnits = enemy.GetHealthyUnit();
@@ -108,6 +109,7 @@ public class BattleSystem : MonoBehaviour
             
 
             yield return dialogBox.TypeDialog($"{challenger.Name} sendte ut en {enemyUnits.Base.Name}");
+            challengerImage.gameObject.SetActive(false);
             dialogBox.SetMoveNames(playerUnit.Unit.Moves);
         }
 

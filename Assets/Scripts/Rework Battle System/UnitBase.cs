@@ -40,6 +40,12 @@ public class UnitBase : ScriptableObject
         return (9 *(level * level * level) / 5);
     }
 
+    // TODO add method
+    // should calculate possible loot
+    /*public ItemBase GetLootDrop()
+    {
+        
+    }*/
 
     public string Name {
         get { return name;}
