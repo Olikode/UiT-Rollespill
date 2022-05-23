@@ -16060,6 +16060,7 @@ GameObject:
   - component: {fileID: 1189419289}
   - component: {fileID: 1189419288}
   - component: {fileID: 1189419292}
+  - component: {fileID: 1189419293}
   m_Layer: 9
   m_Name: IntroNPC
   m_TagString: Untagged
@@ -16206,6 +16207,20 @@ MonoBehaviour:
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1189419293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189419287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nPCSprite: {fileID: -4869357254534750094, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  nPCImage: {fileID: 1785604443}
 --- !u!1 &1192232574
 GameObject:
   m_ObjectHideFlags: 0
@@ -20636,7 +20651,6 @@ GameObject:
   - component: {fileID: 1785604442}
   - component: {fileID: 1785604444}
   - component: {fileID: 1785604443}
-  - component: {fileID: 1785604446}
   - component: {fileID: 1785604445}
   m_Layer: 5
   m_Name: NPCImage
@@ -20684,7 +20698,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
+  m_Sprite: {fileID: 6911726981415025543, guid: a247212a4de048344a9899bae349390f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -20739,34 +20753,20 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1495373999
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  m_Sprite: {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.13, y: 0.16}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1785604446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785604441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nPCPlaceHolder: {fileID: 0}
-  dialougeActivator: {fileID: 0}
 --- !u!1 &1822830662
 GameObject:
   m_ObjectHideFlags: 0
@@ -20859,6 +20859,7 @@ GameObject:
   - component: {fileID: 1838020924}
   - component: {fileID: 1838020923}
   - component: {fileID: 1838020922}
+  - component: {fileID: 1838020927}
   m_Layer: 9
   m_Name: TestNPC
   m_TagString: Untagged
@@ -21005,6 +21006,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1838020927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838020921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nPCSprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
+  nPCImage: {fileID: 1785604443}
 --- !u!1 &1864880735
 GameObject:
   m_ObjectHideFlags: 0

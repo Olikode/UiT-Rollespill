@@ -28,7 +28,7 @@ public class DialougeActivator : MonoBehaviour, IInteractable
         }
     }
 
-    //Resets the
+    //Resets the dialouge interactable bool
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
