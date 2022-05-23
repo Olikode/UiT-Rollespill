@@ -1663,9 +1663,9 @@ TextureImporter:
       name: Player_5
       rect:
         serializedVersion: 2
-        x: 98
+        x: 96
         y: 0
-        width: 13
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
