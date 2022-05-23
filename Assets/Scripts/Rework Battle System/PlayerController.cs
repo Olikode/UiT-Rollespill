@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private DialougeManager dialougeManager;
+
+    public DialougeManager DialougeManager => dialougeManager;
+
+    public IInteractable Interactable { get; set; }
+
+
     public float moveSpeed;
 
     public bool isPaused;
@@ -33,11 +40,22 @@ public class PlayerController : MonoBehaviour
         ProcessInputs();
     }
 
+    private void Update()
+    {
+        //If player presses M, the dialouge starts. Also checks if the dialouge is open, to stop the player from pressing M again, and ending up with double the text. 
+        if (Input.GetKeyDown(KeyCode.M) && dialougeManager.IsOpen == false)
+        {
+            if (Interactable != null)
+            {
+                Interactable.Interact(this);
+            }
+        }
+    }
     void FixedUpdate()
     {
         // freeze when paused
         // unfreeze when not paused
-        if (isPaused)
+        if (isPaused || dialougeManager.IsOpen)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
@@ -46,6 +64,8 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+
+
         
         Move();
     }
