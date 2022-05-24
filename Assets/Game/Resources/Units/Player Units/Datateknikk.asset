@@ -20,8 +20,6 @@ MonoBehaviour:
   attackPower: 56
   defensePower: 42
   speed: 40
-  hit: 50
-  initiative: 10
   expYield: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 4c9c1fb98083dcf4fa962b8fd82a7fd4, type: 2}

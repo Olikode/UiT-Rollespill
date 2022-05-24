@@ -47,9 +47,9 @@ public class UnitBase : ScriptableObject
         
     }*/
 
-    public string Name {
-        get { return name;}
-    }
+    public string Name { 
+        get {return name;} 
+        set {this.name = value;} }
 
     public string Description {
         get { return description;}
@@ -86,6 +86,18 @@ public class UnitBase : ScriptableObject
     public int ExpYield{
         get {return expYield;}
     }
+
+    public UnitBase Clone(string playerName, Sprite playerSprite) => new UnitBase {
+        name = playerName,
+        description = this.Description,
+        type = this.Type,
+        sprite = this.Sprite,
+        maxHP = this.MaxHP,
+        attackPower = this.AttackPower,
+        defensePower = this.DefensePower,
+        speed = this.Speed,
+        learnableMoves = this.learnableMoves,
+    };
 }
 
 [System.Serializable]

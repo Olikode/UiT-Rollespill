@@ -241,6 +241,12 @@ public class Unit
     {
         ResetStatBoost();
     }
+
+    public void SetPlayerData(UnitBase unitBase)
+    {
+        this._base = unitBase;
+        this.level = 1;
+    }
 }
 public class DamageDetails
 {
@@ -249,3 +255,5 @@ public class DamageDetails
 
     // public float type {get; set;}
 }
+
+

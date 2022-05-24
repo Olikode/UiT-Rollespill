@@ -28,4 +28,12 @@ public class UnitList : MonoBehaviour
     {
         return units[0];
     }
+
+    public void SetPlayerUnit(UnitBase unitBase)
+    {
+        var unit = new Unit();
+        unit.SetPlayerData(unitBase);
+
+        units.Add(unit);
+    }
 }

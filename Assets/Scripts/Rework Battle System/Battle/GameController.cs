@@ -10,22 +10,22 @@ public enum GameState
     Menu,
     Bag,
     Summary,
+    CharacterSelection,
 }
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField]
-    PlayerController playerController;
+    [SerializeField] GameObject playerGO;
+    [SerializeField] PlayerController playerController;
 
-    [SerializeField]
-    BattleSystem battleSystem;
+    [SerializeField] BattleSystem battleSystem;
 
-    [SerializeField]
-    Camera worldCamera;
+    [SerializeField] Camera worldCamera;
     
     MenuController menuController;
     [SerializeField] InventoryUI inventoryUI;
     [SerializeField] SummaryUI summaryUI;
+    [SerializeField] CharacterSelectionUI characterSelectionUI;
 
     GameState state;
 
@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
         menuController = GetComponent<MenuController>();
 
         ConditionsDB.Init();
+        state = GameState.CharacterSelection;
     }
 
     private void Start()
@@ -129,6 +130,22 @@ public class GameController : MonoBehaviour
             };
 
             summaryUI.HandleUpdate(onBack, null);
+        }
+        else if (state == GameState.CharacterSelection)
+        {
+            characterSelectionUI.gameObject.SetActive(true);
+            characterSelectionUI.HandleUpdate();
+
+            // when player has confirmed character
+            if (characterSelectionUI.confirmedCharacter)
+            {
+                var playerImage = characterSelectionUI.playerImage;
+                var unitBase = characterSelectionUI.playerClass.Clone("Fred",playerImage.sprite);
+                playerGO.GetComponent<UnitList>().SetPlayerUnit(unitBase);
+
+                state = GameState.FreeRoam;
+                characterSelectionUI.gameObject.SetActive(false);
+            }
         }
     }
 
