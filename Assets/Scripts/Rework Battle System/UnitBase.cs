@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [CreateAssetMenu(fileName = "Unit", menuName = "Unit/Create new unit")]
@@ -109,12 +110,12 @@ public class UnitBase : ScriptableObject
         learnableMoves = this.learnableMoves,
     };
 
-    public void SetPlayerCharacter(UnitBase unitBase)
+    public void SetPlayerCharacter(UnitBase unitBase, string name, Image image)
     {
-        Name = unitBase.Name;
+        Name = name;
         Description = unitBase.Description;
         Type = unitBase.Type;
-        Sprite = unitBase.Sprite;
+        Sprite = image.sprite;
         MaxHP = unitBase.MaxHP;
         AttackPower = unitBase.AttackPower;
         DefensePower = unitBase.DefensePower;

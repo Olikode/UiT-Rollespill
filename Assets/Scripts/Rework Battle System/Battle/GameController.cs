@@ -134,21 +134,21 @@ public class GameController : MonoBehaviour
             summaryUI.HandleUpdate(onBack, null);
         }
         else if (state == GameState.CharacterSelection)
-        {
+        {            
             characterSelectionUI.gameObject.SetActive(true);
             characterSelectionUI.HandleUpdate();
 
+            // TODO make into an action
             // when player has confirmed character
             if (characterSelectionUI.confirmedCharacter)
             {
-                // TODO write better
-                var playerImage = characterSelectionUI.playerImage;
-                var unitBase = characterSelectionUI.playerClass.Clone("Fred",playerImage.sprite);
-                playerUnitBase.SetPlayerCharacter(characterSelectionUI.playerClass);
+                var playerClass = characterSelectionUI.PlayerUnitBase;
+                var playerImage = characterSelectionUI.PlayerImage;
+                var playerName = characterSelectionUI.PlayerName;
+                
+                playerUnitBase.SetPlayerCharacter(playerClass, playerName, playerImage);
                 playerController.SetPlayerSprite();
-                playerUnitList.GetPlayerUnit().Moves = characterSelectionUI.playerClass.MovesAtFirstLevel();
-
-                //playerGO.GetComponent<UnitList>().SetPlayerUnit(unitBase);
+                playerUnitList.GetPlayerUnit().Moves = characterSelectionUI.PlayerUnitBase.MovesAtFirstLevel();
 
                 state = GameState.FreeRoam;
                 characterSelectionUI.gameObject.SetActive(false);

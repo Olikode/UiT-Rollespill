@@ -16058,7 +16058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  m_Sprite: {fileID: 3059076114534577413, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -45737,7 +45737,6 @@ GameObject:
   - component: {fileID: 2112291945}
   - component: {fileID: 2112291944}
   - component: {fileID: 2112291946}
-  - component: {fileID: 2112291947}
   m_Layer: 5
   m_Name: CharacterSelectionUI
   m_TagString: Untagged
@@ -45818,12 +45817,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8bc388f6d6f574a98ad6e8027c127d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  units: {fileID: 2112291947}
   playableCharacters:
-  - {fileID: 11400000, guid: 38dc188aee7aa7f44b1eec12d39f7ed8, type: 2}
-  - {fileID: 11400000, guid: 6be91a0a141f66449bf6b40011601181, type: 2}
   - {fileID: 11400000, guid: 6e3a03d420957b64786d15fccacdc6cf, type: 2}
+  - {fileID: 11400000, guid: 38dc188aee7aa7f44b1eec12d39f7ed8, type: 2}
   - {fileID: 11400000, guid: a10656da751e5df4cbec1800521263f5, type: 2}
+  - {fileID: 11400000, guid: 6be91a0a141f66449bf6b40011601181, type: 2}
+  maleCharacterImages:
+  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  femaleCharactersImages:
+  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   classSelectionGO: {fileID: 142967745}
   characterInfoGO: {fileID: 1008629972}
   confirmCharacterGO: {fileID: 838092444}
@@ -45844,31 +45852,7 @@ MonoBehaviour:
   studentName: {fileID: 1967529165}
   studentClass: {fileID: 826237067}
   studentIDPhoto: {fileID: 973429098}
-  playerClass: {fileID: 0}
-  playerName: 
-  playerImage: {fileID: 0}
   confirmedCharacter: 0
---- !u!114 &2112291947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112291942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68aad469309cc594d8033a7db3e387a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  units:
-  - _base: {fileID: 11400000, guid: 38dc188aee7aa7f44b1eec12d39f7ed8, type: 2}
-    level: 1
-  - _base: {fileID: 11400000, guid: 6e3a03d420957b64786d15fccacdc6cf, type: 2}
-    level: 1
-  - _base: {fileID: 11400000, guid: a10656da751e5df4cbec1800521263f5, type: 2}
-    level: 1
-  - _base: {fileID: 11400000, guid: 6be91a0a141f66449bf6b40011601181, type: 2}
-    level: 1
 --- !u!1 &2117559190
 GameObject:
   m_ObjectHideFlags: 0
