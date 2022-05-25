@@ -16,3 +16,6 @@ MonoBehaviour:
   description: Stilig bok
   useMessage: 
   icon: {fileID: 0}
+  buyingPrice: 0
+  sellingPrice: 0
+  move: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}

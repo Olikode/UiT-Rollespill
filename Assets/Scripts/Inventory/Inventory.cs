@@ -104,9 +104,9 @@ public class Inventory : MonoBehaviour
         itemSlot.Count--;
 
         // remove item from inventory when 0 left
-        if(itemSlot.Count == 0)
-            slots.Remove(itemSlot);
-        
+        if(itemSlot.Count < 1)
+            currentSlots.Remove(itemSlot);
+
         OnUpdated?.Invoke();
     }
 }

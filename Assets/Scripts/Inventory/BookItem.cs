@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Create new book item")]
+[CreateAssetMenu(menuName = "Items/Create new move book")]
 public class BookItem : ItemBase
 {
+    [SerializeField] MoveBase move;
 
-    // TODO make books contain new moves for the player to learn
 
     public override bool Use(Unit unit)
     {
-        return true;
+        // learning move is handled in InventoruUI
+        // returns true if used
+        return unit.HasMove(move);
     }
+
+    public MoveBase Move => move;
 }

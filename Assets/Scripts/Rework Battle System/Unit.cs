@@ -138,13 +138,18 @@ public class Unit
         return Base.LearnableMoves.Where(x => x.Level == level).FirstOrDefault();
     }
 
-    public void LearnMove(LearnableMove moveToLearn)
+    public void LearnMove(MoveBase moveToLearn)
     {
         if(Moves.Count > UnitBase.MaxNumOfMoves)
             return;
 
         // learn move automatically if player has less than max amount of moves
-        Moves.Add(new Move(moveToLearn.Base));
+        Moves.Add(new Move(moveToLearn));
+    }
+
+    public bool HasMove(MoveBase move)
+    {
+        return Moves.Count(m => m.Base == move) > 0;
     }
 
     public int MaxHP { get; private set; }

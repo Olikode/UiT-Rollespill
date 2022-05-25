@@ -16,3 +16,6 @@ MonoBehaviour:
   description: "G\xF8y bok"
   useMessage: 
   icon: {fileID: -8700288420119475449, guid: 4cdd9cc67bf595e45bcf593a5ef68c0f, type: 3}
+  buyingPrice: 0
+  sellingPrice: 0
+  move: {fileID: 11400000, guid: 51fb350baf29ff94aa08f6b43edec3b7, type: 2}

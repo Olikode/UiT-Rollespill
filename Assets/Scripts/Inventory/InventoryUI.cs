@@ -58,7 +58,7 @@ public class InventoryUI : MonoBehaviour
 
     void UpdateItemList()
     {
-        playerUnit = player.gameObject.GetComponent<UnitList>().GetHealthyUnit();
+        playerUnit = player.gameObject.GetComponent<UnitList>().GetPlayerUnit();
 
         // clear existing items
         foreach (Transform child in itemList.transform)
@@ -202,8 +202,11 @@ public class InventoryUI : MonoBehaviour
     {
         state = InventoryUIState.Busy;
 
+        yield return HandleBookItems();
+
         var item = inventory.GetItem(selectedItem, selectedCategory);
         var usedItem = inventory.UseItem(selectedItem, selectedCategory, playerUnit);
+        Debug.Log("Item used" + usedItem);
 
         if (usedItem != null)
         {
@@ -233,6 +236,24 @@ public class InventoryUI : MonoBehaviour
             yield return new WaitForSeconds(2f);
             UIDialogBox.gameObject.SetActive(false);
             CloseSummaryScreen();
+        }
+    }
+
+    IEnumerator HandleBookItems()
+    {
+        var bookItem = inventory.GetItem(selectedItem, selectedCategory) as BookItem;
+        if(bookItem == null)
+            yield break;
+        
+        if(playerUnit.Moves.Count < UnitBase.MaxNumOfMoves)
+        {
+            playerUnit.LearnMove(bookItem.Move);
+
+            // show player use dialog
+            UIDialogBox.gameObject.SetActive(true);
+            UIDialogText.text = $"Du lærte {bookItem.Move.Name}";
+            yield return new WaitForSeconds(2f);
+            UIDialogBox.gameObject.SetActive(false);
         }
     }
 }

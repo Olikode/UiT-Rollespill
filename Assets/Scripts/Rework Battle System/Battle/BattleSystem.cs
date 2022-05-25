@@ -397,7 +397,7 @@ public class BattleSystem : MonoBehaviour
                     // Check if player can learn new move
                     if (playerUnit.Unit.Moves.Count < UnitBase.MaxNumOfMoves)
                     {
-                        playerUnit.Unit.LearnMove(newMove);
+                        playerUnit.Unit.LearnMove(newMove.Base);
                         yield return dialogBox.TypeDialog($"Du har lært {newMove.Base.Name}");
                         dialogBox.SetMoveNames(playerUnit.Unit.Moves);
                     }
