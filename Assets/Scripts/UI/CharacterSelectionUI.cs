@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public enum CharacterSelectionState
 {
     ClassSelection,
-    GenderSelection,
+    StudentInfoSelection,
     ConfirmCharacter,
 };
 
@@ -17,6 +17,9 @@ public class CharacterSelectionUI : MonoBehaviour
     [SerializeField] List<Sprite> maleCharacterImages;
     [SerializeField] List<Sprite> femaleCharactersImages;
 
+    [SerializeField] GameObject back;
+    [SerializeField] GameObject next;
+
     [Header("Game Objects (views)")]
     [SerializeField] GameObject classSelectionGO;
     [SerializeField] GameObject characterInfoGO;
@@ -24,12 +27,12 @@ public class CharacterSelectionUI : MonoBehaviour
 
     [Header("Class Selection Elements")]
     [SerializeField] List<Text> classes;
-    [SerializeField] Text desciption;
+    [SerializeField] Text classDesciption;
 
-    [Header("Gender Selection Elements")]
-    // name form
-
-
+    [Header("Info Selection Elements")]
+    
+    [SerializeField] Text nameInput;
+    [SerializeField] Text nameLable;
     [SerializeField] Image maleBG;
     [SerializeField] Image femaleBG;
     [SerializeField] List<Text> genders;
@@ -44,13 +47,12 @@ public class CharacterSelectionUI : MonoBehaviour
     int selectedGender = 0;
 
     UnitBase playerUnitBase;
-    string playerName;
-    Image playerImage;
 
     public bool confirmedCharacter = false;
 
     private void Awake()
     {
+        back.SetActive(false);
         for (int i = 0; i < playableCharacters.Count; i++)
             classes[i].text = playableCharacters[i].Type.ToString();
     }
@@ -64,33 +66,48 @@ public class CharacterSelectionUI : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.UpArrow))
                 --selectedClass;
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 genderImages[0].sprite = maleCharacterImages[selectedClass];
                 genderImages[1].sprite = femaleCharactersImages[selectedClass];
                 
+                back.SetActive(true);
+                next.SetActive(true);
                 classSelectionGO.SetActive(false);
                 characterInfoGO.SetActive(true);
-                state = CharacterSelectionState.GenderSelection;
+                state = CharacterSelectionState.StudentInfoSelection;
             }
         }
-        else if (state == CharacterSelectionState.GenderSelection)
+        else if (state == CharacterSelectionState.StudentInfoSelection)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
                 ++selectedGender;
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 --selectedGender;
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
+                if(nameInput.text != "")
+                {
+                nameLable.color = Color.black;
                 studentIDPhoto.sprite = genderImages[selectedGender].sprite;
+                studentName.text = nameInput.text;
 
+                back.SetActive(true);
+                next.SetActive(true);
                 characterInfoGO.SetActive(false);
                 confirmCharacterGO.SetActive(true);
                 state = CharacterSelectionState.ConfirmCharacter;
+                }
+                else
+                {
+                    nameLable.color = Color.red;
+                }
             }
             else if(Input.GetKeyDown(KeyCode.Escape))
             {
+                back.SetActive(false);
+                next.SetActive(true);
                 characterInfoGO.SetActive(false);
                 classSelectionGO.SetActive(true);
                 state = CharacterSelectionState.ClassSelection;
@@ -99,11 +116,9 @@ public class CharacterSelectionUI : MonoBehaviour
         else if (state == CharacterSelectionState.ConfirmCharacter)
         {
             studentClass.text = playerUnitBase.Type.ToString();
-            //studentName.text = 
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
-                playerName = "Roger";
                 confirmedCharacter = true;
                 // create playerUnitBase asset
             }
@@ -111,7 +126,7 @@ public class CharacterSelectionUI : MonoBehaviour
             {
                 confirmCharacterGO.SetActive(false);
                 characterInfoGO.SetActive(true);
-                state = CharacterSelectionState.GenderSelection;
+                state = CharacterSelectionState.StudentInfoSelection;
             }
         }
 
@@ -129,6 +144,7 @@ public class CharacterSelectionUI : MonoBehaviour
             if (i == selectedClass)
             {
                 classes[i].color = GlobalSettings.i.HighlightedColor;
+                classDesciption.text = playableCharacters[i].Description;
                 playerUnitBase = playableCharacters[i];
             }
             else
@@ -153,7 +169,7 @@ public class CharacterSelectionUI : MonoBehaviour
     }
 
     public string PlayerName{
-        get {return playerName;}
+        get {return nameInput.text;}
     }
 
     public Image PlayerImage{
