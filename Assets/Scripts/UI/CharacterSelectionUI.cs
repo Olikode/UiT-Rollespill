@@ -13,6 +13,7 @@ public enum CharacterSelectionState
 public class CharacterSelectionUI : MonoBehaviour
 {
     CharacterSelectionState state;
+    [SerializeField] UnitList units;
     [SerializeField] List<UnitBase> playableCharacters;
 
     [Header("Game Objects (views)")]

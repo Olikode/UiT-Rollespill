@@ -16,6 +16,8 @@ public enum GameState
 public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject playerGO;
+    [SerializeField] UnitBase playerUnitBase;
+    [SerializeField] UnitList playerUnitList;
     [SerializeField] PlayerController playerController;
 
     [SerializeField] BattleSystem battleSystem;
@@ -139,9 +141,14 @@ public class GameController : MonoBehaviour
             // when player has confirmed character
             if (characterSelectionUI.confirmedCharacter)
             {
+                // TODO write better
                 var playerImage = characterSelectionUI.playerImage;
                 var unitBase = characterSelectionUI.playerClass.Clone("Fred",playerImage.sprite);
-                playerGO.GetComponent<UnitList>().SetPlayerUnit(unitBase);
+                playerUnitBase.SetPlayerCharacter(characterSelectionUI.playerClass);
+                playerController.SetPlayerSprite();
+                playerUnitList.GetPlayerUnit().Moves = characterSelectionUI.playerClass.MovesAtFirstLevel();
+
+                //playerGO.GetComponent<UnitList>().SetPlayerUnit(unitBase);
 
                 state = GameState.FreeRoam;
                 characterSelectionUI.gameObject.SetActive(false);

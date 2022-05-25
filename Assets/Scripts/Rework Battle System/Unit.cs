@@ -54,6 +54,7 @@ public class Unit
                 break;
         }
 
+
         Exp = Base.GetExpForLevel(level);
 
         CalculateStats();
@@ -240,12 +241,6 @@ public class Unit
     public void OnBattleOver()
     {
         ResetStatBoost();
-    }
-
-    public void SetPlayerData(UnitBase unitBase)
-    {
-        this._base = unitBase;
-        this.level = 1;
     }
 }
 public class DamageDetails

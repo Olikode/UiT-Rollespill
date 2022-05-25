@@ -53,41 +53,51 @@ public class UnitBase : ScriptableObject
 
     public string Description {
         get { return description;}
+        set {this.description = value; }
     }
 
     public ClassType Type {
         get { return type;}
+        set {this.type = value; }
     }
 
     public Sprite Sprite {
         get { return sprite;}
+        set {this.sprite = value; }
     }
 
     public int MaxHP {
         get { return maxHP;}
+        set {this.maxHP = value; }
     }
 
     public int AttackPower {
         get { return attackPower;}
+        set {this.attackPower = value; }
     }
 
     public int DefensePower {
         get { return defensePower;}
+        set {this.defensePower = value; }
     }
 
     public int Speed {
         get { return speed;}
+        set {this.speed = value; }
     }
 
     public List<LearnableMove> LearnableMoves {
         get { return learnableMoves; }
+        set {this.learnableMoves = value; }
     }
 
     public int ExpYield{
         get {return expYield;}
+        set {this.expYield = value; }
     }
 
-    public UnitBase Clone(string playerName, Sprite playerSprite) => new UnitBase {
+    public UnitBase Clone(string playerName, Sprite playerSprite) => new UnitBase 
+    {
         name = playerName,
         description = this.Description,
         type = this.Type,
@@ -98,6 +108,37 @@ public class UnitBase : ScriptableObject
         speed = this.Speed,
         learnableMoves = this.learnableMoves,
     };
+
+    public void SetPlayerCharacter(UnitBase unitBase)
+    {
+        Name = unitBase.Name;
+        Description = unitBase.Description;
+        Type = unitBase.Type;
+        Sprite = unitBase.Sprite;
+        MaxHP = unitBase.MaxHP;
+        AttackPower = unitBase.AttackPower;
+        DefensePower = unitBase.DefensePower;
+        Speed = unitBase.Speed;
+        ExpYield = unitBase.ExpYield;
+        LearnableMoves = unitBase.LearnableMoves;
+    }
+
+    public List<Move> MovesAtFirstLevel()
+    {
+        var moves = new List<Move>();
+        foreach (var move in LearnableMoves)
+        {
+            if (move.Level <= 1)
+            {
+                moves.Add(new Move(move.Base));
+            }
+
+            if (moves.Count >= UnitBase.MaxNumOfMoves)
+                break;
+        }
+
+        return moves;
+    }
 }
 
 [System.Serializable]
