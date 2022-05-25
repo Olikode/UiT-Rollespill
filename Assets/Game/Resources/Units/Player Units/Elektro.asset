@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elektro
   m_EditorClassIdentifier: 
   name: Elektro
-  description: 
+  description: "Str\xF8m og s\xE5nt"
   type: 3
   sprite: {fileID: 0}
   maxHP: 0

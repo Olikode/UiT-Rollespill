@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sykepleier
   m_EditorClassIdentifier: 
   name: Sykepleier
-  description: 
+  description: "Sykdom og s\xE5nt"
   type: 2
   sprite: {fileID: -4869357254534750094, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   maxHP: 50

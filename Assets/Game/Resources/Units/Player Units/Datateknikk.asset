@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Datateknikk
   m_EditorClassIdentifier: 
   name: Datamann
-  description: 
+  description: "Hacking og s\xE5nt"
   type: 1
   sprite: {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
   maxHP: 58

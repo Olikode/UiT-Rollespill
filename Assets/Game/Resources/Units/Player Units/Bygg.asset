@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bygg
   m_EditorClassIdentifier: 
   name: Bygg
-  description: 
+  description: "Bygging og s\xE5nt"
   type: 4
   sprite: {fileID: 0}
   maxHP: 0

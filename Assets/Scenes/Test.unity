@@ -5358,7 +5358,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &468764894
 PrefabInstance:
@@ -46372,7 +46372,7 @@ MonoBehaviour:
   - {fileID: 190900061}
   - {fileID: 1710245201}
   - {fileID: 52893367}
-  desciption: {fileID: 103574829}
+  classDesciption: {fileID: 103574829}
   nameInput: {fileID: 1038440165}
   nameLable: {fileID: 164491783}
   maleBG: {fileID: 1656266415}
@@ -46678,7 +46678,7 @@ RectTransform:
   - {fileID: 224307669}
   - {fileID: 2112291943}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
