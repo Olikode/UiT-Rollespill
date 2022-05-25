@@ -15,7 +15,6 @@ public class UnitBase : ScriptableObject
     [SerializeField] ClassType type;
     [SerializeField] Sprite sprite;
 
-    //Base stats
     [Header("Base stats")]
     [SerializeField] int maxHP;
     [SerializeField] int attackPower;
@@ -96,20 +95,7 @@ public class UnitBase : ScriptableObject
         get {return expYield;}
         set {this.expYield = value; }
     }
-
-    public UnitBase Clone(string playerName, Sprite playerSprite) => new UnitBase 
-    {
-        name = playerName,
-        description = this.Description,
-        type = this.Type,
-        sprite = this.Sprite,
-        maxHP = this.MaxHP,
-        attackPower = this.AttackPower,
-        defensePower = this.DefensePower,
-        speed = this.Speed,
-        learnableMoves = this.learnableMoves,
-    };
-
+    
     public void SetPlayerCharacter(UnitBase unitBase, string name, Image image)
     {
         Name = name;
@@ -124,6 +110,8 @@ public class UnitBase : ScriptableObject
         LearnableMoves = unitBase.LearnableMoves;
     }
 
+    // used when player has selected character
+    // Moves need to be set
     public List<Move> MovesAtFirstLevel()
     {
         var moves = new List<Move>();

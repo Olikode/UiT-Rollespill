@@ -138,7 +138,6 @@ public class GameController : MonoBehaviour
             characterSelectionUI.gameObject.SetActive(true);
             characterSelectionUI.HandleUpdate();
 
-            // TODO make into an action
             // when player has confirmed character
             if (characterSelectionUI.confirmedCharacter)
             {
@@ -146,10 +145,12 @@ public class GameController : MonoBehaviour
                 var playerImage = characterSelectionUI.PlayerImage;
                 var playerName = characterSelectionUI.PlayerName;
                 
+                // edits playerUnitBase based on selections
                 playerUnitBase.SetPlayerCharacter(playerClass, playerName, playerImage);
                 playerController.SetPlayerSprite();
                 playerUnitList.GetPlayerUnit().Moves = characterSelectionUI.PlayerUnitBase.MovesAtFirstLevel();
 
+                // player can now controll character
                 state = GameState.FreeRoam;
                 characterSelectionUI.gameObject.SetActive(false);
             }
