@@ -19,7 +19,7 @@ MonoBehaviour:
   power: 150
   accuracy: 90
   alwaysHit: 0
-  pp: 5
+  pp: 0
   priority: 0
   effects:
     boosts: []

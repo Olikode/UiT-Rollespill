@@ -157,8 +157,11 @@ public class BattleSystem : MonoBehaviour
 
         if (playerAction == BattleAction.Move)
         {
-            playerUnit.Unit.CurrentMove = playerUnit.Unit.Moves[currentMove];
-            enemyUnit.Unit.CurrentMove = enemyUnit.Unit.GetRandomMove();
+            if(playerUnit.Unit.HasMoveWithPP())
+                playerUnit.Unit.CurrentMove = playerUnit.Unit.Moves[currentMove];
+            
+            if(enemyUnit.Unit.HasMoveWithPP())
+                enemyUnit.Unit.CurrentMove = enemyUnit.Unit.GetRandomMove();
 
             int playerMovePriority = playerUnit.Unit.CurrentMove.Base.Priority;
             int enemyMovePriority = enemyUnit.Unit.CurrentMove.Base.Priority;
@@ -226,8 +229,15 @@ public class BattleSystem : MonoBehaviour
         }
         yield return ShowStatusChanges(attacker.Unit);
 
-        move.PP--;
-        yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} bruker {move.Base.Name}");
+        if(move.Base == GlobalSettings.i.NoPpMove)
+        {
+            yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} er tom for angrep og må bruke {move.Base.Name}");
+        }
+        else
+        {
+            move.PP--;
+            yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} bruker {move.Base.Name}");
+        }
 
         if (CheckIfMoveHits(move, attacker.Unit, defender.Unit)){
 
@@ -244,6 +254,13 @@ public class BattleSystem : MonoBehaviour
                 var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
                 yield return defender.Hud.WaitForHPUpdate();
                 yield return ShowDamageDetails(damageDetails);
+
+                if(move.Base == GlobalSettings.i.NoPpMove)
+                {
+                    damageDetails = attacker.Unit.TakeDamage(move, defender.Unit);
+                    yield return attacker.Hud.WaitForHPUpdate();
+                    yield return ShowDamageDetails(damageDetails);
+                }
 
                 if(defender.Unit.Status?.Id != null){
                     if(defender.Unit.Status.Id.Equals(ConditionID.Søvn)){
@@ -561,14 +578,15 @@ public class BattleSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
+
             var move = playerUnit.Unit.Moves[currentMove];
-            if (move.PP == 0) return;
-
-            dialogBox.EnableMoveSelector(false);
-
-            dialogBox.EnableDialogText(true);
-
-            StartCoroutine(RunTurns(BattleAction.Move));
+            if (move.PP == 0 && playerUnit.Unit.Moves.Any(m => m.PP > 0)) return;
+            else
+            {
+                dialogBox.EnableMoveSelector(false);
+                dialogBox.EnableDialogText(true);
+                StartCoroutine(RunTurns(BattleAction.Move));
+            }
         }
     }
 

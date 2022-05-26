@@ -53,14 +53,22 @@ public class Unit
             if (Moves.Count >= UnitBase.MaxNumOfMoves)
                 break;
         }
-
-
         Exp = Base.GetExpForLevel(level);
 
         CalculateStats();
         HP = MaxHP;
 
         ResetStatBoost();
+    }
+
+    public bool HasMoveWithPP()
+    {
+        if(Moves.All(m => m.PP == 0))
+        {
+            CurrentMove = new Move(GlobalSettings.i.NoPpMove);
+            return false;
+        }
+        return true;
     }
 
     void CalculateStats()
@@ -187,6 +195,11 @@ public class Unit
         DecreaseHP(damage);
 
         return damageDetails;
+    }
+
+    public void NoMorePpMove(Unit attacker, Unit defender)
+    {
+
     }
 
     public void IncreaseHP(int amount)

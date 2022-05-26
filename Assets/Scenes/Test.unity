@@ -18949,6 +18949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightedColor: {r: 0.110137075, g: 0.46439525, b: 0.7075472, a: 1}
   orginalColor: {r: 1, g: 1, b: 1, a: 1}
+  noPpMove: {fileID: 11400000, guid: 11f60d4cbcdea514eae6a6b4a1ba6461, type: 2}
 --- !u!1 &1777853831
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,13 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab424163109291541ab321b9ed12d994, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  type: 0
-  sprite: {fileID: 0}
-  maxHP: 0
-  attackPower: 0
-  defensePower: 0
-  speed: 0
+  name: e
+  description: "Hacking og s\xE5nt"
+  type: 1
+  sprite: {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  maxHP: 58
+  attackPower: 56
+  defensePower: 42
+  speed: 40
   expYield: 0
-  learnableMoves: []
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 4c9c1fb98083dcf4fa962b8fd82a7fd4, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: aad07e67576b69349adef050f15163d1, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: e50df8868979f5746aa91ee4c2593a94, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: f4e6caac52315594cb79830b1ca713a5, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 4421ff318217ad34f8a9aa9947e0a1aa, type: 2}
+    level: 5
