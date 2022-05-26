@@ -12,7 +12,6 @@ public class LearnMoveUI : MonoBehaviour
     [SerializeField] Text movePP;
     [SerializeField] Text movePower;
     [SerializeField] Text moveAccuracy;
-    [SerializeField] Color highLigtedColor;
     int currentSelection = 0;
 
     List<MoveBase> allMoves = new List<MoveBase>();
@@ -50,7 +49,7 @@ public class LearnMoveUI : MonoBehaviour
         {
             //shows info of highlighted move
             if(i == selection){
-                moveTexts[i].color = highLigtedColor;
+                moveTexts[i].color = GlobalSettings.i.HighlightedColor;
                 moveName.text = allMoves[i].Name;
                 moveDescription.text = allMoves[i].Description;
                 movePP.text = $"PP: {allMoves[i].PP}";

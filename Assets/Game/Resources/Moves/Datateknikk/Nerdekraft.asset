@@ -24,9 +24,9 @@ MonoBehaviour:
   effects:
     boosts: []
     status: 0
+  target: 0
   secondaryEffects:
     boosts: []
     status: 0
     chance: 0
     target: 0
-  target: 0

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
-public enum InventoryUIState { ItemSelection, UseSelection, Busy}
+public enum InventoryUIState { ItemSelection, UseSelection, Busy, ForgetMove}
 
 public class InventoryUI : MonoBehaviour
 {
@@ -19,7 +20,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Image downArrow;
     Inventory inventory;
     RectTransform itemListRect;
-
+    [SerializeField] LearnMoveUI learnMoveUI;
+    MoveBase moveToLearn;
     [SerializeField] SummaryUI summaryUI;
     [SerializeField] GameObject player;
 
@@ -137,6 +139,15 @@ public class InventoryUI : MonoBehaviour
 
             summaryUI.HandleUpdate(onBackSummary, onSelected);
         }
+        else if(state == InventoryUIState.ForgetMove)
+        {
+            Action<int> onMoveSelected = (int moveIndex) =>
+            {
+                StartCoroutine(MoveToForgetSelected(moveIndex));
+            };
+
+            learnMoveUI.HandleMoveSelection(onMoveSelected);
+        }
     }
 
     void UpdateItemSlection()
@@ -206,26 +217,29 @@ public class InventoryUI : MonoBehaviour
 
         var item = inventory.GetItem(selectedItem, selectedCategory);
         var usedItem = inventory.UseItem(selectedItem, selectedCategory, playerUnit);
-        Debug.Log("Item used" + usedItem);
 
         if (usedItem != null)
         {
-            // shows the player item used in battle dialog
-            if(inBattle){
-                itemName = $"{item.Name}";
-                itemMessage = $"{item.UseMessage}";
-
-                CloseSummaryScreen();
-                onItemUsed?.Invoke();
-            }
-            // shows the player item used in dialog box overlaying UI
-            else
+            
+            if(usedItem is RecoveryItem)
             {
-                UIDialogBox.gameObject.SetActive(true);
-                UIDialogText.text = $"Du brukte {item.Name}";
-                yield return new WaitForSeconds(2f);
-                UIDialogBox.gameObject.SetActive(false);
-                CloseSummaryScreen();
+                // shows the player item used in battle dialog
+                if(inBattle){
+                    itemName = $"{item.Name}";
+                    itemMessage = $"{item.UseMessage}";
+
+                    CloseSummaryScreen();
+                    onItemUsed?.Invoke();
+                }
+                // shows the player item used in dialog box overlaying UI
+                else
+                {
+                    UIDialogBox.gameObject.SetActive(true);
+                    UIDialogText.text = $"Du brukte {item.Name}";
+                    yield return new WaitForSeconds(2f);
+                    UIDialogBox.gameObject.SetActive(false);
+                    CloseSummaryScreen();
+                }
             }
         }
         // shows the player if item could not be used
@@ -237,6 +251,22 @@ public class InventoryUI : MonoBehaviour
             UIDialogBox.gameObject.SetActive(false);
             CloseSummaryScreen();
         }
+    }
+
+     IEnumerator ChooseMoveToForget(MoveBase newMove)
+    {
+        state = InventoryUIState.Busy;
+
+        UIDialogBox.gameObject.SetActive(true);
+        UIDialogText.text = $"Velg et angrep å glemme";
+        yield return new WaitForSeconds(2f);
+        UIDialogBox.gameObject.SetActive(false);
+        
+        learnMoveUI.gameObject.SetActive(true);
+        learnMoveUI.SetMoveData(playerUnit.Moves.Select(x => x.Base).ToList(), newMove);
+        moveToLearn = newMove;
+
+        state = InventoryUIState.ForgetMove;
     }
 
     IEnumerator HandleBookItems()
@@ -255,5 +285,49 @@ public class InventoryUI : MonoBehaviour
             yield return new WaitForSeconds(2f);
             UIDialogBox.gameObject.SetActive(false);
         }
+        else
+        {
+            UIDialogBox.gameObject.SetActive(true);
+            UIDialogText.text = $"Du prøver å lære {bookItem.Move.Name}";
+            yield return new WaitForSeconds(2f);
+            UIDialogText.text = $"Men du kan ikke lære mer...\nVil du glemme noe for å lære {bookItem.Move.Name}";
+            yield return new WaitForSeconds(2f);
+            UIDialogBox.gameObject.SetActive(false);
+
+            yield return ChooseMoveToForget(bookItem.Move);
+            yield return new WaitUntil(() => state != InventoryUIState.ForgetMove);
+        }
+    }
+
+    IEnumerator WriteDialog(string text)
+    {
+        UIDialogBox.gameObject.SetActive(true);
+        UIDialogText.text = text;
+        yield return new WaitForSeconds(2f);
+        UIDialogBox.gameObject.SetActive(false);
+    }
+
+    IEnumerator MoveToForgetSelected(int moveIndex)
+    {
+        learnMoveUI.gameObject.SetActive(false);
+        if(moveIndex == UnitBase.MaxNumOfMoves)
+        {
+            var text = $"Du glemmer ingenting";
+            yield return WriteDialog(text);
+        }
+        else
+        {
+            // forgets selected move, learns new move
+            var selectedMove = playerUnit.Moves[moveIndex].Base;
+
+            var text = $"Du glemte {selectedMove.Name} og lærte {moveToLearn.Name}";
+            yield return WriteDialog(text);
+
+            playerUnit.Moves[moveIndex] = new Move(moveToLearn);
+        }
+
+        moveToLearn = null;
+        CloseSummaryScreen();
+        state = InventoryUIState.ItemSelection;
     }
 }

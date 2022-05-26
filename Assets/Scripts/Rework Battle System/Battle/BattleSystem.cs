@@ -315,7 +315,7 @@ public class BattleSystem : MonoBehaviour
             }
     }
 
-    IEnumerator ChooseMoveToFerget(MoveBase newMove)
+    IEnumerator ChooseMoveToForget(MoveBase newMove)
     {
         // when player level up and can choose new move
         state = BattleState.Busy;
@@ -405,7 +405,7 @@ public class BattleSystem : MonoBehaviour
                     {
                         yield return dialogBox.TypeDialog($"Du prøver å lære {newMove.Base.Name}");
                         yield return dialogBox.TypeDialog($"Men du kan ikke lære mer. Vil du glemme noe for å lære {newMove.Base.Name}");
-                        yield return ChooseMoveToFerget(newMove.Base);
+                        yield return ChooseMoveToForget(newMove.Base);
 
                         yield return new WaitUntil(() => state != BattleState.MoveToForget);
                     }
