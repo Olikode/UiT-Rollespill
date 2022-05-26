@@ -15,5 +15,7 @@ public class BookItem : ItemBase
         return unit.HasMove(move);
     }
 
+    public override bool UsableInBattle => false;
+
     public MoveBase Move => move;
 }

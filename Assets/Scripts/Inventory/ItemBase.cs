@@ -10,7 +10,7 @@ public class ItemBase : ScriptableObject
     [SerializeField] string useMessage;
     [SerializeField] Sprite icon;
 
-    // TODO add selling price and buying price
+    // TODO add selling price and buying price when shop functions are made
     [Header("Price")]
     [SerializeField] int buyingPrice;
     [SerializeField] int sellingPrice;
@@ -26,4 +26,7 @@ public class ItemBase : ScriptableObject
     {
         return false;
     }
+
+    public virtual bool UsableInBattle => true;
+    public virtual bool UsableOutsideBattle => true;
 }

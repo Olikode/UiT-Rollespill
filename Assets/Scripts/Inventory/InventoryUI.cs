@@ -127,7 +127,9 @@ public class InventoryUI : MonoBehaviour
         {
             Action onSelected = () =>
             {
-                StartCoroutine(UseItem());
+                var item = inventory.GetItem(selectedItem, selectedCategory);
+                var usable = ItemUsable(item);
+                StartCoroutine(UseItem(usable));
             };
 
             Action onBackSummary = () =>
@@ -209,16 +211,20 @@ public class InventoryUI : MonoBehaviour
         itemDescription.text = "";
     }
 
-    IEnumerator UseItem()
+    IEnumerator UseItem(bool canBeUsed)
     {
         state = InventoryUIState.Busy;
 
-        yield return HandleBookItems();
+        if(canBeUsed)
+        {
+            yield return HandleBookItems();
+            yield break;
+        }
 
         var item = inventory.GetItem(selectedItem, selectedCategory);
         var usedItem = inventory.UseItem(selectedItem, selectedCategory, playerUnit);
 
-        if (usedItem != null)
+        if (usedItem != null && canBeUsed)
         {
             
             if(usedItem is RecoveryItem)
@@ -274,6 +280,17 @@ public class InventoryUI : MonoBehaviour
         var bookItem = inventory.GetItem(selectedItem, selectedCategory) as BookItem;
         if(bookItem == null)
             yield break;
+
+        if(playerUnit.HasMove(bookItem.Move))
+        {
+            var text = $"Du kan allerede {bookItem.Move.Name}";
+            yield return WriteDialog(text);
+
+            state = InventoryUIState.ItemSelection;
+            CloseSummaryScreen();
+
+            yield break;
+        }
         
         if(playerUnit.Moves.Count < UnitBase.MaxNumOfMoves)
         {
@@ -329,5 +346,21 @@ public class InventoryUI : MonoBehaviour
         moveToLearn = null;
         CloseSummaryScreen();
         state = InventoryUIState.ItemSelection;
+    }
+
+    bool ItemUsable(ItemBase item)
+    {
+        if (inBattle)
+        {
+            if(!item.UsableInBattle)
+                return false;
+        }
+        else
+        {
+            if(!item.UsableOutsideBattle)
+                return false;
+        }
+
+        return true;
     }
 }
