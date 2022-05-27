@@ -2,9 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialougeManager : MonoBehaviour
 {
+    public event Action onDialogClosed;
     protected bool dialougeStarted;
 
     [SerializeField]
@@ -81,6 +83,7 @@ public class DialougeManager : MonoBehaviour
 
     public void CloseDialougeBox()
     {
+        onDialogClosed?.Invoke();
         IsOpen = false; 
         dialogBox.SetActive(false);
         textLabel.text = string.Empty;

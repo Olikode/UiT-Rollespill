@@ -11,6 +11,7 @@ public enum GameState
     Bag,
     Summary,
     CharacterSelection,
+    Dialog,
 }
 
 public class GameController : MonoBehaviour
@@ -28,6 +29,11 @@ public class GameController : MonoBehaviour
     [SerializeField] InventoryUI inventoryUI;
     [SerializeField] SummaryUI summaryUI;
     [SerializeField] CharacterSelectionUI characterSelectionUI;
+    [SerializeField] DialougeManager dm;
+
+    public static DialougeManager dialougeManager { get; set; }
+
+    public static IInteractable Interactable { get; set; }
 
     GameState state;
 
@@ -41,6 +47,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        dialougeManager = dm;
         playerController.OnEncountered += StartBattle;
         playerController.OnChallenged += StartExamBattle;
         battleSystem.OnBattleOver += EndBattle;
@@ -50,6 +57,10 @@ public class GameController : MonoBehaviour
             state = GameState.FreeRoam;
         };
         menuController.onMenuSelected += OnMenuSelected;
+        dialougeManager.onDialogClosed += () =>
+        {
+            state = GameState.FreeRoam;
+        };
     }
 
     void StartBattle(UnitList enemy)
@@ -83,6 +94,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        
         // checks current gamestate and runs belonging function
         if(state == GameState.FreeRoam)
             playerController.isPaused = false;
@@ -101,6 +113,16 @@ public class GameController : MonoBehaviour
                 menuController.OpenMenu();
                 state = GameState.Menu;
             }
+
+            //If player presses M, the dialouge starts. Also checks if the dialouge is open, to stop the player from pressing M again, and ending up with double the text. 
+            if (Input.GetKeyDown(KeyCode.M) && dialougeManager.IsOpen == false)
+            {
+                if (Interactable != null)
+                {
+                    Interactable.Interact(playerController);
+                    state = GameState.Dialog;
+                }
+        }
 
         }
         else if (state == GameState.Battle)

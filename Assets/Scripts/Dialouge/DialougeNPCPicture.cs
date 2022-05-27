@@ -13,7 +13,7 @@ public class DialougeNPCPicture : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            nPCImage.sprite = nPCSprite;
+            nPCImage.sprite = DialougeActivator.nPCImage;
         }
     }
 

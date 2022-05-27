@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class DialougeActivator : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialougeObject dialougeObject;
-    [SerializeField] public SpriteRenderer nPCImage; 
-
-
+    public static Sprite nPCImage; 
 
     public void Start()
     {
-        nPCImage = GetComponent<SpriteRenderer>();
+        nPCImage = gameObject.GetComponent<SpriteRenderer>().sprite;
     }
     //Updates the dialougeObject
     public void UpdateDialogueObject(DialougeObject dialougeObject)
@@ -24,7 +24,8 @@ public class DialougeActivator : MonoBehaviour, IInteractable
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
         {
-            playerController.Interactable = this; 
+            nPCImage = gameObject.GetComponent<SpriteRenderer>().sprite;
+            GameController.Interactable = this;
         }
     }
 
@@ -33,9 +34,9 @@ public class DialougeActivator : MonoBehaviour, IInteractable
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
         {
-            if (playerController.Interactable is DialougeActivator dialougeActivator && dialougeActivator == this)
+            if (GameController.Interactable is DialougeActivator dialougeActivator && dialougeActivator == this)
             {
-                playerController.Interactable = null; 
+                GameController.Interactable = null;
             }
         }
     }
@@ -47,11 +48,11 @@ public class DialougeActivator : MonoBehaviour, IInteractable
         {
             if (responseEvents.DialougeObject == dialougeObject)
             {
-                playerController.DialougeManager.AddResponseEvents(responseEvents.Events);
+                GameController.dialougeManager.AddResponseEvents(responseEvents.Events);
                 break;
             }
         }
 
-        playerController.DialougeManager.ShowDialouge(dialougeObject);
+        GameController.dialougeManager.ShowDialouge(dialougeObject);
     }
 }
