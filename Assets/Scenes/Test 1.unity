@@ -10822,7 +10822,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.13, y: 0.16}
     newSize: {x: 0.13, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -19985,6 +19985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLabel: {fileID: 1450829281}
   dialogBox: {fileID: 493424036}
+  responseHandler: {fileID: 0}
 --- !u!114 &1745463313
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public enum GameState
@@ -176,6 +177,10 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
                 characterSelectionUI.gameObject.SetActive(false);
             }
+        }
+        else if (state == GameState.Dialog)
+        {
+            dialougeManager.responseHandler.HandleUpdate();
         }
     }
 

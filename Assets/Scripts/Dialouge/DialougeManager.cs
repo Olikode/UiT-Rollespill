@@ -4,8 +4,15 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
+public enum DialogState
+{
+    Ready,
+    Busy,
+};
+
 public class DialougeManager : MonoBehaviour
 {
+    public DialogState state;
     public event Action onDialogClosed;
     protected bool dialougeStarted;
 
@@ -16,7 +23,7 @@ public class DialougeManager : MonoBehaviour
     GameObject dialogBox;
 
     private DialougetypingEffect dialougetypingEffect;
-    private ResponseHandler responseHandler; 
+    public ResponseHandler responseHandler; 
 
     public bool IsOpen { get; private set; }
 
@@ -53,7 +60,8 @@ public class DialougeManager : MonoBehaviour
             if (i == dialougeObject.Dialouge.Length - 1 && dialougeObject.HasResponses) break;
 
             yield return null; 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.L));
+            yield return new WaitUntil(() => !responseHandler.waitingForResponse && state == DialogState.Ready);
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
         }
 
         if (dialougeObject.HasResponses)
@@ -69,16 +77,18 @@ public class DialougeManager : MonoBehaviour
     private IEnumerator RunTypingEffect(string dialouge)
     {
         dialougetypingEffect.Run(dialouge, textLabel);
-
+        state = DialogState.Busy;
         while (dialougetypingEffect.IsRunning)
         {
             yield return null;
-
-            if (Input.GetKeyDown(KeyCode.L))
+            
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 dialougetypingEffect.Stop();
+                state = DialogState.Ready;
             }
         }
+        state = DialogState.Ready;
     }
 
     public void CloseDialougeBox()
