@@ -49234,15 +49234,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a10656da751e5df4cbec1800521263f5, type: 2}
   - {fileID: 11400000, guid: 6be91a0a141f66449bf6b40011601181, type: 2}
   maleCharacterImages:
-  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  - {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: 2383056825149274434, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
+  - {fileID: -3894934993485565177, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
+  - {fileID: -4253356035955152087, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
+  - {fileID: 7873765787526182386, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
   femaleCharactersImages:
-  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  - {fileID: 1839998147110866507, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
+  - {fileID: -5234732906546216633, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
+  - {fileID: -2825690073449460567, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
+  - {fileID: -2254933094213581554, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
+  - {fileID: -447843769828450288, guid: 16f3b8c19ed51784b9c33c206e93ab6c, type: 3}
   classSelectionGO: {fileID: 142967745}
   characterInfoGO: {fileID: 1008629972}
   sendApplicationGO: {fileID: 1064678606}
