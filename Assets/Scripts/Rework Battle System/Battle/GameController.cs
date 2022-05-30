@@ -60,7 +60,8 @@ public class GameController : MonoBehaviour
         menuController.onMenuSelected += OnMenuSelected;
         dialougeManager.onDialogClosed += () =>
         {
-            state = GameState.FreeRoam;
+            if(state != GameState.Battle)
+                state = GameState.FreeRoam;
         };
     }
 
@@ -82,9 +83,8 @@ public class GameController : MonoBehaviour
         worldCamera.gameObject.SetActive(false);
 
         var player = playerController.GetComponent<UnitList>();
-        var enemyList = challenger.GetComponent<UnitList>();
 
-        battleSystem.StartExamBattle(player, enemyList, challenger);
+        battleSystem.StartExamBattle(player, enemy, challenger);
     }
 
     void EndBattle(bool isWon){
@@ -95,8 +95,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        
-        // checks current gamestate and runs belonging function
+        // checks current gamestate and runs pause function
         if(state == GameState.FreeRoam)
             playerController.isPaused = false;
         else   
@@ -128,6 +127,7 @@ public class GameController : MonoBehaviour
         }
         else if (state == GameState.Battle)
         {
+            dialougeManager.CloseDialougeBox();
             inventoryUI.inBattle = true;
             battleSystem.HandleUpdate();
         }

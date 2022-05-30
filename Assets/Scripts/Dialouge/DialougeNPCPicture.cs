@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI; 
 
 public class DialougeNPCPicture : MonoBehaviour
-{
+{/*
     [SerializeField] public Sprite nPCSprite;
     [SerializeField] public Image nPCImage; 
 
@@ -24,5 +24,5 @@ public class DialougeNPCPicture : MonoBehaviour
         {
             nPCImage = null;
         }
-    }
+    }*/
 }

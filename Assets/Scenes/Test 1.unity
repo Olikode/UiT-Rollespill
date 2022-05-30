@@ -648,8 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nPCSprite: {fileID: -4869357254534750094, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  nPCImage: {fileID: 938356169}
 --- !u!114 &58640886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5799,6 +5797,7 @@ MonoBehaviour:
   name: Frode Benjaminsen
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
+  gameController: {fileID: 0}
 --- !u!114 &454857526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10822,7 +10821,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.16}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.13, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -14067,7 +14066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &990145384
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14127,7 +14126,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990145383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.192, y: -0.31, z: 0}
+  m_LocalPosition: {x: -0.011, y: -0.394, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -14225,6 +14224,7 @@ MonoBehaviour:
   name: Frode Benjaminsen
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
+  gameController: {fileID: 1762554991}
 --- !u!1001 &991805552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18378,6 +18378,8 @@ GameObject:
   - component: {fileID: 1502313252}
   - component: {fileID: 1502313251}
   - component: {fileID: 1502313250}
+  - component: {fileID: 1502313256}
+  - component: {fileID: 1502313257}
   m_Layer: 9
   m_Name: TestNPC
   m_TagString: Untagged
@@ -18397,8 +18399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nPCSprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
-  nPCImage: {fileID: 938356169}
 --- !u!114 &1502313251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18432,7 +18432,19 @@ MonoBehaviour:
   - name: No
     onPickedResponse:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1502313256}
+          m_TargetAssemblyTypeName: Challenger, Assembly-CSharp
+          m_MethodName: StartChallengerBattle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1502313252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18537,6 +18549,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1502313256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502313249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf38e4f5519e7f148883ef182f405c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: "Per \xD8degaard"
+  prefix: Foreleser
+  sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
+  gameController: {fileID: 1762554991}
+--- !u!114 &1502313257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502313249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68aad469309cc594d8033a7db3e387a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  units:
+  - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
+    level: 1
+  - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
+    level: 1
 --- !u!1 &1512040054
 GameObject:
   m_ObjectHideFlags: 0
@@ -19958,6 +20003,7 @@ MonoBehaviour:
   responseBox: {fileID: 658582310}
   responseButtonTemplate: {fileID: 246808169}
   responseContainer: {fileID: 613689726}
+  waitingForResponse: 0
 --- !u!114 &1745463311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19983,6 +20029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33cc638169ac734439abfc3fbcd02acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   textLabel: {fileID: 1450829281}
   dialogBox: {fileID: 493424036}
   responseHandler: {fileID: 0}

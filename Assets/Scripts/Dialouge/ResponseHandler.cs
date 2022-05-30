@@ -118,4 +118,5 @@ public class ResponseHandler : MonoBehaviour
 
         dialougeManager.ShowDialouge(response.DialougeObject);
     }
+
 }

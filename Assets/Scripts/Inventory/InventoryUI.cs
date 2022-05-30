@@ -214,14 +214,14 @@ public class InventoryUI : MonoBehaviour
     IEnumerator UseItem(bool canBeUsed)
     {
         state = InventoryUIState.Busy;
+        var item = inventory.GetItem(selectedItem, selectedCategory);
 
-        if(canBeUsed)
+        if(canBeUsed )
         {
             yield return HandleBookItems();
             yield break;
         }
 
-        var item = inventory.GetItem(selectedItem, selectedCategory);
         var usedItem = inventory.UseItem(selectedItem, selectedCategory, playerUnit);
 
         if (usedItem != null && canBeUsed)

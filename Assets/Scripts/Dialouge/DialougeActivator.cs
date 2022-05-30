@@ -55,4 +55,9 @@ public class DialougeActivator : MonoBehaviour, IInteractable
 
         GameController.dialougeManager.ShowDialouge(dialougeObject);
     }
+
+    public void CloseDialog()
+    {
+        GameController.dialougeManager.CloseDialougeBox();
+    }
 }

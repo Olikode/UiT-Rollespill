@@ -9,6 +9,7 @@ public class Challenger : MonoBehaviour
     [SerializeField] string name;
     [SerializeField] string prefix; //Foreleser, student, rektor osv
     [SerializeField] Sprite sprite;
+    [SerializeField] GameController gameController;
 
     public string Name{
         get {return name;}
@@ -20,5 +21,11 @@ public class Challenger : MonoBehaviour
 
     public Sprite Sprite{
         get {return sprite;}
+    }
+
+    public void StartChallengerBattle()
+    {
+        var enemyUnits = gameObject.GetComponent<UnitList>();
+        gameController.StartExamBattle(enemyUnits, this);
     }
 }
