@@ -5798,6 +5798,7 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 0}
+  rewards: []
 --- !u!114 &454857526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14225,6 +14226,7 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 1762554991}
+  rewards: []
 --- !u!1001 &991805552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18413,7 +18415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialougeObject: {fileID: 11400000, guid: 9e17ff6890f296a46bba057321ca63d8, type: 2}
   events:
-  - name: Yes
+  - name: OK
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -18565,6 +18567,9 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 1762554991}
+  rewards:
+  - {fileID: 11400000, guid: d3d4f177e7bb735459f8617b386efc25, type: 2}
+  - {fileID: 11400000, guid: 5b1c853add1ef2f489e3afb692afc95f, type: 2}
 --- !u!114 &1502313257
 MonoBehaviour:
   m_ObjectHideFlags: 0

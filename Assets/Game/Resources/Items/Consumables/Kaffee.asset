@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Kaffee
   description: "En kopp kaffee som gir spilleren tilbake 5 PP p\xE5 et angrep."
   useMessage: '*Glugg glugg* Koffeinen gir deg litt ekstra energi'
-  icon: {fileID: -5277416899212292434, guid: 8f4722900c9caae4a8250abe32f08c77, type: 3}
+  icon: {fileID: -4694595805511210542, guid: 6292b2e6e051540479d960ec0634c18b, type: 3}
   buyingPrice: 0
   sellingPrice: 0
   hpAmount: 0

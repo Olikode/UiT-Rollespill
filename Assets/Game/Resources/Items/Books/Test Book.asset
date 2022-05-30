@@ -15,7 +15,7 @@ MonoBehaviour:
   name: GeoGebra 101
   description: "G\xF8y bok"
   useMessage: 
-  icon: {fileID: -8700288420119475449, guid: 4cdd9cc67bf595e45bcf593a5ef68c0f, type: 3}
+  icon: {fileID: 2466154118127810513, guid: 6292b2e6e051540479d960ec0634c18b, type: 3}
   buyingPrice: 0
   sellingPrice: 0
   move: {fileID: 11400000, guid: 4c9c1fb98083dcf4fa962b8fd82a7fd4, type: 2}

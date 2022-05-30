@@ -430,16 +430,17 @@ public class BattleSystem : MonoBehaviour
                 yield return playerUnit.Hud.SetExpSmooth(true);
             }
         }
-        CheckForBattleOver(faintedUnit);
+        yield return CheckForBattleOver(faintedUnit);
     }
 
-    void CheckForBattleOver(BattleUnit faintedUnit)
+    IEnumerator CheckForBattleOver(BattleUnit faintedUnit)
     {
         if (faintedUnit.IsPlayer)
         {
             // TODO add function to send player to safe place and heal
             player.GetPlayerUnit().Heal();
             BattleOver(false);
+            yield break;
         }
         else
         {
@@ -447,6 +448,7 @@ public class BattleSystem : MonoBehaviour
                 // TODO add loot drops
                 playerUnit.Unit.CureStatus();
                 BattleOver(true);
+                yield break;
             }
             else{
                 // check if enemy have more units
@@ -455,11 +457,44 @@ public class BattleSystem : MonoBehaviour
                     StartCoroutine(sendOutNextUnit(nextUnit));
                 else
                 {
+                    yield return PlayerWonChallenge();
                     challenger.Lost = true;
                     BattleOver(true);
                 }
             }
         }
+    }
+
+    IEnumerator PlayerLostChallenge()
+    {
+        // show challenger
+        challengerImage.gameObject.SetActive(true);
+        challengerImage.GetComponent<BattleUnit>().PlayEnterAnimation();
+
+        // dialog
+        yield return dialogBox.TypeDialog($"Du er beseiret av {challenger.Name}");
+        yield return dialogBox.TypeDialog($"{challenger.Name}: Ikke gi opp håpet. Sett deg ned og øv litt.");
+        yield return dialogBox.TypeDialog($"Så har du den neste gang.");
+    }
+
+    IEnumerator PlayerWonChallenge()
+    {
+        // show challenger
+        challengerImage.gameObject.SetActive(true);
+        challengerImage.GetComponent<BattleUnit>().PlayEnterAnimation();
+
+        // dialog
+        yield return dialogBox.TypeDialog($"Du har klart utfordringen til {challenger.Name}");
+        yield return dialogBox.TypeDialog($"{challenger.Name}: Du er blitt en dyktig student...");
+        yield return dialogBox.TypeDialog($"Her. Ta i mot denne premien.");
+        
+        // give player reward
+        foreach (var reward in challenger.Rewards)
+        {
+        yield return dialogBox.TypeDialog($"Du har fått {reward.Name} fra {challenger.Name}");
+        Inventory.GetInventory().AddItem(reward);
+        }
+        yield return dialogBox.TypeDialog($"Lykke til med bacheloroppgaven");
     }
 
     IEnumerator ShowDamageDetails(DamageDetails damageDetails)

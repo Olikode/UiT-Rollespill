@@ -16,9 +16,9 @@ MonoBehaviour:
   description: "Bruk r\xE5 nerdekraft for \xE5 vinne over motstanderen."
   type: 1
   category: 0
-  power: 150
+  power: 1500
   accuracy: 90
-  alwaysHit: 0
+  alwaysHit: 1
   pp: 5
   priority: 0
   effects:

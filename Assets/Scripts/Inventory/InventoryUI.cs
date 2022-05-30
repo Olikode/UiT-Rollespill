@@ -18,7 +18,7 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] Image upArrow;
     [SerializeField] Image downArrow;
-    Inventory inventory;
+    public Inventory inventory;
     RectTransform itemListRect;
     [SerializeField] LearnMoveUI learnMoveUI;
     MoveBase moveToLearn;
