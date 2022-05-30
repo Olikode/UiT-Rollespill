@@ -438,13 +438,13 @@ public class BattleSystem : MonoBehaviour
         if (faintedUnit.IsPlayer)
         {
             // TODO add function to send player to safe place and heal
+            player.GetPlayerUnit().Heal();
             BattleOver(false);
         }
         else
         {
             if (!isExamBattle){
                 // TODO add loot drops
-
                 playerUnit.Unit.CureStatus();
                 BattleOver(true);
             }
@@ -454,8 +454,10 @@ public class BattleSystem : MonoBehaviour
                 if(nextUnit != null)
                     StartCoroutine(sendOutNextUnit(nextUnit));
                 else
-                challenger.hasLost = true;
+                {
+                    challenger.Lost = true;
                     BattleOver(true);
+                }
             }
         }
     }

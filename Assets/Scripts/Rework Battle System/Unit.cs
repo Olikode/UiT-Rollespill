@@ -213,6 +213,14 @@ public class Unit
         OnHPChanged?.Invoke();
     }
 
+    public void Heal()
+    {
+        HP = MaxHP;
+        CureStatus();
+        Moves.ForEach(m => m.FullPP());
+        OnHPChanged?.Invoke();
+    }
+
     public void SetStatus(ConditionID conditionId)
     {
         if (Status != null)

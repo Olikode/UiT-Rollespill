@@ -11,7 +11,7 @@ public class Challenger : MonoBehaviour
     [SerializeField] Sprite sprite;
     [SerializeField] GameController gameController;
 
-    public bool hasLost = false;
+    public bool Lost{ get; set;}
 
     public string Name{
         get {return name;}
@@ -25,9 +25,14 @@ public class Challenger : MonoBehaviour
         get {return sprite;}
     }
 
+    public void Start()
+    {
+        Lost = false;
+    }
+
     public void StartChallengerBattle()
     {
-        if(!hasLost)
+        if(!Lost)
         {
             var enemyUnits = gameObject.GetComponent<UnitList>();
             gameController.StartExamBattle(enemyUnits, this);

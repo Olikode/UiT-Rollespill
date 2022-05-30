@@ -16,4 +16,9 @@ public class Move
     {
         PP = Mathf.Clamp(PP + amount, 0, Base.PP);
     }
+
+    public void FullPP()
+    {
+        PP = Base.PP;
+    }
 }

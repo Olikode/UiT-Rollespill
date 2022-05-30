@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject playerGO;
     [SerializeField] UnitBase playerUnitBase;
-    [SerializeField] UnitList playerUnitList;
+    public static UnitList playerUnit;
     [SerializeField] PlayerController playerController;
 
     [SerializeField] BattleSystem battleSystem;
@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        playerUnit
+ = playerController.gameObject.GetComponent<UnitList>();
         dialougeManager = dm;
         playerController.OnEncountered += StartBattle;
         playerController.OnChallenged += StartExamBattle;
@@ -171,7 +173,8 @@ public class GameController : MonoBehaviour
                 // edits playerUnitBase based on selections
                 playerUnitBase.SetPlayerCharacter(playerClass, playerName, playerImage);
                 playerController.SetPlayerSprite();
-                playerUnitList.GetPlayerUnit().Moves = characterSelectionUI.PlayerUnitBase.MovesAtFirstLevel();
+                playerUnit
+        .GetPlayerUnit().Moves = characterSelectionUI.PlayerUnitBase.MovesAtFirstLevel();
 
                 // player can now controll character
                 state = GameState.FreeRoam;
