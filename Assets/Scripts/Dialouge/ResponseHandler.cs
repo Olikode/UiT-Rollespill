@@ -55,9 +55,9 @@ public class ResponseHandler : MonoBehaviour
 
     public void HandleUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
             ++ currentSelection;
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
             -- currentSelection;
 
         currentSelection = Mathf.Clamp(currentSelection, 0, tempResponseButtons.Count-1);
@@ -66,7 +66,7 @@ public class ResponseHandler : MonoBehaviour
 
         if(dialougeManager.state == DialogState.Ready)
         {
-            if(Input.GetKeyDown(KeyCode.Return))
+            if(Input.GetKeyDown(KeyCode.Return) && tempResponseButtons.Count > 0)
             {
                 var response = allResponses[currentSelection];
                 waitingForResponse = false;

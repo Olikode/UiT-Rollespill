@@ -85,7 +85,6 @@ public class DialougeManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 dialougetypingEffect.Stop();
-                state = DialogState.Ready;
             }
         }
         state = DialogState.Ready;
