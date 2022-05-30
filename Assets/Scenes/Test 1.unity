@@ -5798,6 +5798,7 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 0}
+  hasLost: 0
 --- !u!114 &454857526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14066,7 +14067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &990145384
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14225,6 +14226,7 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 1762554991}
+  hasLost: 0
 --- !u!1001 &991805552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18565,6 +18567,7 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 1762554991}
+  hasLost: 0
 --- !u!114 &1502313257
 MonoBehaviour:
   m_ObjectHideFlags: 0
