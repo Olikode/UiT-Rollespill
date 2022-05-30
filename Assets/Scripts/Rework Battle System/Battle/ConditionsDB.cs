@@ -43,7 +43,7 @@ public class ConditionsDB : MonoBehaviour
                 {
                     unit.StatusTime --;
                     Debug.Log("Status time decreased: " + unit.StatusTime);
-                    if (unit.StatusTime < 0){
+                    if (unit.StatusTime <= 0){
                         unit.CureStatus();
                         unit.StatusChanges.Enqueue($"{unit.Base.Name} har ikke hjerneteppe lengre");
                         return true;

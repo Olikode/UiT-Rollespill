@@ -216,7 +216,7 @@ public class InventoryUI : MonoBehaviour
         state = InventoryUIState.Busy;
         var item = inventory.GetItem(selectedItem, selectedCategory);
 
-        if(canBeUsed )
+        if(canBeUsed && item is BookItem)
         {
             yield return HandleBookItems();
             yield break;
@@ -227,7 +227,7 @@ public class InventoryUI : MonoBehaviour
         if (usedItem != null && canBeUsed)
         {
             
-            if(usedItem is RecoveryItem)
+            if(usedItem)
             {
                 // shows the player item used in battle dialog
                 if(inBattle){
@@ -301,6 +301,9 @@ public class InventoryUI : MonoBehaviour
             UIDialogText.text = $"Du lærte {bookItem.Move.Name}";
             yield return new WaitForSeconds(2f);
             UIDialogBox.gameObject.SetActive(false);
+            state = InventoryUIState.ItemSelection;
+            inventory.UseItem(selectedItem, selectedCategory, playerUnit);
+            CloseSummaryScreen();
         }
         else
         {
@@ -341,6 +344,7 @@ public class InventoryUI : MonoBehaviour
             yield return WriteDialog(text);
 
             playerUnit.Moves[moveIndex] = new Move(moveToLearn);
+            inventory.UseItem(selectedItem, selectedCategory, playerUnit);
         }
 
         moveToLearn = null;
