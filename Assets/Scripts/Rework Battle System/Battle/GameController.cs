@@ -18,10 +18,8 @@ public enum GameState
 public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject playerGO;
-    [SerializeField] UnitBase playerUnitBase;
     public static UnitList playerUnit;
     [SerializeField] PlayerController playerController;
-
     [SerializeField] BattleSystem battleSystem;
 
     [SerializeField] Camera worldCamera;
