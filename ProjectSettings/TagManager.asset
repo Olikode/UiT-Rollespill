@@ -56,3 +56,6 @@ TagManager:
   - name: Weapon
     uniqueID: 3267715949
     locked: 0
+  - name: Decoration
+    uniqueID: 2528301773
+    locked: 0
