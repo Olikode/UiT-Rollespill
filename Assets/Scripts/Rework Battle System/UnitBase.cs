@@ -96,7 +96,7 @@ public class UnitBase : ScriptableObject
         set {this.expYield = value; }
     }
     
-    public void SetPlayerCharacter(UnitBase unitBase, string name, Image image)
+    public void SetCharacterData(UnitBase unitBase, string name, Image image)
     {
         Name = name;
         Description = unitBase.Description;
@@ -108,25 +108,6 @@ public class UnitBase : ScriptableObject
         Speed = unitBase.Speed;
         ExpYield = unitBase.ExpYield;
         LearnableMoves = unitBase.LearnableMoves;
-    }
-
-    // used when player has selected character
-    // Moves need to be set
-    public List<Move> MovesAtFirstLevel()
-    {
-        var moves = new List<Move>();
-        foreach (var move in LearnableMoves)
-        {
-            if (move.Level <= 1)
-            {
-                moves.Add(new Move(move.Base));
-            }
-
-            if (moves.Count >= UnitBase.MaxNumOfMoves)
-                break;
-        }
-
-        return moves;
     }
 }
 

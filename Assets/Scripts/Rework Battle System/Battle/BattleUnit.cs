@@ -52,8 +52,9 @@ public class BattleUnit : MonoBehaviour
 
     public void Clear(){
         hud.gameObject.SetActive(false);
+        ResetPos();
     }
-    public void ChallengerResetPos()
+    public void ResetPos()
     {
         image.transform.localPosition = new Vector3(orginalPos.x, orginalPos.y);
     }

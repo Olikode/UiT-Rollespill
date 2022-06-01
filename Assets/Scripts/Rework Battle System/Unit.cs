@@ -197,11 +197,6 @@ public class Unit
         return damageDetails;
     }
 
-    public void NoMorePpMove(Unit attacker, Unit defender)
-    {
-
-    }
-
     public void IncreaseHP(int amount)
     {
         HP = Mathf.Clamp(HP + amount, 0, MaxHP);
@@ -251,6 +246,12 @@ public class Unit
         }
 
         return true;
+    }
+
+    public void SetData(UnitBase unitBase, int lvl)
+    {
+        this._base = unitBase;
+        this.level = lvl;
     }
 
     public Move GetRandomMove()

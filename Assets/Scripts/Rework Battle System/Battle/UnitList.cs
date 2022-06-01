@@ -20,6 +20,16 @@ public class UnitList : MonoBehaviour
             unit.Init();
         }
     }
+
+    public void AddPlayerUnit(UnitBase unitbase)
+    {
+        var playerUnit = new Unit();
+        playerUnit.SetData(unitbase, 1);
+        playerUnit.Init();
+
+        units.Add(playerUnit);
+    }
+
     // get the first healthy unit from challenger
     public Unit GetHealthyUnit()
     {

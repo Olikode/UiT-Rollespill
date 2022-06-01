@@ -166,15 +166,17 @@ public class GameController : MonoBehaviour
             // when player has confirmed character
             if (characterSelectionUI.confirmedCharacter)
             {
+                // creates a new UnitBase to be used as player
+                var playerCharacter = ScriptableObject.CreateInstance<UnitBase>();
+
                 var playerClass = characterSelectionUI.PlayerUnitBase;
                 var playerImage = characterSelectionUI.PlayerImage;
                 var playerName = characterSelectionUI.PlayerName;
-                
-                // edits playerUnitBase based on selections
-                playerUnitBase.SetPlayerCharacter(playerClass, playerName, playerImage);
+
+                // creates the player character with correct stas
+                playerCharacter.SetCharacterData(playerClass, playerName, playerImage);
+                playerUnit.AddPlayerUnit(playerCharacter);
                 playerController.SetPlayerSprite();
-                playerUnit
-        .GetPlayerUnit().Moves = characterSelectionUI.PlayerUnitBase.MovesAtFirstLevel();
 
                 // player can now controll character
                 state = GameState.FreeRoam;

@@ -96,7 +96,7 @@ public class BattleSystem : MonoBehaviour
 
             challengerImage.GetComponent<Image>().sprite = challenger.Sprite;
             challengerImage.gameObject.SetActive(true);
-            challengerImage.GetComponent<BattleUnit>().ChallengerResetPos();
+            challengerImage.GetComponent<BattleUnit>().ResetPos();
 
             yield return dialogBox.TypeDialog($"{challenger.Prefix} {challenger.Name} utfordrer deg");
 
