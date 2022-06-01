@@ -19,11 +19,13 @@ public class DialougeManager : MonoBehaviour
     [SerializeField]
     TMP_Text textLabel;
 
-    [SerializeField]
-    GameObject dialogBox;
+    [SerializeField] GameObject dialogBox;
+    [SerializeField] Image npcImage;
 
     private DialougetypingEffect dialougetypingEffect;
     public ResponseHandler responseHandler; 
+
+    public static Image talkingNPC;
 
     public bool IsOpen { get; private set; }
 
@@ -97,27 +99,4 @@ public class DialougeManager : MonoBehaviour
         dialogBox.SetActive(false);
         textLabel.text = string.Empty;
     }
-
-
-    /*
-    void Update()
-    {
-        if (dialougeStarted == true && Input.GetKeyDown(KeyCode.Z))
-        {                 
-            Debug.Log("Z virke sjef");
-            dialougeStarted = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        dialougeStarted = true;
-        Debug.Log("kollisjon virke sjef");
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        dialougeStarted = false;
-        Debug.Log("BACKSTEP virke sjef");
-    }*/
 }

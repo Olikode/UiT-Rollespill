@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.UI; 
 
 public class DialougeNPCPicture : MonoBehaviour
-{/*
-    [SerializeField] public Sprite nPCSprite;
-    [SerializeField] public Image nPCImage; 
-
+{
     //On collision sets the canvas npc Image to match the given sprite.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            nPCImage.sprite = nPCSprite;
+            DialougeManager.talkingNPC = this.GetComponent<Image>();
         }
     }
 
@@ -22,7 +19,7 @@ public class DialougeNPCPicture : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            nPCImage = null;
+            
         }
-    }*/
+    }
 }

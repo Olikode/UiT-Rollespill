@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] Image talkingNPC;
     public float moveSpeed;
-
     public bool isPaused;
-
     public Rigidbody2D rb;
     private Vector2 moveDirection;
     private Vector3 originalSize;
@@ -49,9 +49,6 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-
-
-        
         Move();
     }
 
@@ -81,20 +78,16 @@ public class PlayerController : MonoBehaviour
     // When colliding with enemy battle starts
     void OnTriggerEnter2D(Collider2D collider)
     {
+        // Set NPC image
+        if (collider.tag == "NPC")
+        {
+            talkingNPC.sprite = collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+        }
+
         if (collider.tag == "WildEnemy")
         {
             var enemyUnit = collider.gameObject.GetComponent<UnitList>();
             OnEncountered(enemyUnit);
-            Destroy(collider.gameObject);
-        }
-
-        // TODO change when dialog system is working
-        // should not destroy object
-        if (collider.tag == "Challenger")
-        {
-            var enemyUnits = collider.gameObject.GetComponent<UnitList>();
-            Challenger challenger = collider.gameObject.GetComponent<Challenger>();
-            OnChallenged(enemyUnits, challenger);
             Destroy(collider.gameObject);
         }
     }

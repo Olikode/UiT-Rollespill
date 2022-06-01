@@ -7,12 +7,7 @@ using UnityEngine.UI;
 public class DialougeActivator : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialougeObject dialougeObject;
-    public static Sprite nPCImage; 
 
-    public void Start()
-    {
-        nPCImage = gameObject.GetComponent<SpriteRenderer>().sprite;
-    }
     //Updates the dialougeObject
     public void UpdateDialogueObject(DialougeObject dialougeObject)
     {
@@ -24,7 +19,6 @@ public class DialougeActivator : MonoBehaviour, IInteractable
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController playerController))
         {
-            nPCImage = gameObject.GetComponent<SpriteRenderer>().sprite;
             GameController.Interactable = this;
         }
     }
