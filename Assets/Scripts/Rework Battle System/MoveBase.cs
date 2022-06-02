@@ -143,6 +143,7 @@ public enum MoveCategory
 {
     Normal,
     Status,
+    Heal, // when attack should not do any damage to enemy
 }
 
 public enum HealType

@@ -265,6 +265,7 @@ public class BattleSystem : MonoBehaviour
                     yield return ShowDamageDetails(damageDetails);
                 }
 
+                // moves that deal damage to defender and gives attacker HP
                 if(move.Base.HealType != HealType.Null)
                 {
                     if(move.Base.HealType == HealType.Percentage)
@@ -280,7 +281,6 @@ public class BattleSystem : MonoBehaviour
                         yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} tok {healAmount} HP fra {defender.Unit.Base.Name}.");
                     }
                 }
-
                 if(defender.Unit.Status?.Id != null){
                     if(defender.Unit.Status.Id.Equals(ConditionID.Søvn)){
                         var random = UnityEngine.Random.Range(0,2);
@@ -291,6 +291,13 @@ public class BattleSystem : MonoBehaviour
                     }
                 }
             }
+            // moves that only heal the attacker
+            else if (move.Base.Category == MoveCategory.Heal)
+            {
+                var healAmount = attacker.Unit.GetHealFromMove(move);
+                yield return attacker.Hud.WaitForHPUpdate();
+                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har fått tilbake {healAmount} HP.");
+            }
 
             if (move.Base.SecondaryEffects != null && defender.Unit.HP > 0){
                 var chance = move.Base.SecondaryEffects.Chance;
@@ -300,7 +307,7 @@ public class BattleSystem : MonoBehaviour
                     chance = 100;
 
                 var random = UnityEngine.Random.Range(1, 101);
-                if(random <= move.Base.SecondaryEffects.Chance)
+                if(random <= chance)
                     yield return RunMoveEffects(move.Base.SecondaryEffects, attacker.Unit, defender.Unit, move.Base.Target);
             }
 
@@ -614,9 +621,6 @@ public class BattleSystem : MonoBehaviour
 
     void HandleMoveSelection()
     {
-        // TODO add move like struggle, when player is out of moves with PP
-        // From Bulbapedia: It damages an enemy, but it also damages you. 
-        // (If there's no move available, your move will be Struggle.)
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             if (currentMove < playerUnit.Unit.Moves.Count - 1)
@@ -651,6 +655,13 @@ public class BattleSystem : MonoBehaviour
                 dialogBox.EnableDialogText(true);
                 StartCoroutine(RunTurns(BattleAction.Move));
             }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            dialogBox.EnableDialogText(true);
+            dialogBox.EnableMoveSelector(false);
+
+            ActionSelection();
         }
     }
 
