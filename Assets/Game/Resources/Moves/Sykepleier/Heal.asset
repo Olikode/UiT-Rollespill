@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  name: Heal
-  description: 
+  name: Omvendt Bloddonasjon
+  description: Motstanderen donerer sitt blod til deg.
   type: 2
   category: 0
-  power: 50
-  accuracy: 100
-  alwaysHit: 1
+  power: 40
+  accuracy: 90
+  alwaysHit: 0
   pp: 10
-  priority: 1
+  priority: 0
   healPower: 50
   healType: 2
   effects:

@@ -143,7 +143,6 @@ public enum MoveCategory
 {
     Normal,
     Status,
-    Heal,
 }
 
 public enum HealType

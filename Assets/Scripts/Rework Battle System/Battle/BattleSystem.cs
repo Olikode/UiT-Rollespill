@@ -291,12 +291,6 @@ public class BattleSystem : MonoBehaviour
                     }
                 }
             }
-            else if (move.Base.Category == MoveCategory.Heal)
-            {
-                var healAmount = attacker.Unit.GetHealFromMove(move);
-                yield return attacker.Hud.WaitForHPUpdate();
-                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har fått tilbake {healAmount} HP.");
-            }
 
             if (move.Base.SecondaryEffects != null && defender.Unit.HP > 0){
                 var chance = move.Base.SecondaryEffects.Chance;

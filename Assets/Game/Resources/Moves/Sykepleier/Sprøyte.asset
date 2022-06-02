@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
-  m_Name: "Spr\xF8ytespiss"
+  m_Name: "Spr\xF8yte"
   m_EditorClassIdentifier: 
   name: "Spr\xF8yte"
-  description: 
+  description: "Forgift motstanderen med en spr\xF8yte med uvisst innhold"
   type: 2
   category: 1
-  healPower: 0
   power: 0
   accuracy: 100
   alwaysHit: 0
   pp: 20
   priority: 0
+  healPower: 0
+  healType: 0
   effects:
     boosts: []
     status: 1
