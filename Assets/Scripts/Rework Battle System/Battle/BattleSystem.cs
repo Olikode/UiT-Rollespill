@@ -274,6 +274,12 @@ public class BattleSystem : MonoBehaviour
             }
 
             if (move.Base.SecondaryEffects != null && defender.Unit.HP > 0){
+                var chance = move.Base.SecondaryEffects.Chance;
+
+                // makes it so if chance is left as default, it always hits
+                if(chance == 0)
+                    chance = 100;
+
                 var random = UnityEngine.Random.Range(1, 101);
                 if(random <= move.Base.SecondaryEffects.Chance)
                     yield return RunMoveEffects(move.Base.SecondaryEffects, attacker.Unit, defender.Unit, move.Base.Target);
