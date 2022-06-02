@@ -16,12 +16,13 @@ MonoBehaviour:
   description: 
   type: 5
   category: 0
-  healPower: 0
   power: 40
   accuracy: 95
   alwaysHit: 0
   pp: 5
   priority: 0
+  healPower: 0
+  healType: 0
   effects:
     boosts: []
     status: 0
@@ -29,5 +30,5 @@ MonoBehaviour:
   secondaryEffects:
     boosts: []
     status: 2
-    chance: 40
+    chance: 33
     target: 1

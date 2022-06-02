@@ -5841,6 +5841,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!114 &454857527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9884,6 +9885,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 3
+    currentDamage: 0
 --- !u!61 &566243004
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10921,7 +10923,9 @@ MonoBehaviour:
     count: 1
   - item: {fileID: 11400000, guid: 949698ad06de31447a4bada4b3a1f8bc, type: 2}
     count: 1
-  keySlots: []
+  keySlots:
+  - item: {fileID: 11400000, guid: 1bc9ef3a00be66a4d93c36daa1f74678, type: 2}
+    count: 1
 --- !u!1 &696324142
 GameObject:
   m_ObjectHideFlags: 0
@@ -14109,6 +14113,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!114 &990145390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17499,6 +17504,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
     level: 3
+    currentDamage: 0
 --- !u!61 &1397721138
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18464,8 +18470,10 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
     level: 1
+    currentDamage: 0
   - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!1 &1512040054
 GameObject:
   m_ObjectHideFlags: 0

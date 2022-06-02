@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7309ddb0f29eb0848bc0268f85b2e56e, type: 3}
   m_Name: "N\xF8kkel_2"
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: "N\xF8kkel #2"
+  description: "\xC5pner sikkert en d\xF8r"
   useMessage: 
-  icon: {fileID: 0}
+  icon: {fileID: -1296680786675232696, guid: 6292b2e6e051540479d960ec0634c18b, type: 3}
   buyingPrice: 0
   sellingPrice: 0
