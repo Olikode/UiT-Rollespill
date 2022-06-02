@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Ctrl+C Ctrl+V
   m_EditorClassIdentifier: 
-  name: Ctrl+C   Ctrl+V
+  name: Ctrl+C Ctrl+V
   description: Kopier litt av motstanderens HP og lim inn hos deg.
   type: 1
   category: 0

@@ -12,23 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Virus
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: Virus
+  description: "Installer virus p\xE5 motstanderen med en bakd\xF8r"
   type: 0
-  category: 0
+  category: 1
   power: 0
-  accuracy: 0
+  accuracy: 95
   alwaysHit: 0
-  pp: 0
+  pp: 10
   priority: 0
   healPower: 0
   healType: 0
   effects:
     boosts: []
-    status: 0
-  target: 0
+    status: 1
+  target: 1
   secondaryEffects:
-    boosts: []
+    boosts:
+    - stat: 1
+      boost: -1
     status: 0
     chance: 0
-    target: 0
+    target: 1

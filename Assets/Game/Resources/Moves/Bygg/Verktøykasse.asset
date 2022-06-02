@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: "Verkt\xF8ykasse"
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  type: 0
+  name: "Verkt\xF8ykasse"
+  description: "Kast en hammer eller noe s\xE5nt p\xE5 fienden."
+  type: 4
   category: 0
-  power: 0
-  accuracy: 0
+  power: 65
+  accuracy: 90
   alwaysHit: 0
-  pp: 0
+  pp: 5
   priority: 0
   healPower: 0
   healType: 0

@@ -115,7 +115,7 @@ public class GameController : MonoBehaviour
             }
 
             //If player presses M, the dialouge starts. Also checks if the dialouge is open, to stop the player from pressing M again, and ending up with double the text. 
-            if (Input.GetKeyDown(KeyCode.M) && dialougeManager.IsOpen == false)
+            if (Input.GetKeyDown(KeyCode.E) && dialougeManager.IsOpen == false)
             {
                 if (Interactable != null)
                 {
