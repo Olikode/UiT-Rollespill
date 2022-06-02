@@ -13,20 +13,23 @@ MonoBehaviour:
   m_Name: Lysdiode
   m_EditorClassIdentifier: 
   name: Lysdiode
-  description: 
+  description: "Utstr\xE5ler et kraftig lys som blender fienden."
   type: 3
   category: 0
-  power: 0
-  accuracy: 0
-  alwaysHit: 0
-  pp: 0
+  healPower: 0
+  power: 15
+  accuracy: 100
+  alwaysHit: 1
+  pp: 15
   priority: 0
   effects:
     boosts: []
     status: 0
-  target: 0
+  target: 1
   secondaryEffects:
-    boosts: []
+    boosts:
+    - stat: 3
+      boost: -1
     status: 0
     chance: 0
-    target: 0
+    target: 1

@@ -16,13 +16,16 @@ MonoBehaviour:
   description: "Beskytt deg fra farer der ute!\n\xD8ker forsvarsniv\xE5et ditt."
   type: 1
   category: 1
+  healPower: 0
   power: 0
   accuracy: 100
-  alwaysHit: 0
-  pp: 25
+  alwaysHit: 1
+  pp: 15
   priority: 0
   effects:
     boosts:
+    - stat: 1
+      boost: 1
     - stat: 1
       boost: 1
     status: 0

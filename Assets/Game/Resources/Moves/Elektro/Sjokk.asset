@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Sjokk
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  type: 0
+  name: Sjokk
+  description: Gi motstanderen et stort sjokk
+  type: 3
   category: 0
-  power: 0
-  accuracy: 0
+  healPower: 0
+  power: 45
+  accuracy: 95
   alwaysHit: 0
-  pp: 0
+  pp: 20
   priority: 0
   effects:
     boosts: []
@@ -27,6 +28,6 @@ MonoBehaviour:
   target: 0
   secondaryEffects:
     boosts: []
-    status: 0
-    chance: 0
-    target: 0
+    status: 3
+    chance: 66
+    target: 1

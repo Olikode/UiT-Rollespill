@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "Hacking og s\xE5nt"
   type: 1
   sprite: {fileID: -8143584818952536569, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  maxHP: 580
+  maxHP: 70
   attackPower: 56
   defensePower: 42
   speed: 40

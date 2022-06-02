@@ -245,6 +245,8 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(1f);
             defender.PlayHitAnimation();
 
+            int currentDamage = 0;
+
             if (move.Base.Category == MoveCategory.Status)
             {
                 yield return RunMoveEffects(move.Base.Effects, attacker.Unit, defender.Unit, move.Base.Target);
@@ -252,6 +254,7 @@ public class BattleSystem : MonoBehaviour
             else if (move.Base.Category == MoveCategory.Normal)
             {
                 var damageDetails = defender.Unit.TakeDamage(move, attacker.Unit);
+                currentDamage = defender.Unit.currentDamage;
                 yield return defender.Hud.WaitForHPUpdate();
                 yield return ShowDamageDetails(damageDetails);
 
@@ -260,6 +263,22 @@ public class BattleSystem : MonoBehaviour
                     damageDetails = attacker.Unit.TakeDamage(move, defender.Unit);
                     yield return attacker.Hud.WaitForHPUpdate();
                     yield return ShowDamageDetails(damageDetails);
+                }
+
+                if(move.Base.HealType != HealType.Null)
+                {
+                    if(move.Base.HealType == HealType.Percentage)
+                    {
+                        var healAmount = attacker.Unit.GetHealFromMove(move);
+                        yield return attacker.Hud.WaitForHPUpdate();
+                        yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har fått tilbake {healAmount} HP.");
+                    }
+                    else if(move.Base.HealType == HealType.Drain)
+                    {
+                        var healAmount = attacker.Unit.GetHealFromMove(move, currentDamage);
+                        yield return attacker.Hud.WaitForHPUpdate();
+                        yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} tok {healAmount} HP fra {defender.Unit.Base.Name}.");
+                    }
                 }
 
                 if(defender.Unit.Status?.Id != null){
@@ -271,6 +290,12 @@ public class BattleSystem : MonoBehaviour
                         }   
                     }
                 }
+            }
+            else if (move.Base.Category == MoveCategory.Heal)
+            {
+                var healAmount = attacker.Unit.GetHealFromMove(move);
+                yield return attacker.Hud.WaitForHPUpdate();
+                yield return dialogBox.TypeDialog($"{attacker.Unit.Base.Name} har fått tilbake {healAmount} HP.");
             }
 
             if (move.Base.SecondaryEffects != null && defender.Unit.HP > 0){

@@ -36,7 +36,7 @@ public class ConditionsDB : MonoBehaviour
                 StartMessage ="Har fått hjerneteppe",
                 OnStart = (Unit unit) =>
                 {
-                    unit.StatusTime = Random.Range(2,6);
+                    unit.StatusTime = Random.Range(3,9);
                     Debug.Log("Status time: " + unit.StatusTime);
                 },
                 OnBeforeMove = (Unit unit) =>

@@ -24,6 +24,10 @@ public class MoveBase : ScriptableObject
     [SerializeField] int pp;
     [SerializeField] int priority;
 
+    [Header("Heal")]
+    [SerializeField] int healPower;
+    [SerializeField] HealType healType;
+
     [Header("Effects")]
     [SerializeField] MoveEffects effects;
     [SerializeField] MoveTarget target;
@@ -50,6 +54,10 @@ public class MoveBase : ScriptableObject
     {
         get { return power; }
     }
+    public int HealPower
+    {
+        get { return healPower; }
+    }
     public int Accuracy
     {
         get { return accuracy; }
@@ -70,6 +78,11 @@ public class MoveBase : ScriptableObject
     public MoveEffects Effects
     {
         get { return effects; }
+    }
+
+    public HealType HealType
+    {
+        get { return healType; }
     }
 
     public MoveTarget Target
@@ -130,6 +143,14 @@ public enum MoveCategory
 {
     Normal,
     Status,
+    Heal,
+}
+
+public enum HealType
+{
+    Null,
+    Percentage,
+    Drain,
 }
 
 public enum MoveTarget

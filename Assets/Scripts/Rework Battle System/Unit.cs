@@ -39,6 +39,8 @@ public class Unit
     public event System.Action OnStatusChanged;
     public event System.Action OnHPChanged;
 
+    public int currentDamage;
+
     public void Init()
     {
         // Generates moves
@@ -193,8 +195,36 @@ public class Unit
         int damage = Mathf.FloorToInt(d * modifiers);
 
         DecreaseHP(damage);
+        currentDamage = damage;
 
         return damageDetails;
+    }
+
+    public int GetHealFromMove(Move move, int damgeDealt = 0)
+    {   
+        int heal = 0;
+        if(move.Base.HealType == HealType.Percentage)
+        {
+            var healAmount = (MaxHP * move.Base.HealPower) / 100;
+            float modifiers = Random.Range(0.85f, 1f);
+
+            heal = Mathf.FloorToInt(healAmount * modifiers);
+
+            IncreaseHP(heal);
+        }
+        else if (move.Base.HealType == HealType.Drain)
+        {
+            Debug.Log("Damaga dealt: " + damgeDealt);
+            float healAmount = ((float)damgeDealt / (100 / move.Base.HealPower));
+            Debug.Log("HealAmount: : " + healAmount);
+            float modifiers = Random.Range(0.85f, 1f);
+
+            heal = Mathf.FloorToInt(healAmount * modifiers);
+
+            IncreaseHP(heal);
+        }
+
+        return heal;
     }
 
     public void IncreaseHP(int amount)

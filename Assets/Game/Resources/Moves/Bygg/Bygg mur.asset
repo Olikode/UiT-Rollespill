@@ -12,21 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Bygg mur
   m_EditorClassIdentifier: 
-  name: Bygg mur
-  description: ddafe
+  name: Mur
+  description: Bygg en mur, nesten bedre enn den i Kina.
   type: 4
   category: 1
+  healPower: 0
   power: 0
-  accuracy: 0
-  alwaysHit: 0
+  accuracy: 100
+  alwaysHit: 1
   pp: 0
-  priority: 0
+  priority: 1
   effects:
-    boosts: []
+    boosts:
+    - stat: 1
+      boost: 2
     status: 0
+  target: 0
   secondaryEffects:
     boosts: []
     status: 0
     chance: 0
     target: 0
-  target: 0

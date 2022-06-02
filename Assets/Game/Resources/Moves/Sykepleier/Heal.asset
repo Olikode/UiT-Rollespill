@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
-  m_Name: Angrepsarkitekt
+  m_Name: Heal
   m_EditorClassIdentifier: 
-  name: Angrepsarkitekt
-  description: Planlegg angrepene dine.
-  type: 4
-  category: 1
-  healPower: 0
-  power: 0
+  name: Heal
+  description: 
+  type: 2
+  category: 0
+  power: 50
   accuracy: 100
   alwaysHit: 1
-  pp: 5
-  priority: -1
+  pp: 10
+  priority: 1
+  healPower: 50
+  healType: 2
   effects:
-    boosts:
-    - stat: 0
-      boost: 3
+    boosts: []
     status: 0
   target: 0
   secondaryEffects:

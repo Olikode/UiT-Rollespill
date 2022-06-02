@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
-  m_Name: Newtons 3
+  m_Name: Newtons 3. lov
   m_EditorClassIdentifier: 
   name: Newtons 3. lov
   description: 
-  type: 0
-  category: 0
+  type: 6
+  category: 1
+  healPower: 0
   power: 0
-  accuracy: 0
+  accuracy: 90
   alwaysHit: 0
-  pp: 0
+  pp: 10
   priority: 0
   effects:
     boosts:

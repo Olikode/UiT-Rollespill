@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2ddd673132c2e488d02cdb0e93cecb, type: 3}
   m_Name: Verneutstyr
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  type: 0
-  category: 0
+  name: Verneutstyr
+  description: "Ta p\xE5 deg alt av verneutstyr."
+  type: 4
+  category: 1
+  healPower: 0
   power: 0
-  accuracy: 0
-  alwaysHit: 0
-  pp: 0
-  priority: 0
+  accuracy: 100
+  alwaysHit: 1
+  pp: 10
+  priority: 1
   effects:
-    boosts: []
+    boosts:
+    - stat: 1
+      boost: 2
     status: 0
   target: 0
   secondaryEffects:
