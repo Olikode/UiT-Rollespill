@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1781a0dd7b8c9f24caf58ad1176fba6f, type: 3}
-  m_Name: Test Book
+  m_Name: Book (Hack Attack)
   m_EditorClassIdentifier: 
-  name: GeoGebra 101
-  description: "G\xF8y bok"
+  name: Scripts & Shizz
+  description: "L\xE6r Hack Attack"
   useMessage: 
   icon: {fileID: 2466154118127810513, guid: 6292b2e6e051540479d960ec0634c18b, type: 3}
   buyingPrice: 0

@@ -18453,8 +18453,8 @@ MonoBehaviour:
   sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 1762554991}
   rewards:
-  - {fileID: 11400000, guid: d3d4f177e7bb735459f8617b386efc25, type: 2}
-  - {fileID: 11400000, guid: 5b1c853add1ef2f489e3afb692afc95f, type: 2}
+  - {fileID: 11400000, guid: 4412e0a771d5d014fafad7638b6f6d6c, type: 2}
+  - {fileID: 11400000, guid: 4fc8612565c9dc34e9b5270b914b24d9, type: 2}
 --- !u!114 &1502313257
 MonoBehaviour:
   m_ObjectHideFlags: 0

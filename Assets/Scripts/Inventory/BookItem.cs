@@ -7,7 +7,6 @@ public class BookItem : ItemBase
 {
     [SerializeField] MoveBase move;
 
-
     public override bool Use(Unit unit)
     {
         // learning move is handled in InventoruUI

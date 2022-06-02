@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1781a0dd7b8c9f24caf58ad1176fba6f, type: 3}
-  m_Name: Test Book 2
+  m_Name: "Book (Luresp\xF8rsm\xE5l)"
   m_EditorClassIdentifier: 
-  name: Newtons lover
-  description: Stilig bok
+  name: "1001 G\xE5ter med svar"
+  description: "L\xE6r Luresp\xF8rsm\xE5l"
   useMessage: 
-  icon: {fileID: -4149784858771163241, guid: 6292b2e6e051540479d960ec0634c18b, type: 3}
+  icon: {fileID: 3218195187921252560, guid: 6292b2e6e051540479d960ec0634c18b, type: 3}
   buyingPrice: 0
   sellingPrice: 0
-  move: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}
+  move: {fileID: 11400000, guid: ad40697a7ba3ba343aa25b7c7284edbe, type: 2}
