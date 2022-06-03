@@ -6,9 +6,33 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: 45629d8bbe3aa714eb04b9d6fb806115
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Dungeon.unity
     guid: b5437802cee28a347bd5c69405f7515c
+  - enabled: 1
+    path: Assets/Scenes/School_first_floor.unity
+    guid: bd9099f5242b25d4187517d1908ae3a7
+  - enabled: 1
+    path: Assets/Scenes/Classroom_exam.unity
+    guid: 0b4fdcba6e56f9542b0f387aedf257d9
+  - enabled: 1
+    path: Assets/Scenes/Classroom_1.unity
+    guid: c5e83466f2b41924fab6ae19fe16dca2
+  - enabled: 1
+    path: Assets/Scenes/Studyroom_1.unity
+    guid: 7223821ef0460e642a4584ad69b7f60c
+  - enabled: 1
+    path: Assets/Scenes/Teachers_office.unity
+    guid: a4681593c9502c341a9361d2a6226e50
+  - enabled: 1
+    path: Assets/Scenes/Bachelor_boss.unity
+    guid: a318a525a54a4de469e821e96b7d7c3e
+  - enabled: 1
+    path: Assets/Scenes/Home(2).unity
+    guid: 054a32592a357704596b375eee722bd3
   m_configObjects: {}
