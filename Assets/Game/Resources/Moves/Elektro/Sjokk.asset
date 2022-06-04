@@ -16,12 +16,13 @@ MonoBehaviour:
   description: Gi motstanderen et stort sjokk
   type: 3
   category: 0
-  healPower: 0
-  power: 45
+  power: 4500
   accuracy: 95
   alwaysHit: 0
   pp: 20
   priority: 0
+  healPower: 0
+  healType: 0
   effects:
     boosts: []
     status: 0
