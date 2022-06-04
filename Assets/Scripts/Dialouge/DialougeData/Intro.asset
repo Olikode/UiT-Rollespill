@@ -17,5 +17,3 @@ MonoBehaviour:
   responses:
   - responseText: Takk!
     dialougeObject: {fileID: 11400000, guid: 2436521ddae27f645bb28cc3514eff89, type: 2}
-  - responseText: Lukk.
-    dialougeObject: {fileID: 0}

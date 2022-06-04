@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64e66c5b08ee0ee489590d91c3d78c5b, type: 3}
-  m_Name: introResponse1
+  m_Name: HelpStudent
   m_EditorClassIdentifier: 
   dialouge:
-  - "G\xE5 videre ned gangen, andre til venstre s\xE5 finner du nok klasserommet
-    ditt."
+  - "\xC5 supert! ta dette eplet som en takk.\nJeg venter her hvor det er trygt."
   responses: []
