@@ -137,7 +137,11 @@ public class Unit
     public bool CheckForLevelUp(){
         if (Exp >= Base.GetExpForLevel(level+1)){
             ++level;
-            Init();
+            var oldMaxHP = MaxHP;
+            CalculateStats();
+            var diffHP = MaxHP - oldMaxHP;
+            HP = HP+diffHP;
+            OnHPChanged?.Invoke();
             return true;
         }
 
