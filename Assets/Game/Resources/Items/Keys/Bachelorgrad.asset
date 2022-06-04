@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7309ddb0f29eb0848bc0268f85b2e56e, type: 3}
+  m_Name: Bachelorgrad
+  m_EditorClassIdentifier: 
+  name: Bachelorgrad
+  description: "Gratulerer med gjennomf\xF8rt Bachelor!"
+  useMessage: 
+  icon: {fileID: 21300000, guid: 666f1134a3c3ed6489ad905ab0aab7e2, type: 3}
+  buyingPrice: 0
+  sellingPrice: 0

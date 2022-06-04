@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64e66c5b08ee0ee489590d91c3d78c5b, type: 3}
-  m_Name: SecondTest
+  m_Name: FrodeDialog
   m_EditorClassIdentifier: 
   dialouge:
   - "Klar for pr\xF8ve?"
   responses:
-  - responseText: OK
+  - responseText: 
     dialougeObject: {fileID: 11400000, guid: aadc4e40abb37dd448c75f6fdff6830e, type: 2}
-  - responseText: No
+  - responseText: "S\xE5klart!"
     dialougeObject: {fileID: 11400000, guid: e14f09b0461c30c499659fe76524428b, type: 2}
