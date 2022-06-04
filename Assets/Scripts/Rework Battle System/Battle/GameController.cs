@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     [SerializeField] CharacterSelectionUI characterSelectionUI;
     [SerializeField] DialougeManager dm;
 
+    public static Challenger challengerStatic;
     public static DialougeManager dialougeManager { get; set; }
 
     public static IInteractable Interactable { get; set; }
@@ -46,8 +47,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        playerUnit
- = playerController.gameObject.GetComponent<UnitList>();
+        playerUnit = playerController.gameObject.GetComponent<UnitList>();
         dialougeManager = dm;
         playerController.OnEncountered += StartBattle;
         playerController.OnChallenged += StartExamBattle;

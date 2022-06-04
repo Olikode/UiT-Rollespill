@@ -9,7 +9,6 @@ public class Challenger : MonoBehaviour
     [SerializeField] string name;
     [SerializeField] string prefix; //Foreleser, student, rektor osv
     [SerializeField] Sprite sprite;
-    [SerializeField] GameController gameController;
     [SerializeField] List<ItemBase> rewards;
 
     public bool Lost{ get; set;}
@@ -40,12 +39,10 @@ public class Challenger : MonoBehaviour
         if(!Lost)
         {
             var enemyUnits = gameObject.GetComponent<UnitList>();
+            var gameController = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<GameController>();
+
             gameController.StartExamBattle(enemyUnits, this);
         }
     }
 
-    public void RewardPlayer()
-    {
-
-    }
 }

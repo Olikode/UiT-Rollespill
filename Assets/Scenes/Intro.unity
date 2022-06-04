@@ -15535,7 +15535,6 @@ MonoBehaviour:
   name: "Per \xD8degaard"
   prefix: Foreleser
   sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
-  gameController: {fileID: 1762554991}
   rewards:
   - {fileID: 11400000, guid: 4412e0a771d5d014fafad7638b6f6d6c, type: 2}
   - {fileID: 11400000, guid: 4fc8612565c9dc34e9b5270b914b24d9, type: 2}
@@ -17091,17 +17090,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1762554991 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8444590184161299044, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
-  m_PrefabInstance: {fileID: 8444590182432325131}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fc3b520a3aa05049b123bdf38ff1a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1777853831
@@ -22612,6 +22600,10 @@ PrefabInstance:
       objectReference: {fileID: 2112291946}
     - target: {fileID: 8444590184161299045, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
       propertyPath: m_Name
+      value: GameController
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444590184161299045, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
+      propertyPath: m_TagString
       value: GameController
       objectReference: {fileID: 0}
     - target: {fileID: 8444590184161299045, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
