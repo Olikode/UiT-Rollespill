@@ -40,6 +40,8 @@ public class Challenger : MonoBehaviour
         if(!Lost)
         {
             var enemyUnits = gameObject.GetComponent<UnitList>();
+            var gameController = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<GameController>();
+
             gameController.StartExamBattle(enemyUnits, this);
         }
     }

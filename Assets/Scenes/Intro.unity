@@ -22615,6 +22615,10 @@ PrefabInstance:
       value: GameController
       objectReference: {fileID: 0}
     - target: {fileID: 8444590184161299045, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
+      propertyPath: m_TagString
+      value: GameController
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444590184161299045, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}

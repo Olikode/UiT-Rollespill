@@ -20,7 +20,7 @@ MonoBehaviour:
   attackPower: 38
   defensePower: 38
   speed: 38
-  expYield: 100000
+  expYield: 1000
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 29ba780fb843e08449d79611395d5f0b, type: 2}
     level: 0
