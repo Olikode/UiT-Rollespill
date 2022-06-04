@@ -137,6 +137,7 @@ public class Unit
     public bool CheckForLevelUp(){
         if (Exp >= Base.GetExpForLevel(level+1)){
             ++level;
+            Init();
             return true;
         }
 

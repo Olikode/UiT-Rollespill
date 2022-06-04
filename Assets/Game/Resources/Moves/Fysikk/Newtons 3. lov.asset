@@ -16,22 +16,23 @@ MonoBehaviour:
   description: 
   type: 6
   category: 1
-  healPower: 0
   power: 0
   accuracy: 90
   alwaysHit: 0
   pp: 10
   priority: 0
+  healPower: 0
+  healType: 0
   effects:
-    boosts:
-    - stat: 0
-      boost: 1
-    status: 0
-  target: 0
-  secondaryEffects:
     boosts:
     - stat: 0
       boost: -1
     status: 0
+  target: 1
+  secondaryEffects:
+    boosts:
+    - stat: 0
+      boost: 1
+    status: 0
     chance: 0
-    target: 1
+    target: 0
