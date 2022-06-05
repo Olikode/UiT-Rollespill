@@ -16,9 +16,15 @@ MonoBehaviour:
   description: "Bygging og s\xE5nt"
   type: 4
   sprite: {fileID: 0}
-  maxHP: 0
-  attackPower: 0
-  defensePower: 0
-  speed: 0
+  maxHP: 110
+  attackPower: 110
+  defensePower: 110
+  speed: 60
   expYield: 0
-  learnableMoves: []
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 08d062fd72205f74f843d111a851fe7c, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: fe572f97395049146bcd6633b31c8058, type: 2}
+    level: 2
+  - moveBase: {fileID: 11400000, guid: e50df8868979f5746aa91ee4c2593a94, type: 2}
+    level: 0

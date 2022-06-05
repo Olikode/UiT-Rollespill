@@ -16,10 +16,10 @@ MonoBehaviour:
   description: "Str\xF8m og s\xE5nt"
   type: 3
   sprite: {fileID: 0}
-  maxHP: 65
-  attackPower: 60
-  defensePower: 58
-  speed: 45
+  maxHP: 90
+  attackPower: 115
+  defensePower: 95
+  speed: 70
   expYield: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 9af6800b64f63634aa531a0402d7f6b9, type: 2}

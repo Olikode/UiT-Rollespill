@@ -16,13 +16,17 @@ MonoBehaviour:
   description: "Sykdom og s\xE5nt"
   type: 2
   sprite: {fileID: -4869357254534750094, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  maxHP: 50
-  attackPower: 47
-  defensePower: 58
-  speed: 0
+  maxHP: 120
+  attackPower: 85
+  defensePower: 95
+  speed: 70
   expYield: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: e50df8868979f5746aa91ee4c2593a94, type: 2}
     level: 0
   - moveBase: {fileID: 11400000, guid: b0be8414ae34ffd44a3079d73eb81987, type: 2}
     level: 0
+  - moveBase: {fileID: 11400000, guid: 4c69a3e8208f6154682b9563bf83ddd6, type: 2}
+    level: 2
+  - moveBase: {fileID: 11400000, guid: f320a9346d13d5143a8312b0b11d2fc1, type: 2}
+    level: 5

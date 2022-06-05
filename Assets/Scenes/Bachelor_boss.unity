@@ -3627,14 +3627,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   units:
-  - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
-    level: 5
+  - _base: {fileID: 11400000, guid: 12a160c533c831f46b6606bfb85caee6, type: 2}
+    level: 8
     currentDamage: 0
-  - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
-    level: 5
-    currentDamage: 0
-  - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
-    level: 5
+  - _base: {fileID: 11400000, guid: 7be75a3c7c4dd524bb8d596d23fd5af4, type: 2}
+    level: 10
     currentDamage: 0
 --- !u!114 &647943949
 MonoBehaviour:
@@ -3648,12 +3645,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf38e4f5519e7f148883ef182f405c47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Sensor
-  prefix: Mr/Ms
-  sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
+  name: Ukjent
+  prefix: Sensor
+  sprite: {fileID: -6715312685853639817, guid: 5e0a69abe0179ee4f99bc6c51b933314, type: 3}
   gameController: {fileID: 8444590184161299044, guid: 9f01931e281be314281f69fb4aa0fc34, type: 3}
   rewards:
   - {fileID: 11400000, guid: b0defe4b28fc90c48bce7f53352c359b, type: 2}
+  startDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!114 &647943950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3715,7 +3715,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.1, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3763,12 +3763,12 @@ SpriteRenderer:
   m_SortingLayerID: -1495373999
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
+  m_Sprite: {fileID: -7044917729170136560, guid: 5e0a69abe0179ee4f99bc6c51b933314, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.1, y: 0.16}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3783,7 +3783,7 @@ Transform:
   m_GameObject: {fileID: 647943947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 23.905, y: 3.131, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
