@@ -12,6 +12,10 @@ public class Challenger : MonoBehaviour
     [SerializeField] GameController gameController;
     [SerializeField] List<ItemBase> rewards;
 
+    [SerializeField] List<string> startDialog;
+    [SerializeField] List<string> endPlayerWonDialog;
+    [SerializeField] List<string> endPlayerLostDialog;
+
     public bool Lost{ get; set;}
 
     public string Name{
@@ -30,6 +34,16 @@ public class Challenger : MonoBehaviour
         get {return rewards;}
     }
 
+    public List<string> StartDialog{
+        get {return startDialog;}
+    }
+    public List<string> EndPlayerLostDialog{
+        get {return endPlayerLostDialog;}
+    }
+    public List<string> EndPlayerWonDialog{
+        get {return endPlayerWonDialog;}
+    }
+
     public void Start()
     {
         Lost = false;
@@ -44,10 +58,5 @@ public class Challenger : MonoBehaviour
 
             gameController.StartExamBattle(enemyUnits, this);
         }
-    }
-
-    public void RewardPlayer()
-    {
-
     }
 }

@@ -77,6 +77,8 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
+        playerUnit.gameObject.SetActive(true);
+        enemyUnit.gameObject.SetActive(true);
         playerUnit.Clear();
         enemyUnit.Clear();
 
@@ -99,6 +101,7 @@ public class BattleSystem : MonoBehaviour
             challengerImage.GetComponent<BattleUnit>().ResetPos();
 
             yield return dialogBox.TypeDialog($"{challenger.Prefix} {challenger.Name} utfordrer deg");
+            yield return ChallengerDialog(challenger.StartDialog);
 
             // challenger sends out units
             challengerImage.GetComponent<BattleUnit>().PlayLeaveAnimation();
@@ -469,10 +472,17 @@ public class BattleSystem : MonoBehaviour
     {
         if (faintedUnit.IsPlayer)
         {
-            // TODO add function to send player to safe place and heal
-            player.GetPlayerUnit().Heal();
-            BattleOver(false);
-            yield break;
+                if(!isExamBattle){
+                // TODO add function to send player to safe place and heal
+                player.GetPlayerUnit().Heal();
+                BattleOver(false);
+                yield break;
+            }
+            else{
+                yield return PlayerLostChallenge();
+                player.GetPlayerUnit().Heal();
+                BattleOver(true);
+            }
         }
         else
         {
@@ -497,18 +507,29 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    IEnumerator ChallengerDialog(List<string> dialogList)
+    {
+        foreach (var msg in dialogList)
+        {
+            yield return dialogBox.TypeDialog($"{challenger.Name}: {msg}");
+        }
+    }
     IEnumerator PlayerLostChallenge()
     {
+        playerUnit.Clear();
+        playerUnit.gameObject.SetActive(true);
+        playerUnit.PlayEnterAnimation();
+        enemyUnit.gameObject.SetActive(false);
+        enemyUnit.Hud.gameObject.SetActive(false);
         // show challenger
         challengerImage.gameObject.SetActive(true);
         challengerImage.GetComponent<BattleUnit>().PlayEnterAnimation();
 
         // dialog
         yield return dialogBox.TypeDialog($"Du er beseiret av {challenger.Name}");
-        yield return dialogBox.TypeDialog($"{challenger.Name}: Ikke gi opp håpet. Sett deg ned og øv litt.");
-        yield return dialogBox.TypeDialog($"Så har du den neste gang.");
+        yield return ChallengerDialog(challenger.EndPlayerLostDialog);
+        
     }
-
     IEnumerator PlayerWonChallenge()
     {
         // show challenger
@@ -517,8 +538,8 @@ public class BattleSystem : MonoBehaviour
 
         // dialog
         yield return dialogBox.TypeDialog($"Du har klart utfordringen til {challenger.Name}");
-        yield return dialogBox.TypeDialog($"{challenger.Name}: Du er blitt en dyktig student...");
-        yield return dialogBox.TypeDialog($"Her. Ta i mot denne premien.");
+        yield return ChallengerDialog(challenger.EndPlayerWonDialog);
+        yield return dialogBox.TypeDialog($"{challenger.Name}: Her. Ta i mot denne premien.");
         
         // give player reward
         foreach (var reward in challenger.Rewards)

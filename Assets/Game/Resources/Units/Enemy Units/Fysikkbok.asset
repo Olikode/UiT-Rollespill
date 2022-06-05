@@ -22,7 +22,7 @@ MonoBehaviour:
   speed: 35
   expYield: 100
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 5ab43793e7ee8024096ec8103dbb0b4f, type: 2}
-    level: 0
   - moveBase: {fileID: 11400000, guid: eaf784868af724b4bb913cc6034ccbcd, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 5ab43793e7ee8024096ec8103dbb0b4f, type: 2}
     level: 0

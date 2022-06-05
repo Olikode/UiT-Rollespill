@@ -52,6 +52,7 @@ public class BattleUnit : MonoBehaviour
 
     public void Clear(){
         hud.gameObject.SetActive(false);
+        image.color = orginalColor;
         ResetPos();
     }
     public void ResetPos()

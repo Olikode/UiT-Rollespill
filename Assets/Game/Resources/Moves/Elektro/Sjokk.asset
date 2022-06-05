@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Gi motstanderen et stort sjokk
   type: 3
   category: 0
-  power: 4500
+  power: 45
   accuracy: 95
   alwaysHit: 0
   pp: 20

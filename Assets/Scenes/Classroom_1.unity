@@ -263,6 +263,13 @@ MonoBehaviour:
   rewards:
   - {fileID: 11400000, guid: 4412e0a771d5d014fafad7638b6f6d6c, type: 2}
   - {fileID: 11400000, guid: 949698ad06de31447a4bada4b3a1f8bc, type: 2}
+  startDialog:
+  - "H\xE5per du er klar for en utfordring."
+  endPlayerWonDialog:
+  - "Meget bra utf\xF8rt. Du er blitt en dyktig student."
+  endPlayerLostDialog:
+  - "Bra innsats i dag, selv om du ikke kom helt i m\xE5l."
+  - "Rull opp ermene, \xF8v litt til... S\xE5 har du det nok neste gang."
 --- !u!114 &496796365
 MonoBehaviour:
   m_ObjectHideFlags: 0
