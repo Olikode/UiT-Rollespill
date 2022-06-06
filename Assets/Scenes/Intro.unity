@@ -7521,8 +7521,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - item: {fileID: 11400000, guid: d3d4f177e7bb735459f8617b386efc25, type: 2}
-    count: 1
   - item: {fileID: 11400000, guid: 5b1c853add1ef2f489e3afb692afc95f, type: 2}
     count: 3
   - item: {fileID: 11400000, guid: 2dc6e26950eb9dd4c9c2282fdaf1bfbb, type: 2}
@@ -7531,28 +7529,6 @@ MonoBehaviour:
     count: 5
   - item: {fileID: 11400000, guid: 0ba149abb41f0a845b7783f783442da7, type: 2}
     count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
-    count: 5
-  - item: {fileID: 11400000, guid: 5b1c853add1ef2f489e3afb692afc95f, type: 2}
-    count: 1
   bookSlots:
   - item: {fileID: 11400000, guid: ec7bd838eac7e0848a1dee7569648f8c, type: 2}
     count: 1
@@ -15576,7 +15552,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4412e0a771d5d014fafad7638b6f6d6c, type: 2}
   - {fileID: 11400000, guid: 4fc8612565c9dc34e9b5270b914b24d9, type: 2}
   startDialog: []
-  endDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!114 &1502313257
 MonoBehaviour:
   m_ObjectHideFlags: 0

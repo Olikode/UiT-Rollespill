@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Dette er et angrep man finne i pokemon.
   type: 1
   category: 0
-  power: 4000
+  power: 40
   accuracy: 100
   alwaysHit: 0
   pp: 20
