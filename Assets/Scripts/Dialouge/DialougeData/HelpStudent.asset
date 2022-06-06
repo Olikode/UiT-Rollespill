@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HelpStudent
   m_EditorClassIdentifier: 
   dialouge:
-  - "\xC5 supert! ta dette eplet som en takk.\nJeg venter her hvor det er trygt."
+  - "\xC5 supert! Jeg venter her hvor det er trygt."
   responses: []
