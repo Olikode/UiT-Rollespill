@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Utsettelse
   description: "Utsett alt ved \xE5 gi seg selv all HPen tilbake og slappe av."
-  type: 0
+  type: 8
   category: 0
   power: 0
   accuracy: 85

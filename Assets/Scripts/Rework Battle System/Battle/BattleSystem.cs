@@ -547,7 +547,7 @@ public class BattleSystem : MonoBehaviour
         yield return dialogBox.TypeDialog($"Du har fått {reward.Name} fra {challenger.Name}");
         Inventory.GetInventory().AddItem(reward);
         }
-        yield return dialogBox.TypeDialog($"Lykke til med bacheloroppgaven");
+        yield return dialogBox.TypeDialog($"Lykke til videre");
     }
 
     IEnumerator ShowDamageDetails(DamageDetails damageDetails)
