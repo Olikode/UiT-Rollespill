@@ -5448,7 +5448,10 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 0}
-  hasLost: 0
+  rewards: []
+  startDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!114 &454857526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5464,6 +5467,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!114 &454857527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5496,7 +5500,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.11, y: 0.16}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.11, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -9429,6 +9433,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 3
+    currentDamage: 0
 --- !u!61 &566243004
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10340,6 +10345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99af5fa005e5bb040bcad95c0eb717e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  talkingNPC: {fileID: 0}
   moveSpeed: 1
   isPaused: 0
   rb: {fileID: 689908814}
@@ -10384,6 +10390,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: a844cd8f14b3ecf4083709eed0c4d719, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!114 &689908820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12309,6 +12316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99af5fa005e5bb040bcad95c0eb717e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  talkingNPC: {fileID: 0}
   moveSpeed: 0
   isPaused: 0
   rb: {fileID: 0}
@@ -13573,7 +13581,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.11, y: 0.16}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.11, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -13633,6 +13641,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!114 &990145390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13649,7 +13658,10 @@ MonoBehaviour:
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 0}
-  hasLost: 0
+  rewards: []
+  startDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!1001 &991805552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16948,6 +16960,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
     level: 3
+    currentDamage: 0
 --- !u!61 &1397721138
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18981,8 +18994,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGO: {fileID: 689908813}
-  playerUnitBase: {fileID: 11400000, guid: a844cd8f14b3ecf4083709eed0c4d719, type: 2}
-  playerUnitList: {fileID: 689908819}
   playerController: {fileID: 689908817}
   battleSystem: {fileID: 309139138}
   worldCamera: {fileID: 1138453101}

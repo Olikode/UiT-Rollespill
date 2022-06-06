@@ -2752,6 +2752,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
     level: 3
+    currentDamage: 0
 --- !u!114 &105544580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8851,6 +8852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightedColor: {r: 0.110137075, g: 0.46439525, b: 0.7075472, a: 1}
+  orginalColor: {r: 0, g: 0, b: 0, a: 0}
+  noPpMove: {fileID: 0}
 --- !u!114 &457863076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8876,11 +8879,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc3b520a3aa05049b123bdf38ff1a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerGO: {fileID: 0}
   playerController: {fileID: 1135072207}
   battleSystem: {fileID: 2084770136}
   worldCamera: {fileID: 407894306}
   inventoryUI: {fileID: 1839295082}
   summaryUI: {fileID: 1757429627}
+  characterSelectionUI: {fileID: 0}
+  dm: {fileID: 0}
 --- !u!4 &457863078
 Transform:
   m_ObjectHideFlags: 0
@@ -11461,6 +11467,11 @@ MonoBehaviour:
   name: Frode Benjaminsen
   prefix: Foreleser
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
+  gameController: {fileID: 0}
+  rewards: []
+  startDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!114 &777696266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11476,8 +11487,10 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 1
+    currentDamage: 0
   - _base: {fileID: 11400000, guid: 3c8c57fe67e4f1245a7f12a23c87666f, type: 2}
     level: 1
+    currentDamage: 0
 --- !u!114 &777696267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11510,7 +11523,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.11, y: 0.16}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.11, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -12208,6 +12221,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 7f0d1977da5405f43b7265a8709d0e4a, type: 2}
     level: 3
+    currentDamage: 0
 --- !u!114 &810694752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13226,7 +13240,6 @@ MonoBehaviour:
   movePP: {fileID: 1049532520}
   movePower: {fileID: 121395020}
   moveAccuracy: {fileID: 1738626277}
-  highLigtedColor: {r: 0.21568628, g: 0.36862746, b: 0.85882354, a: 1}
 --- !u!1 &980536671
 GameObject:
   m_ObjectHideFlags: 0
@@ -13708,8 +13721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nPCSprite: {fileID: -6899321910657244259, guid: 827422c8a464282478660dde7228c721, type: 3}
-  nPCImage: {fileID: 601346426}
 --- !u!114 &1025311549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13757,7 +13768,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialougeObject: {fileID: 11400000, guid: 9e17ff6890f296a46bba057321ca63d8, type: 2}
-  nPCImage: {fileID: 1025311552}
 --- !u!61 &1025311551
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13775,7 +13785,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.1, y: 0.16}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.1, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -14830,7 +14840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99af5fa005e5bb040bcad95c0eb717e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialougeManager: {fileID: 1218402599}
+  talkingNPC: {fileID: 0}
   moveSpeed: 1
   isPaused: 0
   rb: {fileID: 1135072208}
@@ -14900,6 +14910,8 @@ MonoBehaviour:
     count: 5
   - item: {fileID: 11400000, guid: 9196e0df5f0270141a42152ac71e8ef7, type: 2}
     count: 5
+  bookSlots: []
+  keySlots: []
 --- !u!114 &1135072210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14915,6 +14927,7 @@ MonoBehaviour:
   units:
   - _base: {fileID: 11400000, guid: 38dc188aee7aa7f44b1eec12d39f7ed8, type: 2}
     level: 2
+    currentDamage: 0
 --- !u!61 &1135072211
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14932,7 +14945,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.16}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.13, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15586,8 +15599,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33cc638169ac734439abfc3fbcd02acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   textLabel: {fileID: 1211755075}
   dialogBox: {fileID: 485618684}
+  npcImage: {fileID: 0}
+  responseHandler: {fileID: 0}
 --- !u!224 &1218402600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15623,6 +15639,7 @@ MonoBehaviour:
   responseBox: {fileID: 1531412478}
   responseButtonTemplate: {fileID: 715324590}
   responseContainer: {fileID: 1773027710}
+  waitingForResponse: 0
 --- !u!114 &1218402602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43966,7 +43983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99af5fa005e5bb040bcad95c0eb717e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialougeManager: {fileID: 0}
+  talkingNPC: {fileID: 0}
   moveSpeed: 0
   isPaused: 0
   rb: {fileID: 0}
@@ -45619,14 +45636,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   letterPerSecond: 30
-  highLightedColor: {r: 0.21462265, g: 0.36829913, b: 0.8584906, a: 1}
   dialogText: {fileID: 1976174557}
   actionSelector: {fileID: 1590278799}
   moveSelector: {fileID: 1372815953}
-  moveDetails: {fileID: 1436386119}
   actionText:
   - {fileID: 855789146}
   - {fileID: 2078335698}
+  moveDetails: {fileID: 1436386119}
   moveText:
   - {fileID: 2089096899}
   - {fileID: 876643841}
@@ -45667,8 +45683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79ae5041e61d942ae4639787ecd27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nPCSprite: {fileID: -4869357254534750094, guid: 5c025c5d92341f74ba3c2f412c3bb638, type: 3}
-  nPCImage: {fileID: 601346426}
 --- !u!114 &1581134272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45716,7 +45730,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialougeObject: {fileID: 11400000, guid: c31571fdb87089841828f566a02dd999, type: 2}
-  nPCImage: {fileID: 1581134275}
 --- !u!61 &1581134274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -47418,16 +47431,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b469b4a9df32e3478c5bc7df4c0cd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInfoFields:
-  - {fileID: 1032930339}
-  - {fileID: 810056441}
-  - {fileID: 146119177}
-  - {fileID: 256192469}
   playerImage: {fileID: 1095855171}
   nameText: {fileID: 1467294601}
   levelText: {fileID: 2075648639}
   typeText: {fileID: 553691821}
   hpText: {fileID: 1018979677}
+  moveInfoFields:
+  - {fileID: 1032930339}
+  - {fileID: 810056441}
+  - {fileID: 146119177}
+  - {fileID: 256192469}
   descriptionText: {fileID: 2045507662}
   accuracyText: {fileID: 172084405}
   PowerText: {fileID: 1726210054}
@@ -48265,10 +48278,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList: {fileID: 823024486}
   itemSlotUI: {fileID: 1328085109067736697, guid: 4355fe96187fd1348939578a1b50e372, type: 3}
+  categoryText: {fileID: 0}
   itemIcon: {fileID: 536162368}
   itemDescription: {fileID: 1769354602}
   upArrow: {fileID: 1825005167}
   downArrow: {fileID: 697802477}
+  inventory: {fileID: 0}
+  learnMoveUI: {fileID: 0}
+  summaryUI: {fileID: 0}
+  player: {fileID: 0}
+  UIDialogBox: {fileID: 0}
+  UIDialogText: {fileID: 0}
+  inBattle: 0
+  itemName: 
+  itemMessage: 
 --- !u!114 &1839295083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50649,6 +50672,7 @@ MonoBehaviour:
   dialogBox: {fileID: 1575963912}
   learnMoveUI: {fileID: 932175875}
   LearnMoveInfo: {fileID: 850420294}
+  inventoryUI: {fileID: 0}
 --- !u!4 &2084770137
 Transform:
   m_ObjectHideFlags: 0

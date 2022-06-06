@@ -18750,7 +18750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialougeObject: {fileID: 11400000, guid: fc73a6e7deb81d64f8e35da16acf480d, type: 2}
   events:
-  - name: Yes
+  - name: Takk!
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -18766,10 +18766,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: No
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!114 &1626910819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21345,6 +21341,9 @@ MonoBehaviour:
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 0}
   rewards: []
+  startDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!114 &1993276790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22650,6 +22649,9 @@ MonoBehaviour:
   sprite: {fileID: 3552325927034879136, guid: 827422c8a464282478660dde7228c721, type: 3}
   gameController: {fileID: 0}
   rewards: []
+  startDialog: []
+  endPlayerWonDialog: []
+  endPlayerLostDialog: []
 --- !u!114 &2131680288
 MonoBehaviour:
   m_ObjectHideFlags: 0
